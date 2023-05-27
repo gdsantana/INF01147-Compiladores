@@ -3,11 +3,15 @@
 #include "tokens.h"
 
 int lineCount = 1;
- int running = 1;
+int running = 1;
+char buffer[100];
+char *string;
 
+int getLineCount();
 %}
 
 %x COMMENT
+%x STRING
 
 %%
 "char"  { return KW_CHAR; }
@@ -28,24 +32,35 @@ int lineCount = 1;
 "=="    { return OPERATOR_EQ; }
 "!="    { return OPERATOR_DIF; }
 
-[-+*/();,\]\[{}] { return yytext[0]; }
+[-+*,;:\(\)\[\]{}/<>=] { return yytext[0]; }
 
-[0-9]+        { hashInsert(yytext, LIT_INTEGER); return LIT_INTEGER; }
-[0-9].[0-9]+  { hashInsert(yytext, LIT_INTEGER); return LIT_REAL; }
-\'[a-zA-Z]\''      { hashInsert(yytext, LIT_INTEGER); return LIT_CHAR; }      
+[0-9]+          { hashInsert(yytext, LIT_INTEGER); return LIT_INTEGER; }
+[0-9]'.'[0-9]+  { hashInsert(yytext, LIT_INTEGER); return LIT_REAL; }
+\'[a-zA-Z]\''   { hashInsert(yytext, LIT_INTEGER); return LIT_CHAR; }      
+[-_a-z]+        { hashInsert(yytext, TK_IDENTIFIER); return TK_IDENTIFIER;}
 
 
-
-
+<STRING>\"      { 
+                    *string = 0; 
+                    BEGIN(INITIAL);               
+                    hashInsert(buffer, LIT_STRING);      
+                // printf("found '%s'\n", buf);
+                    return LIT_STRING;
+                } 
+<STRING>"\n"    { 
+                    *string = 0; 
+                    lineCount++;
+                    BEGIN 0;
+                    return TOKEN_ERROR; 
+                  } 
+<STRING>.       { *s++ = *yytext; } 
 
 
 "\t"
 "\n"    { lineCount++; }
 .       { return TOKEN_ERROR; }
 
-
 "\\*"    { }
-"\\" { BEGIN(COMMENT); } //ADD MAIS UMA \ PRA COMPILAR
 
 <COMMENT>. { }
 <COMMENT>"\n" { lineCount++; }
@@ -55,12 +70,22 @@ int lineCount = 1;
 
 
 
+#include "main.c"
+#include "hash.c"
 
+int isRunning() {
+  return running;
+}
 
-int main(){
-    yylex();
+int getLineCount() {
+  return lineCount;
+}
+
+void initMe() {
+  hashInit();
 }
 
 int yywrap() {
-    return 1;
+  running = 0;
+  return 1;
 }
