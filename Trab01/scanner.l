@@ -7,10 +7,10 @@ int running = 1;
 char buffer[100];
 char *string;
 
-int getLineCount();
 %}
 
-%x COMMENT
+%x LINE_COMMENT
+%x MULTI_COMMENT
 %x STRING
 
 %%
@@ -53,18 +53,23 @@ int getLineCount();
                     BEGIN 0;
                     return TOKEN_ERROR; 
                   } 
-<STRING>.       { *s++ = *yytext; } 
+<STRING>.       { *string++ = *yytext; } 
 
 
 "\t"
 "\n"    { lineCount++; }
-.       { return TOKEN_ERROR; }
 
-"\\*"    { }
 
-<COMMENT>. { }
-<COMMENT>"\n" { lineCount++; }
-<COMMENT>"///" { BEGIN(INITIAL); }
+"\\\\"   { BEGIN(LINE_COMMENT); }
+"\\\\\\" { BEGIN(MULTI_COMMENT); }
+.        { return TOKEN_ERROR; }
+
+<LINE_COMMENT>"\n" {lineCount++;} 
+<LINE_COMMENT>. 
+
+<MULTI_COMMENT>"\n" {lineCount++;}
+<MULTI_COMMENT>.
+<MULTI_COMMENT>"///" {  BEGIN(INITIAL) ;}
 
 %%
 
