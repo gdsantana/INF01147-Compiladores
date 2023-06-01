@@ -1,11 +1,12 @@
 
 %{
 #include "tokens.h"
+#include "hash.h"
 
-int lineCount = 1;
-int running = 1;
+int lineNumber = 1;
+int isrunning = 1;
 char buffer[100];
-char *string;
+char *s;
 
 %}
 
@@ -34,42 +35,43 @@ char *string;
 
 [-+*,;:\(\)\[\]{}/<>=] { return yytext[0]; }
 
-[0-9]+          { hashInsert(yytext, LIT_INTEGER); return LIT_INTEGER; }
-[0-9]'.'[0-9]+  { hashInsert(yytext, LIT_INTEGER); return LIT_REAL; }
-\'[a-zA-Z]\''   { hashInsert(yytext, LIT_INTEGER); return LIT_CHAR; }      
-[-_a-z]+        { hashInsert(yytext, TK_IDENTIFIER); return TK_IDENTIFIER;}
+[0-9]+            { hashInsert(yytext, LIT_INT); return LIT_INT; }
+[0-9].[0-9]+      { hashInsert(yytext, LIT_INT); return LIT_REAL; }
+\'[-+*,;:\(\)\[\]{}/<>=a-zA-Z0-9]\'   { hashInsert(yytext, LIT_CHAR); return LIT_CHAR; }      
+[._a-zA-Z]*       { hashInsert(yytext, TK_IDENTIFIER); return TK_IDENTIFIER;}
 
-
-<STRING>\"      { 
-                    *string = 0; 
-                    BEGIN(INITIAL);               
-                    hashInsert(buffer, LIT_STRING);      
-                // printf("found '%s'\n", buf);
-                    return LIT_STRING;
-                } 
-<STRING>"\n"    { 
-                    *string = 0; 
-                    lineCount++;
-                    BEGIN 0;
-                    return TOKEN_ERROR; 
-                  } 
-<STRING>.       { *string++ = *yytext; } 
-
-
-"\t"
-"\n"    { lineCount++; }
-
+"\t"  { }
+"\n"    { lineNumber++; }
 
 "\\\\"   { BEGIN(LINE_COMMENT); }
 "\\\\\\" { BEGIN(MULTI_COMMENT); }
-.        { return TOKEN_ERROR; }
 
-<LINE_COMMENT>"\n" {lineCount++;} 
-<LINE_COMMENT>. 
+\"                { BEGIN(STRING); s = buffer; } 
 
-<MULTI_COMMENT>"\n" {lineCount++;}
+<STRING>\\n       { *s++ = '\n'; } 
+<STRING>\\t       { *s++ = '\t'; } 
+<STRING>\\\"      { *s++ = '\"'; } 
+<STRING>\"        { 
+                    *s = 0; 
+                    BEGIN(INITIAL);               
+                    hashInsert(buffer, LIT_STRING);   
+                    return LIT_STRING;
+                  } 
+<STRING>\n        { 
+                    *s = 0; 
+                    lineNumber++;
+                    BEGIN 0;
+                    return TOKEN_ERROR; 
+                  } 
+<STRING>.         { *s++ = *yytext; } 
+
+
+<LINE_COMMENT>"\n" {lineNumber++; BEGIN(INITIAL);} 
+<LINE_COMMENT>.   { }
+
+<MULTI_COMMENT>"\n" {lineNumber++;}
 <MULTI_COMMENT>.
-<MULTI_COMMENT>"///" {  BEGIN(INITIAL) ;}
+<MULTI_COMMENT>"///" { BEGIN(INITIAL) ;}
 
 %%
 
@@ -78,12 +80,12 @@ char *string;
 #include "main.c"
 #include "hash.c"
 
-int isRunning() {
-  return running;
+int isRunning(void) {
+  return isrunning;
 }
 
-int getLineCount() {
-  return lineCount;
+int getLineNumber(void) {
+  return lineNumber;
 }
 
 void initMe() {
@@ -91,6 +93,6 @@ void initMe() {
 }
 
 int yywrap() {
-  running = 0;
+  isrunning = 0;
   return 1;
 }
