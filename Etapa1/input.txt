@@ -1,0 +1,12 @@
+a 
+\\ comenta tara 
+2
+&
+2.2
+'a'
+"string"
+|
+\\\ cometario
+de multipola
+linhas ///
+"String com !@"
