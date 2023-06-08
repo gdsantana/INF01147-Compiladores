@@ -40,13 +40,16 @@ char *s;
 \'[-+*,;:\(\)\[\]{}/<>=a-zA-Z0-9]\'   { hashInsert(yytext, LIT_CHAR); return LIT_CHAR; }      
 [._a-zA-Z]*       { hashInsert(yytext, TK_IDENTIFIER); return TK_IDENTIFIER;}
 
-"\t"  { }
-"\n"    { lineNumber++; }
+
+[ \t\r]  { } 
+"\n"  { lineNumber++; }
+
 
 "\\\\"   { BEGIN(LINE_COMMENT); }
 "\\\\\\" { BEGIN(MULTI_COMMENT); }
 
 \"                { BEGIN(STRING); s = buffer; } 
+.                 {return TOKEN_ERROR;}
 
 <STRING>\\n       { *s++ = '\n'; } 
 <STRING>\\t       { *s++ = '\t'; } 
@@ -70,7 +73,7 @@ char *s;
 <LINE_COMMENT>.   { }
 
 <MULTI_COMMENT>"\n" {lineNumber++;}
-<MULTI_COMMENT>.
+<MULTI_COMMENT>.    { }
 <MULTI_COMMENT>"///" { BEGIN(INITIAL) ;}
 
 %%

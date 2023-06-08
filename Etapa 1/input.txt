@@ -1,0 +1,8 @@
+a 
+\\ comenta tara 
+2
+&
+2.2
+'a'
+"string"
+|

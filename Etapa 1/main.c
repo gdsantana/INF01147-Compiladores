@@ -42,6 +42,6 @@ int main(int argc, char** argv) {
     }
     token = yylex();  
   }
-  printf("\n ---------- \n Numero de linhas = [%d] \n ---------- \n", getLineCount());    
+  printf("\n ---------- \n Numero de linhas = [%d] \n ---------- \n", getLineNumber());    
   hashPrint();
 }
