@@ -117,6 +117,6 @@ array_element: TK_IDENTIFIER '[' expression ']' ;
 %%
 
 void yyerror(const char *s) {
-    fprintf(stderr, "Syntax error at line %d.\n Error %s \n ", getLineNumber(), s);
+    fprintf(stderr, "Syntax error at line %d.", getLineNumber());
     exit(3);
 }
