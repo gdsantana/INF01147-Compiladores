@@ -27,10 +27,12 @@
 %token TOKEN_ERROR        
 
 %%
-// DESCRIÇÃO GERAL DE UM PROGRAMA
+//#####################################
+//    DECLARÇÃO GERAL DE UM PROGRAMA
+//#####################################
 
-programa: list | ;
-list: list element | element ;
+program: list | ;
+list: element list | ;
 element: func | global_var ;
 
 global_var: type TK_IDENTIFIER '=' expression ';' 
@@ -41,33 +43,58 @@ global_var: type TK_IDENTIFIER '=' expression ';'
 array: value array | value ;
 value: LIT_INT | LIT_REAL | LIT_CHAR ;
 
-// DECLARAÇÃO DE FUNÇÕES DE UMA FUNÇÃO
-func: header body;
+//############## 
+//    FUNÇÕES
+//##############
+func: header command;
+//body: block;
 header: type TK_IDENTIFIER '(' list_params ')' ;
 type: KW_INT | KW_REAL | KW_CHAR | KW_BOOL ;
 list_params: params | ;
 params: param ',' params | param ; 
 param: type TK_IDENTIFIER ;
 
-body: block | ;
+// CHAMANDO AS FUNÇÕES
+func_call: TK_IDENTIFIER '(' list_args ')' ;
+list_args: expression | expression ',' list_args ;
 
-block: '{' command '}' ;
-command: attr | flux_control | block | ;
+
+//############## 
+//    BLOCO
+//##############
+
+command: attr | flux_control | output | func_call  | block  | return | input | global_var ; 
+block: '{' command_list '}' | '{' '}';
+command_list: command  command_list
+            | command ;
+
+//########################
+//    COMANDO OUTPUT
+//########################
+output: KW_OUTPUT list_elements ';' ;
+list_elements: el ',' list_elements | el ;
+el: expression | string ;
+string: LIT_STRING ;// como definir uma string??
+
+return: KW_RETURN expression ';'; 
+input: KW_INPUT '(' type ')' ';';
 
 
-attr: TK_IDENTIFIER '=' expression 
-    | 
+attr: TK_IDENTIFIER '=' expression ';' 
+    | array_element '=' expression ';'
+    | TK_IDENTIFIER '=' input  
+    | array_element '=' input
+    ;  
 
 
 flux_control: KW_IF '(' expression ')' command 
             | KW_IF '(' expression ')' command KW_ELSE command 
             | KW_IF '(' expression ')' KW_LOOP command ;
 
-expression: value | KW_INPUT 
-          | expression '+' expression
+expression: value 
+          | expression '+' expression 
           | expression '-' expression
           | expression '*' expression
-          | expression '/' expression
           | expression '/' expression
           | expression '>' expression
           | expression '<' expression
@@ -75,7 +102,17 @@ expression: value | KW_INPUT
           | expression OPERATOR_GE expression
           | expression OPERATOR_EQ expression
           | expression OPERATOR_DIF expression
-          | '(' expression ')' ;
+          | expression '&' expression
+          | expression '|' expression
+          | expression '~' expression
+          | '(' expression ')' 
+          | TK_IDENTIFIER 
+          | func_call 
+          | array_element 
+          | input 
+          ;
+
+array_element: TK_IDENTIFIER '[' expression ']' ;
           
 %%
 

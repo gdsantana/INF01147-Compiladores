@@ -17,8 +17,8 @@ int main(int argc, char** argv) {
   }
   
   int i = yyparse();    
-  hashPrint();
-  printf("Numero de linhas: %d.\n", getLineNumber());    
+  //hashPrint();
+  //printf("Numero de linhas: %d.\n", getLineNumber());    
   printf("Compilation Success.\n");    
   exit(0);
 }

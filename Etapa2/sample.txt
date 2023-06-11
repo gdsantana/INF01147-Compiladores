@@ -9,6 +9,7 @@ int matrix[100];
 real f=2.5;
 bool b = 0;
 
+
 \\\
 Este eh um comentario 
 de multiplas 
@@ -24,6 +25,11 @@ int main ()
   output v[5];
   output d;
   i = 2;
+  if (i<10) loop
+    {
+    i = incn(i,1);
+    d = incn(d,d);
+    }
 
   output "Digite um numero: \n";
   d = input(int);
@@ -52,11 +58,9 @@ int main ()
   {{}} {}
   }
 
-in incn (int x, int n )
+int incn (int x, int n )
   {
-  retorne x + n;
+  return x + n;
   }
-
+ 
 \\ end of file
-  
-
