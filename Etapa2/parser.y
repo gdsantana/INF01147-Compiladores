@@ -63,7 +63,7 @@ list_args: expression | expression ',' list_args ;
 //    BLOCO
 //##############
 
-command: attr | flux_control | output | func_call  | block  | return | input | global_var ; 
+command: attr | flux_control | output | func_call  | block  | return | ';' | global_var ; 
 block: '{' command_list '}' | '{' '}';
 command_list: command  command_list
             | command ;
