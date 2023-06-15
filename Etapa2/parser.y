@@ -24,8 +24,10 @@
 %token LIT_CHAR     
 %token LIT_STRING   
 
-%token TOKEN_ERROR        
-
+%token TOKEN_ERROR   
+    
+%left '&' '/' '|' '*' '-' '+' '<' '>' OPERATOR_DIF OPERATOR_EQ OPERATOR_GE OPERATOR_LE
+%right '~'
 %%
 //#####################################
 //    DECLARÇÃO GERAL DE UM PROGRAMA
@@ -104,7 +106,7 @@ expression: value
           | expression OPERATOR_DIF expression
           | expression '&' expression
           | expression '|' expression
-          | expression '~' expression
+          | '~' expression
           | '(' expression ')' 
           | TK_IDENTIFIER 
           | func_call 
