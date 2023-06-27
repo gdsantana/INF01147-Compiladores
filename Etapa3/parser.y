@@ -1,29 +1,8 @@
-%{
-    #include <stdio.h>
-    #include "hash.h"
-    #include "ast.h"
-    
-    void yyerror(const char *s);  
-    int getLineNumber(void); 
-    AST* getRootNode(void); 
-    
-    int yylex(void); 
 
-    AST *rootNode;
-
-%}
-
-%union 
-{
-    HASH_NODE *symbol;
-    AST *ast;
-}
-
-
-%token<symbol> KW_CHAR      
-%token<symbol> KW_INT       
-%token<symbol> KW_REAL      
-%token<symbol> KW_BOOL      
+%token KW_CHAR      
+%token KW_INT       
+%token KW_REAL      
+%token KW_BOOL      
 
 %token KW_IF        
 %token KW_THEN      
@@ -33,52 +12,22 @@
 %token KW_OUTPUT    
 %token KW_RETURN    
 
-// ADIOCIONAR DEMAIS OPERAÇÕES
+%token OPERATOR_LE  
+%token OPERATOR_GE  
+%token OPERATOR_EQ  
+%token OPERATOR_DIF 
 
-%token<symbol> OPERATOR_LE  
-%token<symbol> OPERATOR_GE  
-%token<symbol> OPERATOR_EQ  
-%token<symbol> OPERATOR_DIF 
+%token TK_IDENTIFIER
 
-%token<symbol> TK_IDENTIFIER
-
-%token<symbol> LIT_INT      
-%token<symbol> LIT_REAL     
-%token<symbol> LIT_CHAR     
-%token<symbol> LIT_STRING   
+%token LIT_INT      
+%token LIT_REAL     
+%token LIT_CHAR     
+%token LIT_STRING   
 
 %token TOKEN_ERROR   
     
 %left '&' '/' '|' '*' '-' '+' '<' '>' OPERATOR_DIF OPERATOR_EQ OPERATOR_GE OPERATOR_LE
 %right '~'
-
-%type<ast> program
-%type<ast> list
-%type<ast> element
-%type<ast> global_var
-%type<ast> array
-%type<ast> value
-%type<ast> func
-%type<ast> header
-%type<ast> type
-%type<ast> list_params
-%type<ast> params
-%type<ast> param
-%type<ast> func_call
-%type<ast> list_args
-%type<ast> command
-%type<ast> command_list
-%type<ast> block
-%type<ast> output
-%type<ast> list_elements
-%type<ast> el
-%type<ast> string // talvez remover
-%type<ast> return
-%type<ast> input
-%type<ast> attr
-%type<ast> flux_control
-%type<ast> expression
-%type<ast> array_element
 %%
 //#####################################
 //    DECLARÇÃO GERAL DE UM PROGRAMA
@@ -127,7 +76,7 @@ command_list: command  command_list
 output: KW_OUTPUT list_elements ';' ;
 list_elements: el ',' list_elements | el ;
 el: expression | string ;
-string: LIT_STRING ; // talvez remover 
+string: LIT_STRING ;// como definir uma string??
 
 return: KW_RETURN expression ';'; 
 input: KW_INPUT '(' type ')' ';';
