@@ -37,10 +37,22 @@ int getLineNumber(void);
 "=="    { yylval.symbol = hashInsert(yytext, OPERATOR_EQ); return OPERATOR_EQ; }
 "!="    { yylval.symbol = hashInsert(yytext, OPERATOR_DIF); return OPERATOR_DIF; }
 
+##########################
+## CONFIRMAR SE PRECISA ##
+##########################
+
+">"    { yylval.symbol = hashInsert(yytext, OPERATOR_LE); return OPERATOR_LG; }
+"<"    { yylval.symbol = hashInsert(yytext, OPERATOR_LE); return OPERATOR_SM; }
+
+"+"    { yylval.symbol = hashInsert(yytext, OPERATOR_LE); return OPERATOR_ADD; }
+"-"    { yylval.symbol = hashInsert(yytext, OPERATOR_LE); return OPERATOR_SUB; }
+"*"    { yylval.symbol = hashInsert(yytext, OPERATOR_LE); return OPERATOR_MULT; }
+"/"    { yylval.symbol = hashInsert(yytext, OPERATOR_LE); return OPERATOR_DIV; }
+
 ############################################
 ## Separar operadores simples do de baixo ##
 ############################################
-[-+*,;:\(\)\[\]{}/<>=] { return yytext[0]; }
+[,;:\(\)\[\]{}=] { return yytext[0]; }
 
 [0-9]+            { yylval.symbol = hashInsert(yytext, LIT_INT); return LIT_INT; }
 [0-9].[0-9]+      { yylval.symbol = hashInsert(yytext, LIT_INT); return LIT_REAL; }
