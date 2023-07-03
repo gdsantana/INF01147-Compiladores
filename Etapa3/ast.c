@@ -31,73 +31,70 @@ void astPrint(AST *node, int level) {
     fprintf(stderr, "ast(");
 
     switch (node->type) {
-        case AST_SYMBOL:        fprintf(stderr, "AST_SYMBOL"); break;        
-        case AST_PROGRAM:       fprintf(stderr, "AST_PROGRAM"); break;
+        case AST_SYMBOL:            fprintf(stderr, "AST_SYMBOL"); break;        
+        case AST_PROGRAM:           fprintf(stderr, "AST_PROGRAM"); break;
+        case AST_LIST:              fprintf(stderr, "AST_LIST"); break;
+        case AST_ELEMENT:           fprintf(stderr, "AST_ELEMENT"); break;
+        case AST_GLOBAL_VAR:        fprintf(stderr, "AST_GLOBAL_VAR"); break;
+        case AST_GLOBAL_VAR_ARRAY:  fprintf(stderr, "AST_GLOBAL_VAR_ARRAY"); break;
+        case AST_ARRAY:             fprintf(stderr, "AST_ARRAY"); break;
+        case AST_VALUE:             fprintf(stderr, "AST_VALUE"); break;
+        case AST_FUNC:              fprintf(stderr, "AST_FUNC"); break;
+        case AST_HEADER:            fprintf(stderr, "AST_HEADER"); break;
+        case AST_TYPE:              fprintf(stderr, "AST_TYPE"); break;
+        // case AST_LIST_PARAMS:       fprintf(stderr, "AST_LIST_PARAMS"); break;
+        case AST_PARAMS:            fprintf(stderr, "AST_PARAMS"); break;
+        case AST_PARAM:             fprintf(stderr, "AST_PARAM"); break;
+        case AST_FUNC_CALL:         fprintf(stderr, "AST_FUNC_CALL"); break;
+        case AST_LIST_ARGS:         fprintf(stderr, "AST_LIST_ARGS"); break;
+        case AST_COMMAND:           fprintf(stderr, "AST_COMMAND"); break;
+        case AST_COMMAND_LIST:      fprintf(stderr, "AST_COMMAND_LIST"); break;
+        case AST_BLOCK:             fprintf(stderr, "AST_BLOCK"); break;
+        case AST_OUTPUT:            fprintf(stderr, "AST_OUTPUT"); break;
+        case AST_LIST_ELEMENTS:     fprintf(stderr, "AST_LIST_ELEMENTS"); break;
+        case AST_EL:                fprintf(stderr, "AST_EL"); break;
+        case AST_RETURN:            fprintf(stderr, "AST_RETURN"); break;
+        case AST_INPUT:             fprintf(stderr, "AST_INPUT"); break;
+        case AST_ATTR:              fprintf(stderr, "AST_ATTR"); break;
+        case AST_ATTR_ARRAY:        fprintf(stderr, "AST_ATTR_ARRAY"); break;
+        case AST_ATTR_INPUT:        fprintf(stderr, "AST_ATTR_INPUT"); break;
+        case AST_ATTR_ARRAY_INPUT:  fprintf(stderr, "AST_ATTR_ARRAY_INPUT"); break;
+        case AST_FLUX_CONTROL:      fprintf(stderr, "AST_FLUX_CONTROL"); break;
 
-        case AST_EXPRESSION_BINARY:          fprintf(stderr, "AST_EXPRESSION_BINARY"); break;
+        case AST_EXPRESSION:        fprintf(stderr, "AST_EXPRESSION"); break;
+        case AST_EXPRESSION_BLOCK:        fprintf(stderr, "AST_EXPRESSION_BLOCK"); break;
         
-        case AST_READ:          fprintf(stderr, "AST_READ"); break;
-        case AST_ADD:           fprintf(stderr, "AST_ADD"); break;
-        case AST_SUB:           fprintf(stderr, "AST_SUB"); break;
-        case AST_MULT:          fprintf(stderr, "AST_MULT"); break;
-        case AST_DIV:           fprintf(stderr, "AST_DIV"); break;
+        case AST_ADD:               fprintf(stderr, "AST_ADD"); break;
+        case AST_SUB:               fprintf(stderr, "AST_SUB"); break;
+        case AST_MULT:              fprintf(stderr, "AST_MULT"); break;
+        case AST_DIV:               fprintf(stderr, "AST_DIV"); break;
 
-        case AST_LT:            fprintf(stderr, "AST_LT"); break;
-        case AST_LTE:           fprintf(stderr, "AST_LTE"); break;
-        case AST_GT:            fprintf(stderr, "AST_GT"); break;
-        case AST_GTE:           fprintf(stderr, "AST_GTE"); break;
-        case AST_EQ:            fprintf(stderr, "AST_EQ"); break;
-        case AST_DIF:           fprintf(stderr, "AST_DIF"); break;
-
-        case AST_COMMAND:       fprintf(stderr, "AST_COMMAND"); break;
-        case AST_COMMAND_BLOCK: fprintf(stderr, "AST_COMMAND_BLOCK"); break;
-        case AST_FLUX_CONTROL:  fprintf(stderr, "AST_FLUX_CONTROL"); break;
-        case AST_PRINT:             fprintf(stderr, "AST_PRINT"); break;
-        case AST_PRINT_REST:        fprintf(stderr, "AST_PRINT_REST"); break;
-        case AST_RETURN:        fprintf(stderr, "AST_RETURN"); break;
-        case AST_ATTRIBUITION:  fprintf(stderr, "AST_ATTRIBUITION"); break;
+        case AST_LT:                fprintf(stderr, "AST_LT"); break;
+        case AST_LE:                fprintf(stderr, "AST_LE"); break;
+        case AST_GT:                fprintf(stderr, "AST_GT"); break;
+        case AST_GE:                fprintf(stderr, "AST_GE"); break;
+        case AST_EQ:                fprintf(stderr, "AST_EQ"); break;
+        case AST_DIF:               fprintf(stderr, "AST_DIF"); break;
         
-        case AST_LABEL:             fprintf(stderr, "AST_LABEL"); break;
-        case AST_EXPRESSION_BLOCK:      fprintf(stderr, "AST_EXPRESSION_BLOCK"); break;
-
-        case AST_COMMAND_LIST:       fprintf(stderr, "AST_COMMAND_LIST"); break;
         
-        case AST_FLUX_CONTROLL_IF:       fprintf(stderr, "AST_FLUX_CONTROLL_IF"); break;
-        case AST_FLUX_CONTROLL_WHILE:    fprintf(stderr, "AST_FLUX_CONTROLL_WHILE"); break;
-        case AST_FLUX_CONTROLL_GOTO:     fprintf(stderr, "AST_FLUX_CONTROLL_GOTO"); break;
+        case AST_AND:               fprintf(stderr, "AST_AND"); break;
+        case AST_OR:               fprintf(stderr, "AST_OR"); break;
+        case AST_NOT:               fprintf(stderr, "AST_NOT"); break;
 
-        case AST_DECLARATION:                   fprintf(stderr, "AST_DECLARATION"); break;
-        case AST_DECLARATION_LIST:              fprintf(stderr, "AST_DECLARATION_LIST"); break;
+
+        case AST_BLOCK:             fprintf(stderr, "AST_BLOCK"); break;
+        case AST_FLUX_CONTROL:      fprintf(stderr, "AST_FLUX_CONTROL"); break;
         
-        case AST_DECLARATION_FUNCTION:                  fprintf(stderr, "AST_DECLARATION_FUNCTION"); break;
-        case AST_DECLARATION_FUNCTION_INT:              fprintf(stderr, "AST_DECLARATION_FUNCTION_INT"); break;
-        case AST_DECLARATION_FUNCTION_CHAR:             fprintf(stderr, "AST_DECLARATION_FUNCTION_CHAR"); break;
-        case AST_DECLARATION_FUNCTION_FLOAT:            fprintf(stderr, "AST_DECLARATION_FUNCTION_FLOAT"); break;
+        case AST_EXPRESSION_BLOCK:  fprintf(stderr, "AST_EXPRESSION_BLOCK"); break;
 
-        case AST_DECLARATION_FUNCTION_ARGS_INT:             fprintf(stderr, "AST_DECLARATION_FUNCTION_ARGS_INT"); break;
-        case AST_DECLARATION_FUNCTION_ARGS_CHAR:            fprintf(stderr, "AST_DECLARATION_FUNCTION_ARGS_CHAR"); break;
-        case AST_DECLARATION_FUNCTION_ARGS_FLOAT:           fprintf(stderr, "AST_DECLARATION_FUNCTION_ARGS_FLOAT"); break;
-        case AST_DECLARATION_FUNCTION_ARGS_OR_EMPTY:        fprintf(stderr, "AST_DECLARATION_FUNCTION_ARGS_OR_EMPTY"); break;
-        case AST_DECLARATION_FUNCTION_BODY:                 fprintf(stderr, "AST_DECLARATION_FUNCTION_BODY"); break;
         
-        case AST_FUNCTION_CALL:                     fprintf(stderr, "AST_FUNCTION_CALL"); break;
-        case AST_FUNCTION_CALL_ARGS:                fprintf(stderr, "AST_FUNCTION_CALL_ARGS"); break;
-        
-
-        case AST_DECLARATION_GLOBAL_INT:             fprintf(stderr, "AST_DECLARATION_GLOBAL_INT"); break;
-        case AST_DECLARATION_GLOBAL_ARRAY_INT:       fprintf(stderr, "AST_DECLARATION_GLOBAL_ARRAY_INT"); break;
-
-        case AST_DECLARATION_GLOBAL_CHAR:               fprintf(stderr, "AST_DECLARATION_GLOBAL_CHAR"); break;
-        case AST_DECLARATION_GLOBAL_ARRAY_CHAR:         fprintf(stderr, "AST_DECLARATION_GLOBAL_ARRAY_CHAR"); break;
-
-        case AST_DECLARATION_GLOBAL_FLOAT:             fprintf(stderr, "AST_DECLARATION_GLOBAL_FLOAT"); break;
-        case AST_DECLARATION_GLOBAL_ARRAY_FLOAT:       fprintf(stderr, "AST_DECLARATION_GLOBAL_ARRAY_FLOAT"); break;
-
-        case AST_ARRAY_VAL:                 fprintf(stderr, "AST_ARRAY_VAL"); break;
-        case AST_ARRAY_ELEMENT:             fprintf(stderr, "AST_ARRAY_ELEMENT"); break;
-        case AST_ARRAY_ATTRIBUITION:        fprintf(stderr, "AST_ARRAY_ATTRIBUITION"); break;
-
-                
+        case AST_IF:                fprintf(stderr, "AST_IF"); break;
+        case AST_LOOP:              fprintf(stderr, "AST_LOOP"); break;
+        case AST_KW_INT:            fprintf(stderr, "AST_KW_INT"); break;
+        case AST_KW_REAL:           fprintf(stderr, "AST_KW_REAL"); break;
+        case AST_KW_CHAR:           fprintf(stderr, "AST_KW_CHAR"); break;
+        case AST_KW_BOOL:           fprintf(stderr, "AST_KW_BOOL"); break;
+              
 
     
         default: fprintf(stderr, " \n\n\n ------------>>>> AST_UNKNOWN [%d] <<<<------------ \n\n\n", node->type); break;
@@ -110,12 +107,6 @@ void astPrint(AST *node, int level) {
 
     for (int i=0; i<MAX_SONS; ++i)
         astPrint(node->son[i], level+1);    
-
-    // for(int i=0; i<level; i++) 
-    //     fprintf(stderr, "  ");
-    
-    // fprintf(stderr, "}\n");
-    
 }
 
 char* getSpaces(int level){
@@ -139,10 +130,11 @@ char* astToCode(AST* node, int level) {
             fprintf(stderr, "AST_SYMBOL\n"); 
             fprintf(stderr, "AST_SYMBOL: %s\n", node->symbol->text); 
 
-            char* buffer = (char*)calloc(1 + strlen(node->symbol->text) + 1, sizeof(char));
+            char* buffer = (char*)calloc( strlen(node->symbol->text) +1 + 1, sizeof(char));
 
             switch (node->symbol->type){
-                case LIT_INTEGER:
+                case LIT_INT:
+                case LIT_REAL:
                 case LIT_CHAR:
                 case TK_IDENTIFIER: sprintf(buffer, "%s", node->symbol->text); break;
                 case LIT_STRING: sprintf(buffer, "\"%s\"", node->symbol->text); break;
@@ -157,16 +149,313 @@ char* astToCode(AST* node, int level) {
             return prog;
             break;
         }
-        
-        case AST_READ: {
-            fprintf(stderr, "AST_READ\n");            
+        case AST_LIST: {
+            fprintf(stderr, "AST_LIST \n"); 
+            char* prog = astToCode(node->son[0],level);
             
-            char* buffer = (char*)calloc(4 + 1, sizeof(char));
-            sprintf(buffer, "read");
+            return prog;
+            break;
+        }
+        case AST_ELEMENT: {
+            fprintf(stderr, "AST_ELEMENT\n"); 
+            char* prog = astToCode(node->son[0],level);
+            
+            return prog;
+            break;
+        }
+        case AST_GLOBAL_VAR: {
+            fprintf(stderr, "AST_GLOBAL_VAR \n"); 
+            char* name = node->symbol->text;
+            char* type = astToCode(node->son[0],level);
+            char* value = astToCode(node->son[1],level);
+            
+            char* global_var = (char*)calloc(strlen(type) + strlen(name) + strlen(value) +1, sizeof(char));
+            sprintf(global_var, '%s %s %s', type, name, value);
+
+            return global_var;
+            break;
+        }
+        case AST_GLOBAL_VAR_ARRAY: {
+            fprintf(stderr, "AST_GLOBAL_VAR_ARRAY \n"); 
+            char* name = node->symbol->text;
+            char* type = astToCode(node->son[0],level);
+            char* value = astToCode(node->son[1],level);
+            char* size = astToCode(node->son[2],level);
+
+            
+            char* global_var = (char*)calloc(strlen(type) + strlen(name) + strlen(value) + strlen(size) +5 +1, sizeof(char));
+
+            if (values[0] != '\0')
+                sprintf(global_var, '%s %s [%s] %s', type, name, size, value); 
+            else 
+                sprintf(global_var, '%s %s [%s]', type, name, size); 
+
+            return global_var;
+            break;
+        }
+        case AST_ARRAY: {
+            fprintf(stderr, "AST_GLOBAL_VAR_ARRAY \n"); 
+            char* value = astToCode(node->son[0],level);
+            char* array = astToCode(node->son[1],level);
+
+            char* buffer = (char*)calloc(strlen(value) + strlen(array) +1 +1, sizeof(char));
+            
+            if (array[0] != '\0')              
+                sprintf(buffer, "%s %s", value, array); 
+            else               
+                sprintf(buffer, "%s", value); 
+
+            return buffer;
+            break;
+        }
+        case AST_FUNC: {
+            fprintf(stderr, "AST_FUNC\n");
+            char * header = astToCode(node->son[0],level);
+            char * body = astToCode(node->son[1],level);
+
+            char* func = (char*)calloc(7+ strlen(header) + strlen(body) +1, sizeof(char));
+
+            return func;
+            break;
+        }
+        case AST_HEADER: {
+            fprintf(stderr, "AST_HEADER\n");
+            char* type = astToCode(node->son[0],level);
+            char* name = node->symbol->text;
+            char* list_params = astToCode(node->son[1],level);
+
+            char* header = (char*)calloc(8 + strlen(name) + strlen(type) + strlen(list_params) +1, sizeof(char));
+
+            return header;
+            break;
+        }
+        case AST_PARAMS: {
+            fprintf(stderr, "AST_PARAMS\n");
+
+            char* param = astToCode(node->son[0],level);
+            char* params = astToCode(node->son[1],level);
+
+            char* buffer = (char*)calloc(strlen(param) + strlen(params) +2 +1, sizeof(char));
+            
+            if (params[0] != '\0')              
+                sprintf(buffer, "%s, %s", param, params); 
+            else               
+                sprintf(buffer, "%s", param); 
             
             return buffer;
             break;
+        }
+        case AST_PARAM: {
+            fprintf(stderr, "AST_PARAM\n");
+
+            char* name = node->symbol->text;
+            char* type = astToCode(node->son[0],level);
+
+            char* buffer = (char*)calloc(strlen(type) + strlen(name) +1 +1, sizeof(char));
+            sprintf(buffer, "%s %s", type, name); 
+            
+            return buffer;
+            break;
+        }
+        case AST_FUNC_CALL: {
+            fprintf(stderr, "AST_FUNC_CALL\n");
+            char* name = node->symbol->text;      
+            char* list_args = astToCode(node->son[0],level);      
+            
+            char* buffer = (char*)calloc(strlen(name) + strlen(list_args) +2 + 1, sizeof(char));
+            sprintf(buffer, "%s(%s)", name, list_args);
+
+            return buffer;
+            break;
         }   
+        case AST_LIST_ARGS: {
+            fprintf(stderr, "AST_LIST_ARGS\n");
+
+            char* args = astToCode(node->son[0],level);      
+            char* list_args = astToCode(node->son[1],level);      
+            
+            char* buffer = (char*)calloc(strlen(args) + strlen(list_args) +2 + 1, sizeof(char));
+            if(list_args[0] != '\0')
+                sprintf(buffer, "%s, %s", args, list_args);
+            else 
+                sprintf(buffer, "%s", args);
+
+            return buffer;
+            break;
+        }   
+        case AST_BLOCK: {
+            fprintf(stderr, "AST_COMMAND_BLOCK\n");
+            char* block_content = astToCode(node->son[0],level);
+
+            char* block = (char*)calloc(strlen(block_content) +4 + 1, sizeof(char));
+            sprintf(block, "{\n%s\n}", block_content);
+
+            return block;
+            break;
+        }
+        case AST_COMMAND_LIST: {     
+            fprintf(stderr, "AST_COMMAND_LIST\n");
+
+            char* command = astToCode(node->son[0],level);
+            char* command_list = astToCode(node->son[1],level);
+
+            char* buffer = (char*)calloc(strlen(command) +strlen(command_list) +1 + 1, sizeof(char));
+
+            if(command_list[0] != '\0')
+                sprintf(buffer, "%s %s", command, command_list);
+            else
+                sprintf(buffer, "%s", command);
+            return buffer;
+            break;
+        }   
+        case AST_OUTPUT: {
+            fprintf(stderr, "AST_OUTPUT\n");
+
+            char* list_elements = astToCode(node->son[0],level);
+            fprintf(stderr, "AST_OUTPUT: %s\n",list_elements );
+
+            char* buffer = (char*)calloc(6 + strlen(list_elements) + 1, sizeof(char));
+            sprintf(buffer, "output %s", list_elements);
+
+            return buffer;
+            break;
+        }   
+        case AST_LIST_ELEMENTS: {
+            fprintf(stderr, "AST_LIST_ELEMENTS\n");
+
+            char* el = astToCode(node->son[0],level);
+            char* list_elements = astToCode(node->son[1],level);
+
+            char* buffer = (char*)calloc(strlen(el) +strlen(list_elements) +2 + 1, sizeof(char));
+
+            if(list_elements[0] != '\0')
+                sprintf(buffer, "%s, %s", el, list_elements);
+            else
+                sprintf(buffer, "%s", el);
+
+            return buffer;
+            break;
+        }   
+        case AST_RETURN: {
+            fprintf(stderr, "AST_RETURN\n");
+            
+            char* value = astToCode(node->son[0],level);
+
+            char* buffer = (char*)calloc(strlen(value) + 7 + 1, sizeof(char));
+            sprintf(buffer, "return %s", value);
+            
+            return buffer;            
+            break;
+        }
+        case AST_INPUT: {
+            fprintf(stderr, "AST_INPUT\n");            
+            char* type =  astToCode(node->son[0],level);
+
+            char* buffer = (char*)calloc(strlen(type) +8 + 1, sizeof(char));
+            sprintf(buffer, "input (%s)");
+            
+            return buffer;
+            break;
+        }
+        case AST_ATTR: {
+            fprintf(stderr, "AST_ATTRIBUITION\n");
+            
+            char* name = node->symbol->text;
+            char* value = astToCode(node->son[0],level);
+
+            char* attr = (char*)calloc(strlen(name) + strlen(value) + 1 + 1, sizeof(char));
+            sprintf(attr, "%s=%s", name, value);
+            
+            return attr;            
+            break;
+        } 
+        case AST_ATTR_ARRAY: {
+            fprintf(stderr, "AST_ATTR_ARRAY\n");
+            
+            char* arrayElement = astToCode(node->son[0],level);
+            char* value = astToCode(node->son[1],level);
+
+            char* attr = (char*)calloc(1 + strlen(arrayElement) + strlen(value) + 1, sizeof(char));
+            sprintf(attr, "%s=%s", arrayElement, value);
+            
+            return attr;            
+            break;
+        }
+        case AST_ARRAY_ELEMENT: {
+            fprintf(stderr, "AST_ARRAY_ELEMENT\n");
+            
+            char* name = node->symbol->text;
+            char* size = astToCode(node->son[0],level);
+
+            char* buffer = (char*)calloc(strlen(name) + strlen(size) +2 + 1, sizeof(char));
+            sprintf(buffer, "%s[%s]", name, value);
+            
+            return buffer;            
+            break;
+        } 
+        // case AST_EXPRESSION_BLOCK: {
+        //     fprintf(stderr, "AST_EXPRESSION_BLOCK\n");
+            
+        //     char* expression = astToCode(node->son[0],level);
+
+        //     char* buffer = (char*)calloc(strlen(expression) + 2 + 1, sizeof(char));
+        //     sprintf(buffer, "(%s)", expression);
+            
+        //     return buffer;            
+        //     break;
+        // }     
+        
+        case AST_IF: {
+            fprintf(stderr, "AST_IF \n");    
+
+            char* condition = astToCode(node->son[0], level);         
+            char* body_if = astToCode(node->son[1], level);         
+            char* body_else = astToCode(node->son[2], level);    
+        
+            char* buffer = (char*)calloc(strlen(condition) + strlen(body_if) + strlen(body_else) +11  +1, sizeof(char));            
+            
+            if (body_else[0] != '\0')
+                sprintf(buffer, "if(%s) %s else %s", condition, body_if, body_else); 
+            else
+                sprintf(buffer, "if(%s) %s", condition, body_if); 
+            return buffer;
+            break;            
+            
+        }
+        case AST_LOOP: {
+            fprintf(stderr, "AST_LOOP \n");    
+
+            char* condition = astToCode(node->son[0], level);         
+            char* body = astToCode(node->son[1], level);              
+
+            char* buffer = (char*)calloc(strlen(condition) + strlen(body) + 10 +1, sizeof(char));            
+                        
+            sprintf(buffer, "if(%s) LOOP %s", condition, body); 
+            
+            return buffer;
+            break;            
+            
+        }
+        case AST_EXPRESSION: {
+            fprintf(stderr, "AST_EXPRESSION_BINARY\n");            
+            
+            char* operator = node->symbol->text;      
+            char* valueLeft = astToCode(node->son[0],level);            
+            char* valueRight = astToCode(node->son[1],level);
+            
+
+            char* buffer = (char*)calloc(2 + strlen(valueLeft) + strlen(operator) + strlen(valueRight) + 1, sizeof(char));
+            sprintf(buffer, "%s %s %s", valueLeft, operator, valueRight);
+            
+            return buffer;
+            break;
+        }  
+        
+        
+
+        /*
+            EXPRESSÕES LÓGICAS        
+        */
         case AST_ADD: {
             fprintf(stderr, "AST_ADD\n");            
             
@@ -218,8 +507,7 @@ char* astToCode(AST* node, int level) {
             
             return add;
             break;
-        }   
-                
+        }            
         case AST_LT: {
             fprintf(stderr, "AST_LT\n");            
             
@@ -233,7 +521,7 @@ char* astToCode(AST* node, int level) {
             return buffer;
             break;
         }
-        case AST_LTE: {
+        case AST_LE: {
             fprintf(stderr, "AST_LTE\n");            
         
             char* valueLeft = astToCode(node->son[0],level);            
@@ -260,7 +548,7 @@ char* astToCode(AST* node, int level) {
             break;
         
         }   
-        case AST_GTE: {
+        case AST_GE: {
             fprintf(stderr, "AST_GTE\n");            
         
             char* valueLeft = astToCode(node->son[0],level);            
@@ -299,469 +587,41 @@ char* astToCode(AST* node, int level) {
             break;
         
         } 
-
-        case AST_EXPRESSION_BINARY: {
-            fprintf(stderr, "AST_EXPRESSION_BINARY\n");            
-            
-            char* operator = node->symbol->text;      
+        case AST_AND: {
+            fprintf(stderr, "AST_AND\n");            
+        
             char* valueLeft = astToCode(node->son[0],level);            
             char* valueRight = astToCode(node->son[1],level);
-            
-
-            char* buffer = (char*)calloc(2 + strlen(valueLeft) + strlen(operator) + strlen(valueRight) + 1, sizeof(char));
-            sprintf(buffer, "%s %s %s", valueLeft, operator, valueRight);
-            
-            return buffer;
-            break;
-        }   
-
-        case AST_COMMAND_BLOCK: {
-            fprintf(stderr, "AST_COMMAND_BLOCK\n");
-            char* block_content = astToCode(node->son[0],level);
-
-            char* block = (char*)calloc(4 + strlen(block_content) + 1, sizeof(char));
-            sprintf(block, "{\n%s\n}", block_content);
-
-            return block;
-            break;
-        }   
-        case AST_PRINT: {
-            fprintf(stderr, "AST_PRINT\n");
-
-            char* stringContent = astToCode(node->son[0],level);
-            fprintf(stderr, "AST_PRINT stringContent: %s\n",stringContent );
-
-            char* buffer = (char*)calloc(6 + strlen(stringContent) + 1, sizeof(char));
-            sprintf(buffer, "print %s", stringContent);
-
-            return buffer;
-            break;
-        }   
-        case AST_PRINT_REST: {
-            fprintf(stderr, "AST_PRINT_REST\n");
-
-            char* stringContent1 = astToCode(node->son[0],level);
-            char* stringContent2 = astToCode(node->son[1],level);
-            char* stringContent3 = astToCode(node->son[2],level);
-            fprintf(stderr, "AST_PRINT_REST stringContent1: %s\n",stringContent1 );
-            fprintf(stderr, "AST_PRINT_REST stringContent2: %s\n",stringContent2 );
-            fprintf(stderr, "AST_PRINT_REST stringContent3: %s\n",stringContent3 );
-
-            char* buffer = (char*)calloc(5 + strlen(stringContent1) + strlen(stringContent2) + strlen(stringContent3) + 1, sizeof(char));
-
-            if (stringContent3[0] != '\0')
-                sprintf(buffer, "%s, %s, %s", stringContent1, stringContent2, stringContent3);
-            else if (stringContent2[0] != '\0')
-                sprintf(buffer, "%s, %s", stringContent1, stringContent2);
-            else 
-                sprintf(buffer, "%s", stringContent1);
-            
-            return buffer;
-            break;
-        }   
-        case AST_ATTRIBUITION: {
-            fprintf(stderr, "AST_ATTRIBUITION\n");
-            
-            char* varName = node->symbol->text;
-            char* value = astToCode(node->son[0],level);
-
-            char* attribuition = (char*)calloc(1 + strlen(varName) + strlen(value) + 1, sizeof(char));
-            sprintf(attribuition, "%s=%s", varName, value);
-            
-            return attribuition;            
-            break;
-        }     
-        case AST_RETURN: {
-            fprintf(stderr, "AST_RETURN\n");
-            
-            char* value = astToCode(node->son[0],level);
-
-            char* buffer = (char*)calloc(7 + strlen(value) + 1, sizeof(char));
-            sprintf(buffer, "return %s", value);
-            
-            return buffer;            
-            break;
-        }     
-         
-        case AST_LABEL: {
-            fprintf(stderr, "AST_LABEL\n");
-            
-            char* label = node->symbol->text;
-
-            char* buffer = (char*)calloc(1 + strlen(label) + 1, sizeof(char));
-            sprintf(buffer, "%s:", label);
-            
-            return buffer;            
-            break;
-        }     
-        case AST_EXPRESSION_BLOCK: {
-            fprintf(stderr, "AST_EXPRESSION_BLOCK\n");
-            
-            char* expression = astToCode(node->son[0],level);
-
-            char* buffer = (char*)calloc(2 + strlen(expression) + 1, sizeof(char));
-            sprintf(buffer, "(%s)", expression);
-            
-            return buffer;            
-            break;
-        }     
         
-        case AST_COMMAND_LIST: {                        
-            fprintf(stderr, "AST_COMMAND_LIST\n");
-            
-            char* cmd = astToCode(node->son[0],level);
-            char* cmdListRest = astToCode(node->son[1],level);
-                        
-            char* buffer = (char*)calloc(2 + strlen(cmd) + strlen(cmdListRest) + 1, sizeof(char));     
-
-            if (node->son[0] != 0)
-                if (node->son[0]->type == AST_LABEL)
-                    sprintf(buffer, "%s \n%s", cmd, cmdListRest);
-                else 
-                    sprintf(buffer, "%s;\n%s", cmd, cmdListRest);
-            else      
-                sprintf(buffer, ";\n%s", cmdListRest);
-                          
-            
-
-            return buffer;            
-            break;
-        }   
+            char* buffer = (char*)calloc(1 + strlen(valueLeft) + 1 + strlen(valueRight) + 1, sizeof(char));
+            sprintf(buffer, "%s&&%s", valueLeft, valueRight);
         
-        case AST_FLUX_CONTROLL_IF: {
-            fprintf(stderr, "AST_FLUX_CONTROLL_IF \n");    
-
-            char* condition = astToCode(node->son[0], level);         
-            char* body_if = astToCode(node->son[1], level);         
-            char* body_else = astToCode(node->son[2], level);    
-            
-            fprintf(stderr, "condition: %s body_if: %s body_else:%s\n\n.", condition, body_if, body_else);        
-
-            char* buffer = (char*)calloc(15 + strlen(condition) + strlen(body_if) + strlen(body_else) +1, sizeof(char));            
-            
-            if (body_else[0] != '\0')
-                sprintf(buffer, "if %s then %s else %s", condition, body_if, body_else); 
-            else
-                sprintf(buffer, "if %s then %s", condition, body_if); 
             return buffer;
-            break;            
-            
-        }
-        case AST_FLUX_CONTROLL_WHILE: {
-            fprintf(stderr, "AST_FLUX_CONTROLL_WHILE \n");    
-
-            char* condition = astToCode(node->son[0], level);         
-            char* body = astToCode(node->son[1], level);              
-
-            char* buffer = (char*)calloc(7 + strlen(condition) + strlen(body) +1, sizeof(char));            
-                        
-            sprintf(buffer, "while %s %s", condition, body); 
-            
+            break;
+        
+        } 
+        case AST_OR: {
+            fprintf(stderr, "AST_OR\n");            
+        
+            char* valueLeft = astToCode(node->son[0],level);            
+            char* valueRight = astToCode(node->son[1],level);
+        
+            char* buffer = (char*)calloc(1 + strlen(valueLeft) + 1 + strlen(valueRight) + 1, sizeof(char));
+            sprintf(buffer, "%s||%s", valueLeft, valueRight);
+        
             return buffer;
-            break;            
-            
-        }
-        case AST_FLUX_CONTROLL_GOTO: {
-            fprintf(stderr, "AST_FLUX_CONTROLL_GOTO \n");    
-
-            char* label = node->symbol->text;       
-            
-            char* buffer = (char*)calloc(5 + strlen(label) +1, sizeof(char));            
-                        
-            sprintf(buffer, "goto %s", label); 
-            
-            return buffer;
-            break;            
-            
-        }
-        
-        case AST_DECLARATION_LIST: {
-            fprintf(stderr, "AST_DECLARATION_LIST \n");    
-
-            char* left = astToCode(node->son[0], level);         
-            char* right = astToCode(node->son[1], level);         
-
-            char* declaration_list = (char*)calloc(1 + strlen(left) + strlen(right) +1, sizeof(char));            
-
-            sprintf(declaration_list, "%s\n%s", left, right); 
-
-            return declaration_list;
-            break;            
-        }
- 
-        case AST_DECLARATION_FUNCTION_INT: {
-            fprintf(stderr, "AST_DECLARATION_FUNCTION_INT \n"); 
-            
-            char* args = astToCode(node->son[0],level);
-            char* body = astToCode(node->son[1],level);
-            
-            char* fn_name = node->symbol->text;
-            char* fn_declaration = (char*)calloc(7+ strlen(fn_name) + strlen(args) + strlen(body) +1, sizeof(char));            
-                        
-            sprintf(fn_declaration, "int %s(%s)%s", fn_name, args, body); 
-            
-            return fn_declaration;
             break;
-        }   
-        case AST_DECLARATION_FUNCTION_CHAR: {
-            fprintf(stderr, "AST_DECLARATION_FUNCTION_CHAR \n"); 
-            
-            char* args = astToCode(node->son[0],level);
-            char* body = astToCode(node->son[1],level);
+        } 
+        case AST_NOT: {
+            fprintf(stderr, "AST_NOT\n");            
 
-            char* fn_name = node->symbol->text;
-            char* fn_declaration = (char*)calloc(8 + strlen(fn_name) + strlen(args) + strlen(body) +1, sizeof(char));            
-                        
-            sprintf(fn_declaration, "char %s(%s)%s", fn_name, args, body); 
-            
-            return fn_declaration;
-            break;
-        }     
-        case AST_DECLARATION_FUNCTION_FLOAT: {
-            fprintf(stderr, "AST_DECLARATION_FUNCTION_FLOAT \n"); 
-            
-            char* args = astToCode(node->son[0],level);
-            char* body = astToCode(node->son[1],level);
-
-            char* fn_declaration = (char*)calloc(9 + strlen(node->symbol->text) + strlen(args) + strlen(body) +1, sizeof(char));            
-            char* fn_name = node->symbol->text;
-            
-            sprintf(fn_declaration, "float %s(%s)%s", fn_name, args, body); 
-            
-            return fn_declaration;
-            break;
-        }   
-        
-        case AST_DECLARATION_FUNCTION_ARGS_OR_EMPTY: {
-            fprintf(stderr, "AST_DECLARATION_FUNCTION_ARGS_OR_EMPTY\n");
-            
-            char* args = astToCode(node->son[0],level);
-            return args;
-
-            break;
-        }   
-        case AST_DECLARATION_FUNCTION_ARGS_INT: {
-            fprintf(stderr, "AST_DECLARATION_FUNCTION_ARGS_INT\n");
-            
-            char* fn_args_rest = astToCode(node->son[0],level);
-            
-            char* fn_args = (char*)calloc(4 + strlen(node->symbol->text) + strlen(fn_args_rest) +1, sizeof(char));
-            
-            if (fn_args_rest[0] != '\0') {                
-                sprintf(fn_args, "int %s, %s", node->symbol->text, fn_args_rest); 
-            } else {                
-                sprintf(fn_args, "int %s", node->symbol->text); 
-            }
-                        
-            return fn_args;            
-            break;
-        }   
-        case AST_DECLARATION_FUNCTION_ARGS_CHAR: {
-            fprintf(stderr, "AST_DECLARATION_FUNCTION_ARGS_CHAR\n");
-            
-            char* fn_args_rest = astToCode(node->son[0],level);
-            
-            char* fn_args = (char*)calloc(5 + strlen(node->symbol->text) + strlen(fn_args_rest) +1, sizeof(char));
-            
-            if (fn_args_rest[0] != '\0') {                
-                sprintf(fn_args, "char %s, %s", node->symbol->text, fn_args_rest); 
-            } else {                
-                sprintf(fn_args, "char %s", node->symbol->text); 
-            }
-                        
-            return fn_args;            
-            break;
-        }   
-        case AST_DECLARATION_FUNCTION_ARGS_FLOAT: {
-            fprintf(stderr, "AST_DECLARATION_FUNCTION_ARGS_FLOAT\n");
-            
-            char* fn_args_rest = astToCode(node->son[0],level);
-            
-            char* fn_args = (char*)calloc(6 + strlen(node->symbol->text) + strlen(fn_args_rest) +1, sizeof(char));
-            
-            if (fn_args_rest[0] != '\0') {                
-                sprintf(fn_args, "float %s, %s", node->symbol->text, fn_args_rest); 
-            } else {                
-                sprintf(fn_args, "float %s", node->symbol->text); 
-            }
-                        
-            return fn_args;            
-            break;
-        }   
-        
-        case AST_DECLARATION_FUNCTION_BODY: {
-            fprintf(stderr, "AST_DECLARATION_FUNCTION_BODY\n");
-            char* body = astToCode(node->son[0],level);      
-            
-            char* buffer = (char*)calloc(strlen(body) + 1, sizeof(char));
-            sprintf(buffer, "%s", body);
+            char* expression = astToCode(node->son[1],level);
+            char* buffer = (char*)calloc(1 + strlen(expression), sizeof(char));
+            sprintf(buffer, "~%s", expression);
 
             return buffer;
             break;
-        }   
-        case AST_FUNCTION_CALL: {
-            fprintf(stderr, "AST_FUNCTION_CALL\n");
-            char* name = node->symbol->text;      
-            char* args = astToCode(node->son[0],level);      
-            
-            char* buffer = (char*)calloc(2 + strlen(name) + strlen(args) + 1, sizeof(char));
-            sprintf(buffer, "%s(%s)", name, args);
-
-            return buffer;
-            break;
-        }   
-        case AST_FUNCTION_CALL_ARGS: {
-            fprintf(stderr, "AST_FUNCTION_CALL_ARGS\n");
-            char* args = astToCode(node->son[0],level);      
-            char* args_rest = astToCode(node->son[1],level);      
-            
-            char* buffer = (char*)calloc(2 + strlen(args) + strlen(args_rest) + 1, sizeof(char));
-            if(args_rest[0] != '\0')
-                sprintf(buffer, "%s, %s", args, args_rest);
-            else 
-                sprintf(buffer, "%s", args);
-
-            return buffer;
-            break;
-        }   
-        
-        case AST_DECLARATION_GLOBAL_INT: {
-            fprintf(stderr, "AST_DECLARATION_GLOBAL_INT \n");    
-
-            char* name = node->symbol->text;         
-            char* value = astToCode(node->son[0], level);         
-
-            char* declaration_global = (char*)calloc(7 + strlen(name) + strlen(value) +1, sizeof(char));            
-
-            sprintf(declaration_global, "int %s: %s;", name, value); 
-
-            return declaration_global;
-            break;            
         }
-        case AST_DECLARATION_GLOBAL_CHAR: {
-            fprintf(stderr, "AST_DECLARATION_GLOBAL_CHAR \n");    
-
-            char* name = node->symbol->text;         
-            char* value = astToCode(node->son[0], level);         
-
-            char* declaration_global = (char*)calloc(8 + strlen(name) + strlen(value) +1, sizeof(char));            
-
-            sprintf(declaration_global, "char %s: %s;", name, value); 
-
-            return declaration_global;
-            break;            
-        }
-        case AST_DECLARATION_GLOBAL_FLOAT: {
-            fprintf(stderr, "AST_DECLARATION_GLOBAL_FLOAT \n");    
-
-            char* name = node->symbol->text;         
-            char* value1 = astToCode(node->son[0], level);         
-            char* value2 = astToCode(node->son[1], level);         
-
-            char* declaration_global = (char*)calloc(9 + strlen(name) + strlen(value1) + strlen(value2) +1, sizeof(char));            
-
-            sprintf(declaration_global, "float %s: %s/%s;", name, value1, value2); 
-
-            return declaration_global;
-            break;            
-        }
-        
-        case AST_DECLARATION_GLOBAL_ARRAY_INT: {
-            fprintf(stderr, "AST_DECLARATION_GLOBAL_ARRAY_INT \n");    
-
-            char* name = node->symbol->text;         
-            char* size = astToCode(node->son[0], level);      
-
-            char* values = astToCode(node->son[1], level);      
-            fprintf(stderr, "values: %s\n", values);
-
-            char* declaration_global = (char*)calloc(9 + strlen(name) + strlen(size) + strlen(values) +1, sizeof(char));            
-
-            if (values[0] != '\0')
-                sprintf(declaration_global, "int %s[%s]: %s;", name, size, values); 
-            else 
-                sprintf(declaration_global, "int %s[%s];", name, size); 
-
-
-            return declaration_global;
-            break;            
-        }
-        case AST_DECLARATION_GLOBAL_ARRAY_CHAR: {
-            fprintf(stderr, "AST_DECLARATION_GLOBAL_ARRAY_CHAR \n");    
-
-            char* name = node->symbol->text;         
-            char* size = astToCode(node->son[0], level);      
-
-            char* values = astToCode(node->son[1], level);      
-            fprintf(stderr, "values: %s\n", values);
-
-            char* declaration_global = (char*)calloc(9 + strlen(name) + strlen(size) + strlen(values) +1, sizeof(char));            
-
-            if (values[0] != '\0')
-                sprintf(declaration_global, "char %s[%s]: %s;", name, size, values); 
-            else 
-                sprintf(declaration_global, "char %s[%s];", name, size); 
-
-
-            return declaration_global;
-            break;            
-        }
-        case AST_DECLARATION_GLOBAL_ARRAY_FLOAT: {
-            fprintf(stderr, "AST_DECLARATION_GLOBAL_ARRAY_FLOAT \n");    
-
-            char* name = node->symbol->text;         
-            char* size = astToCode(node->son[0], level);      
-
-            char* declaration_global = (char*)calloc(9 + strlen(name) + strlen(size) +1, sizeof(char));           
-            
-            sprintf(declaration_global, "float %s[%s];", name, size); 
-
-            return declaration_global;
-            break;            
-        }
-
-        case AST_ARRAY_VAL: {
-            fprintf(stderr, "AST_ARRAY_VAL\n");
-            
-            char* arr_val = node->symbol->text;
-            char* arr_val_rest = astToCode(node->son[0],level);
-            
-            char* buffer = (char*)calloc(1 + strlen(arr_val) + strlen(arr_val_rest) +1, sizeof(char));
-            
-            if (arr_val_rest[0] != '\0') {                
-                sprintf(buffer, "%s %s", arr_val, arr_val_rest); 
-            } else {                
-                sprintf(buffer, "%s", arr_val); 
-            }
-                        
-            return buffer;            
-            break;
-        }   
-        case AST_ARRAY_ATTRIBUITION: {
-            fprintf(stderr, "AST_ARRAY_ATTRIBUITION\n");
-            
-            char* arrayElement = astToCode(node->son[0],level);
-            char* value = astToCode(node->son[1],level);
-
-            char* attribuition = (char*)calloc(1 + strlen(arrayElement) + strlen(value) + 1, sizeof(char));
-            sprintf(attribuition, "%s=%s", arrayElement, value);
-            
-            return attribuition;            
-            break;
-        }
-        case AST_ARRAY_ELEMENT: {
-            fprintf(stderr, "AST_ARRAY_ELEMENT\n");
-            
-            char* varName = node->symbol->text;
-            char* value = astToCode(node->son[0],level);
-
-            char* buffer = (char*)calloc(1 + strlen(varName) + strlen(value) + 1, sizeof(char));
-            sprintf(buffer, "%s[%s]", varName, value);
-            
-            return buffer;            
-            break;
-        }        
-        
         
         
         

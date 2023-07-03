@@ -33,7 +33,6 @@
 %token KW_OUTPUT    
 %token KW_RETURN    
 
-// ADIOCIONAR DEMAIS OPERAÇÕES
 
 %token<symbol> OPERATOR_LE  
 %token<symbol> OPERATOR_GE  
@@ -43,12 +42,11 @@
 %token<symbol> OPERATOR_SUB
 %token<symbol> OPERATOR_MULT
 %token<symbol> OPERATOR_DIV
-%token<symbol> OPERATOR_BG
-%token<symbol> OPERATOR_SM
+%token<symbol> OPERATOR_GT
+%token<symbol> OPERATOR_LT
 
 
 %token<symbol> TK_IDENTIFIER
-
 %token<symbol> LIT_INT      
 %token<symbol> LIT_REAL     
 %token<symbol> LIT_CHAR     
@@ -102,18 +100,19 @@ element: func       {$$ = astCreate(AST_ELEMENT,0,$1,0,0,0)}
        | global_var {$$ = astCreate(AST_ELEMENT,0,$1,0,0,0)}
        ;
 
-global_var: type TK_IDENTIFIER '=' expression ';'        {$$ = astCreate(AST_GLOBAL_VAR,0,$1,0,0,0)}
-          | type TK_IDENTIFIER '[' LIT_INT ']' ';'       {$$ = astCreate(AST_GLOBAL_VAR,$4,$1,0,0,0)}
-          | type TK_IDENTIFIER '[' LIT_INT ']' array ';' {$$ = astCreate(AST_GLOBAL_VAR,$4,$1,0,0,0)}
+global_var: type TK_IDENTIFIER '=' expression ';'        {$$ = astCreate(AST_GLOBAL_VAR,0,$1,$4,0,0)}
+          | type TK_IDENTIFIER '[' LIT_INT ']' ';'       {AST* lit_arr_size = astCreate(AST_SYMBOL, $4, 0,0,0,0); $$ = astCreate(AST_GLOBAL_VAR_ARRAY,$4,$1,lit_arr_size,0,0)}
+          | type TK_IDENTIFIER '[' LIT_INT ']' array ';' {AST* lit_arr_size = astCreate(AST_SYMBOL, $4, 0,0,0,0); $$ = astCreate(AST_GLOBAL_VAR_ARRAY,$4,$1,lit_arr_size,$6,0)}
           ;
 
 // vericar a questão de separação por espaço os valores do array
 array: value array {$$ = astCreate(AST_ARRAY, 0, $1,$2,0,0);}
-     | value       {$$ = astCreate(AST_ARRAY, 0, $1,0,0,0);}
-     ;    
-value: LIT_INT      {$$ = astCreate(AST_VALUE, $1, 0,0,0,0);}
-     | LIT_REAL     {$$ = astCreate(AST_VALUE, $1, 0,0,0,0);}
-     | LIT_CHAR     {$$ = astCreate(AST_VALUE, $1, 0,0,0,0);}
+     | value       {$$ = $1;}//{$$ = astCreate(AST_ARRAY, 0, $1,0,0,0);}
+     ;
+
+value: LIT_INT      {$$ = astCreate(AST_SYMBOL, $1, 0,0,0,0);}
+     | LIT_REAL     {$$ = astCreate(AST_SYMBOL, $1, 0,0,0,0);}
+     | LIT_CHAR     {$$ = astCreate(AST_SYMBOL, $1, 0,0,0,0);}
      ;
 
 //############## 
@@ -121,23 +120,28 @@ value: LIT_INT      {$$ = astCreate(AST_VALUE, $1, 0,0,0,0);}
 //##############
 func: header command;   {$$ = astCreate(AST_FUNC,0,$1,$2,0,0);}
 //body: block;
-header: type TK_IDENTIFIER '(' list_params ')' ; 
+header: type TK_IDENTIFIER '(' list_params ')'      {$$ = astCreate(AST_HEADER,$2,$1,$4,0,0);}
+      ; 
 type: KW_INT  {$$ = astCreate(AST_KW_INT,0,0,0,0,0);}
     | KW_REAL {$$ = astCreate(AST_KW_REAL,0,0,0,0,0);}
     | KW_CHAR {$$ = astCreate(AST_KW_CHAR,0,0,0,0,0);}
     | KW_BOOL {$$ = astCreate(AST_KW_BOOL,0,0,0,0,0);}
     ; 
-list_params: params {$$ = astCreate(AST_LIST_PARAMS,0,$1,0,0,0);}
+list_params: params {$$ = $1;}//{$$ = astCreate(AST_LIST_PARAMS,0,$1,0,0,0);}
            |        {$$ = 0;}
            ;
 params: param ',' params {$$ = astCreate(AST_PARAMS,0,$1,$3,0,0);}
-      | param            {$$ = astCreate(AST_PARAM,0,$1,0,0,0);}
+      | param            {$$ = $1;}//{$$ = astCreate(AST_PARAM,0,$1,0,0,0);}
       ; 
 param: type TK_IDENTIFIER ; {$$ = astCreate(AST_PARAM,$2,$1,0,0,0);}
 
 // CHAMANDO AS FUNÇÕES
-func_call: TK_IDENTIFIER '(' list_args ')' ;
-list_args: expression | expression ',' list_args ;
+func_call: TK_IDENTIFIER '(' list_args ')'  {$$ = astCreate(AST_FUNC_CALL,$1,$3,0,0,0);}
+         ;
+
+list_args: expression                {$$ = $1;}
+         | expression ',' list_args  {$$ = astCreate(AST_LIST_ARGS, 0,$1,$3,0,0);}
+         ;
 
 
 //############## 
@@ -153,19 +157,25 @@ command: attr           {$$ = $1;}
        | ';'            {$$ = 0;}
        | global_var     {$$ = $1;}
        ; 
-block: '{' command_list '}' 
+
+block: '{' command_list '}' {$$ = astCreate(AST_BLOCK,0,$2,0,0,0);}
      | '{' '}'
      ;
-command_list: command  command_list
-            | command ;
+command_list: command  command_list  {$$ = astCreate(AST_COMMAND_LIST, 0, $1, $2, 0, 0);}
+            | command                {$$ = $1;} //{$$ = astCreate(AST_COMMAND_LIST, 0, $1, 0, 0, 0);}
+            ;
 
 //########################
 //    COMANDO OUTPUT
 //########################
-output: KW_OUTPUT list_elements ';' ;
-list_elements: el ',' list_elements | el ;
-el: expression | LIT_STRING ;
-// string: LIT_STRING ;  talvez remover 
+output: KW_OUTPUT list_elements ';'  {$$ = astCreate(AST_OUTPUT, 0, $2, 0, 0, 0);}
+      ;
+list_elements: el ',' list_elements  {$$ = astCreate(AST_LIST_ELEMENTS, 0, $1, $3, 0, 0);}
+             | el                    { $$ = $1; }
+             ;
+el: expression                       { $$ = $1; }
+  | LIT_STRING                       {$$ = astCreate(AST_SYMBOL, $1, 0, 0, 0, 0);}
+  ;
 
 return: KW_RETURN expression ';' {$$ = astCreate(AST_RETURN,0,$2,0,0,0);}
       ; 
@@ -190,8 +200,8 @@ expression:
           | expression '-' expression               {$$ = astCreate(AST_SUB,0,$1,$3,0,0);}
           | expression '*' expression               {$$ = astCreate(AST_MULT,0,$1,$3,0,0);}
           | expression '/' expression               {$$ = astCreate(AST_DIV,0,$1,$3,0,0);}
-          | expression '>' expression               {$$ = astCreate(AST_BG,0,$1,$3,0,0);}
-          | expression '<' expression               {$$ = astCreate(AST_SM,0,$1,$3,0,0);}
+          | expression '>' expression               {$$ = astCreate(AST_GT,0,$1,$3,0,0);}
+          | expression '<' expression               {$$ = astCreate(AST_LT,0,$1,$3,0,0);}
           | expression OPERATOR_LE expression       {$$ = astCreate(AST_LE,0,$1,$3,0,0);}
           | expression OPERATOR_GE expression       {$$ = astCreate(AST_GE,0,$1,$3,0,0);}
           | expression OPERATOR_EQ expression       {$$ = astCreate(AST_EQ,0,$1,$3,0,0);}
@@ -199,14 +209,14 @@ expression:
           | expression '&' expression               {$$ = astCreate(AST_AND,0,$1,$3,0,0);}
           | expression '|' expression               {$$ = astCreate(AST_OR,0,$1,$3,0,0);}
           | '~' expression                          {$$ = astCreate(AST_NOT,0,$2,0,0,0);}
-          | '(' expression ')'                      {$$ = astCreate(AST_EXPRESSION_BLOCK,0,$2,0,0,0);}
+          | '(' expression ')'                      {$$ = $2} //{$$ = astCreate(AST_EXPRESSION_BLOCK,0,$2,0,0,0);} 
           | TK_IDENTIFIER                           {$$ = astCreate(AST_SYMBOL, $1, 0,0,0,0);}
           | func_call                               { $$ = $1;}
           | array_element                           { $$ = $1;}
           | input                                   { $$ = $1;}
           ;
 
-array_element: TK_IDENTIFIER '[' expression ']' ;
+array_element: TK_IDENTIFIER '[' expression ']' ;   {$$ = astCreate(AST_ARRAY_ELEMENT,$1,$3,0,0,0);}
           
 %%
 

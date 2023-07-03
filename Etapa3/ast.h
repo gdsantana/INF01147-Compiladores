@@ -10,16 +10,15 @@
 
 */
 
-#ifndef ASH_HEADER
-#define ASH_HEADER
-
+#ifndef ASH_PROGRAM
 #define MAX_SONS 4
 
-
+#define AST_SYMBOL
 #define AST_PROGRAM 
 #define AST_LIST 
 #define AST_ELEMENT 
 #define AST_GLOBAL_VAR
+#define AST_GLOBAL_VAR_ARRAY
 #define AST_ARRAY
 #define AST_VALUE
 #define AST_FUNC
@@ -45,6 +44,7 @@
 #define AST_FLUX_CONTROL
 #define AST_EXPRESSION
 #define AST_ARRAY_ELEMENT
+#define AST_BLOCK
 
 #define AST_KW_INT
 #define AST_KW_REAL
@@ -55,8 +55,8 @@
 #define AST_SUB
 #define AST_MULT
 #define AST_DIV
-#define AST_BG
-#define AST_SM
+#define AST_GT
+#define AST_LT
 #define AST_LE
 #define AST_GE
 #define AST_EQ
@@ -65,7 +65,8 @@
 #define AST_OR
 #define AST_NOT
 #define AST_EXPRESSION_BLOCK
-#define AST_SYMBOL
+#define AST_IF
+#define AST_LOOP
 
 
 typedef struct astnode
