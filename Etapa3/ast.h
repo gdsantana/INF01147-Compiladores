@@ -1,72 +1,68 @@
-// AST
+
 
 #include <stdio.h>
 #include <stdlib.h>
 #include "hash.h"
 
-/* 
-    TROCAR ESSES DEFINE PELO VALOR
-    CORRETO DE ACORDO COM A DEFINIÇÃO
-
-*/
-
-#ifndef ASH_PROGRAM
+#ifndef ASH_TESTE
+#define ASH_TESTE
 #define MAX_SONS 4
 
-#define AST_SYMBOL
-#define AST_PROGRAM 
-#define AST_LIST 
-#define AST_ELEMENT 
-#define AST_GLOBAL_VAR
-#define AST_GLOBAL_VAR_ARRAY
-#define AST_ARRAY
-#define AST_VALUE
-#define AST_FUNC
-#define AST_HEADER
-#define AST_TYPE
-#define AST_LIST_PARAMS
-#define AST_PARAMS
-#define AST_PARAM
-#define AST_FUNC_CALL
-#define AST_LIST_ARGS
-#define AST_COMMAND
-#define AST_COMMAND_LIST
-#define AST_BLOCK
-#define AST_OUTPUT
-#define AST_LIST_ELEMENTS
-#define AST_EL
-#define AST_RETURN
-#define AST_INPUT
-#define AST_ATTR
-#define AST_ATTR_ARRAY
-#define AST_ATTR_INPUT
-#define AST_ATTR_ARRAY_INPUT
-#define AST_FLUX_CONTROL
-#define AST_EXPRESSION
-#define AST_ARRAY_ELEMENT
-#define AST_BLOCK
+#define AST_SYMBOL 1
+#define AST_PROGRAM 2
+#define AST_LIST 3
+#define AST_ELEMENT 4
+#define AST_GLOBAL_VAR 5
+#define AST_GLOBAL_VAR_ARRAY 6
+#define AST_ARRAY 7
+#define AST_VALUE 8
+#define AST_FUNC 9
+#define AST_HEADER 10
+#define AST_TYPE 11
+#define AST_LIST_PARAMS 12
+#define AST_PARAMS 13
+#define AST_PARAM 14
+#define AST_FUNC_CALL 15
+#define AST_LIST_ARGS 16
+#define AST_COMMAND 17
+#define AST_COMMAND_LIST 18
+#define AST_BLOCK 19
+#define AST_OUTPUT 20
+#define AST_LIST_ELEMENTS 21
+#define AST_EL 22
+#define AST_RETURN 23
+#define AST_INPUT 24
+#define AST_ATTR 25
+#define AST_ATTR_ARRAY 26
+#define AST_ATTR_INPUT 27
+#define AST_ATTR_ARRAY_INPUT 28
+#define AST_FLUX_CONTROL 29
+#define AST_EXPRESSION 30
+#define AST_ARRAY_ELEMENT 31
 
-#define AST_KW_INT
-#define AST_KW_REAL
-#define AST_KW_CHAR
-#define AST_KW_BOOL
+#define AST_KW_INT 33
+#define AST_KW_REAL 34
+#define AST_KW_CHAR 35
+#define AST_KW_BOOL 36
 
-#define AST_ADD
-#define AST_SUB
-#define AST_MULT
-#define AST_DIV
-#define AST_GT
-#define AST_LT
-#define AST_LE
-#define AST_GE
-#define AST_EQ
-#define AST_DIF
-#define AST_AND
-#define AST_OR
-#define AST_NOT
-#define AST_EXPRESSION_BLOCK
-#define AST_IF
-#define AST_LOOP
+#define AST_ADD 37
+#define AST_SUB 38
+#define AST_MULT 39
+#define AST_DIV 40
+#define AST_GT 41
+#define AST_LT 42
+#define AST_LE 43
+#define AST_GE 44
+#define AST_EQ 45
+#define AST_DIF 46
+#define AST_AND 47
+#define AST_OR 48
+#define AST_NOT 49
+#define AST_EXPRESSION_BLOCK 50
+#define AST_IF 51
+#define AST_LOOP 52
+#define ASSIGN 53
+
 
 
 typedef struct astnode
@@ -77,11 +73,11 @@ typedef struct astnode
 } AST;
 
 
-AST *astCreate(int type, HASH_NODE *symbol, AST* ST* s1, AST* s2, AST* s3);
-void astPrint(AST *node, int level);
-char* testtt();
+AST *astCreate(int type, HASH_NODE *symbol, AST* s0, AST* s1, AST* s2, AST* s3);
+void astPrint(AST* node, int level);
+char* astTypeName(int type);
 char* astToCode(AST *node, int level);
-
+char *typeToString(int type);
 #endif
 
 // EOF

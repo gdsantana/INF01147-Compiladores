@@ -1,5 +1,6 @@
-#ifndef HASH_HEADER
-#define HASH_HEADER
+
+#ifndef HASH_teste
+#define HASH_teste
 
 
 #define HASH_SIZE 997

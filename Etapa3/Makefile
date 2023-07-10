@@ -1,11 +1,23 @@
+etapa3: lex.yy.o main.o hash.o ast.o y.tab
+	gcc -o etapa3 -g y.tab.c lex.yy.o main.o hash.o ast.o
 
+main.o: main.c
+	gcc -c -g main.c
 
-etapa2: yacc lex
-	gcc -o etapa2 lex.yy.c
-yacc:
-	yacc -d parser.y 
-lex: scanner.l
-	lex scanner.l
+ast.o: ast.c
+	gcc -c -g ast.c
+
+hash.o: hash.c
+	gcc -c -g hash.c
+
+lex.yy.o: lex.yy.c
+	gcc -c -g lex.yy.c
+
+lex.yy.c: scanner.l y.tab
+	flex --header-file=lex.yy.h scanner.l
+
+y.tab: parser.y
+	yacc -d parser.y
 
 clean:
-	rm lex.yy.c etapa2 y.tab.c y.tab.h
+	rm lex.yy.* y.tab.* *.o etapa3 output.txt

@@ -1,9 +1,9 @@
 
 %{
-
-#include "y.tab.h"
 #include "hash.h"
 #include "ast.h"
+#include "y.tab.h"
+
 
 int lineNumber = 1;
 int isrunning = 1;
@@ -46,11 +46,10 @@ int getLineNumber(void);
 "*"    { yylval.symbol = hashInsert(yytext, OPERATOR_MULT); return OPERATOR_MULT; }
 "/"    { yylval.symbol = hashInsert(yytext, OPERATOR_DIV); return OPERATOR_DIV; }
 
-
-[,;:\(\)\[\]{}=] { return yytext[0]; }
+[=,;:\(\)\[\]{}|&~] {return yytext[0];  }
 
 [0-9]+            { yylval.symbol = hashInsert(yytext, LIT_INT); return LIT_INT; }
-[0-9].[0-9]+      { yylval.symbol = hashInsert(yytext, LIT_INT); return LIT_REAL; }
+[0-9].[0-9]+      { yylval.symbol = hashInsert(yytext, LIT_REAL); return LIT_REAL; }
 \'[-+*,;:\(\)\[\]{}/<>=a-zA-Z0-9]\'   { yylval.symbol = hashInsert(yytext, LIT_CHAR); return LIT_CHAR; }      
 [._a-zA-Z]*       { yylval.symbol = hashInsert(yytext, TK_IDENTIFIER); return TK_IDENTIFIER;}
 
@@ -91,12 +90,6 @@ int getLineNumber(void);
 <MULTI_COMMENT>"///" { BEGIN(INITIAL) ;}
 
 %%
-
-
-
-#include "y.tab.c"
-#include "main.c"
-#include "hash.c"
 
 int isRunning(void) {
   return isrunning;
