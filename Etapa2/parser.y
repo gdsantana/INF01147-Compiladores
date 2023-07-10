@@ -33,8 +33,8 @@
 //    DECLARÇÃO GERAL DE UM PROGRAMA
 //#####################################
 
-program: list | ;
-list: element list | ;
+program: list ;
+list: element list | element;
 element: func | global_var ;
 
 global_var: type TK_IDENTIFIER '=' expression ';' 
@@ -50,9 +50,9 @@ value: LIT_INT | LIT_REAL | LIT_CHAR ;
 //##############
 func: header command;
 //body: block;
-header: type TK_IDENTIFIER '(' list_params ')' ;
+header: type TK_IDENTIFIER '(' params ')' | type TK_IDENTIFIER '(' ')' ;
 type: KW_INT | KW_REAL | KW_CHAR | KW_BOOL ;
-list_params: params | ;
+//list_params: params ;
 params: param ',' params | param ; 
 param: type TK_IDENTIFIER ;
 
@@ -75,8 +75,7 @@ command_list: command  command_list
 //########################
 output: KW_OUTPUT list_elements ';' ;
 list_elements: el ',' list_elements | el ;
-el: expression | string ;
-string: LIT_STRING ; // talvez remover 
+el: expression | LIT_STRING ;
 
 return: KW_RETURN expression ';'; 
 input: KW_INPUT '(' type ')' ';';
