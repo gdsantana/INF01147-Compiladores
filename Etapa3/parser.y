@@ -225,6 +225,5 @@ AST* getRootNode() {
 
 void yyerror(const char *s) {
     fprintf(stderr, "Syntax error at line %d.", getLineNumber());
-    fprintf(stderr, "PEGA NO MEU PAU ");
     exit(3);
 }

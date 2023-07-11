@@ -33,6 +33,7 @@ int main(int argc, char** argv) {
   if (argc > 2) {
     AST* rootNode = getRootNode();
     astPrint(rootNode, 0);
+    
     fprintf(stderr, "=========================================== \n\n\n");
 
     char* code = astToCode(rootNode, 0);

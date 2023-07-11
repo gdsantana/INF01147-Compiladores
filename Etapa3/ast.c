@@ -123,9 +123,16 @@ char* astToCode(AST* node, int level) {
         }
         case AST_LIST: {
             fprintf(stderr, "AST_LIST \n"); 
-            char* prog = astToCode(node->son[0],level);
-            
-            return prog;
+            char* son1 = astToCode(node->son[0],level);
+            char* son2 = astToCode(node->son[1],level);
+
+            char* buffer = (char*)calloc(strlen(son1) + strlen(son2) +3 +1, sizeof(char));
+            if (son2[0] != '\0')
+                sprintf(buffer, "%s %s;\n", son1, son2); 
+            else 
+                sprintf(buffer, "%s;\n", son1); 
+
+            return buffer;
             break;
         }
         case AST_ELEMENT: {
@@ -142,7 +149,7 @@ char* astToCode(AST* node, int level) {
             char* value = astToCode(node->son[1],level);
             
             char* global_var = (char*)calloc(strlen(type) + strlen(name) + strlen(value) +3 +1, sizeof(char));
-            sprintf(global_var, "%s %s=%s;", type, name, value);
+            sprintf(global_var, "%s %s=%s;\n", type, name, value);
 
             return global_var;
             break;
@@ -151,16 +158,16 @@ char* astToCode(AST* node, int level) {
             fprintf(stderr, "AST_GLOBAL_VAR_ARRAY \n"); 
             char* name = node->symbol->text;
             char* type = typeToString(node->son[0]->type);
-            char* value = astToCode(node->son[1],level);
-            char* size = astToCode(node->son[2],level);
+            char* value = astToCode(node->son[2],level);
+            char* size = astToCode(node->son[1],level);
 
             
-            char* global_var = (char*)calloc(strlen(type) + strlen(name) + strlen(value) + strlen(size) +6 +1, sizeof(char));
+            char* global_var = (char*)calloc(strlen(type) + strlen(name) + strlen(value) + strlen(size) +6 +2, sizeof(char));
 
             if (value[0] != '\0')
-                sprintf(global_var, "%s %s [%s] %s;", type, name, size, value); 
+                sprintf(global_var, "%s %s [%s] %s;\n", type, name, size, value); 
             else 
-                sprintf(global_var, "%s %s [%s];", type, name, size); 
+                sprintf(global_var, "%s %s [%s];\n", type, name, size); 
 
             return global_var;
             break;
@@ -186,7 +193,7 @@ char* astToCode(AST* node, int level) {
             char * body = astToCode(node->son[1],level);
 
             char* func = (char*)calloc(strlen(header) + strlen(body) +1 +1, sizeof(char));
-            sprintf(func, "%s %s", header, body); 
+            sprintf(func, "%s %s\n", header, body); 
 
             return func;
             break;
@@ -237,9 +244,9 @@ char* astToCode(AST* node, int level) {
             
             char* buffer = (char*)calloc(strlen(name) + strlen(list_args) +3 + 1, sizeof(char));
             if (list_args[0] != '\0')
-                sprintf(buffer, "%s(%s);", name, list_args);
+                sprintf(buffer, "%s(%s)", name, list_args);
             else
-                sprintf(buffer, "%s();", name);
+                sprintf(buffer, "%s()", name);
 
             return buffer;
             break;
@@ -266,7 +273,7 @@ char* astToCode(AST* node, int level) {
             char* block = (char*)calloc(strlen(block_content) +4 + 1, sizeof(char));
             
             if(block_content[0] != '\0')
-                sprintf(block, "{\n%s\n}", block_content);
+                sprintf(block, "{\n%s\n}\n", block_content);
             else
                 sprintf(block,"{}");
 
@@ -284,7 +291,7 @@ char* astToCode(AST* node, int level) {
             if(command_list[0] != '\0')
                 sprintf(buffer, "%s %s", command, command_list);
             else
-                sprintf(buffer, "%s", command);
+                sprintf(buffer, "%s\n", command);
             return buffer;
             break;
         }   
@@ -293,7 +300,7 @@ char* astToCode(AST* node, int level) {
 
             char* list_elements = astToCode(node->son[0],level);
             char* buffer = (char*)calloc(strlen(list_elements) +8 + 1, sizeof(char));
-            sprintf(buffer, "output %s;", list_elements);
+            sprintf(buffer, "output %s;\n", list_elements);
 
             return buffer;
             break;
@@ -320,7 +327,7 @@ char* astToCode(AST* node, int level) {
             char* value = astToCode(node->son[0],level);
 
             char* buffer = (char*)calloc(strlen(value) + 8 + 1, sizeof(char));
-            sprintf(buffer, "return %s;", value);
+            sprintf(buffer, "return %s;\n", value);
             
             return buffer;            
             break;
@@ -342,7 +349,7 @@ char* astToCode(AST* node, int level) {
             char* value = astToCode(node->son[0],level);
 
             char* attr = (char*)calloc(strlen(name) + strlen(value) + 2 + 1, sizeof(char));
-            sprintf(attr, "%s=%s;", name, value);
+            sprintf(attr, "%s=%s;\n", name, value);
             
             return attr;            
             break;
@@ -354,7 +361,7 @@ char* astToCode(AST* node, int level) {
             char* value = astToCode(node->son[1],level);
 
             char* attr = (char*)calloc(strlen(arrayElement) + strlen(value)+2 + 1, sizeof(char));
-            sprintf(attr, "%s=%s;", arrayElement, value);
+            sprintf(attr, "%s=%s;\n", arrayElement, value);
             
             return attr;            
             break;
@@ -366,7 +373,7 @@ char* astToCode(AST* node, int level) {
             char* value = astToCode(node->son[0],level);
 
             char* attr = (char*)calloc(strlen(name) + strlen(value) + 1 + 1, sizeof(char));
-            sprintf(attr, "%s=%s", name, value);
+            sprintf(attr, "%s=%s\n", name, value);
             
             return attr;            
             break;

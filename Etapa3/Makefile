@@ -17,7 +17,7 @@ lex.yy.c: scanner.l y.tab
 	flex --header-file=lex.yy.h scanner.l
 
 y.tab: parser.y
-	yacc -d parser.y
+	yacc -d parser.y -Wall
 
 clean:
 	rm lex.yy.* y.tab.* *.o etapa3 output.txt
