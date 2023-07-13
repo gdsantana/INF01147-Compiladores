@@ -64,8 +64,8 @@ int getLineNumber(void);
 \"                { BEGIN(STRING); s = buffer; } 
 .                 {return TOKEN_ERROR;}
 
-<STRING>\\n       { *s++ = '\n'; } 
-<STRING>\\t       { *s++ = '\t'; } 
+<STRING>\\n       { *s++ = '\\'; *s++ = 'n'; } 
+<STRING>\\t       { *s++ = '\\'; *s++ = 't';} 
 <STRING>\\\"      { *s++ = '\"'; } 
 <STRING>\"        { 
                     *s = 0; 

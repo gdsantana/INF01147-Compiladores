@@ -128,9 +128,9 @@ char* astToCode(AST* node, int level) {
 
             char* buffer = (char*)calloc(strlen(son1) + strlen(son2) +3 +1, sizeof(char));
             if (son2[0] != '\0')
-                sprintf(buffer, "%s %s;\n", son1, son2); 
+                sprintf(buffer, "%s %s", son1, son2); 
             else 
-                sprintf(buffer, "%s;\n", son1); 
+                sprintf(buffer, "%s", son1); 
 
             return buffer;
             break;
@@ -270,10 +270,10 @@ char* astToCode(AST* node, int level) {
             fprintf(stderr, "AST_COMMAND_BLOCK\n");
             char* block_content = astToCode(node->son[0],level);
 
-            char* block = (char*)calloc(strlen(block_content) +4 + 1, sizeof(char));
+            char* block = (char*)calloc(strlen(block_content) +5 + 1, sizeof(char));
             
             if(block_content[0] != '\0')
-                sprintf(block, "{\n%s\n}\n", block_content);
+                sprintf(block, "\n{\n%s\n}\n", block_content);
             else
                 sprintf(block,"{}");
 
@@ -439,7 +439,7 @@ char* astToCode(AST* node, int level) {
 
             char* buffer = (char*)calloc(strlen(condition) + strlen(body) + 9 +1, sizeof(char));            
                         
-            sprintf(buffer, "if(%s) LOOP %s", condition, body); 
+            sprintf(buffer, "if(%s) loop %s", condition, body); 
             
             return buffer;
             break;            
