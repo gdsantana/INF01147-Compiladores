@@ -61,8 +61,20 @@
 #define AST_EXPRESSION_BLOCK 50
 #define AST_IF 51
 #define AST_LOOP 52
+
 #define ASSIGN 53
 
+#define DATATYPE_UNDEFINED       200
+#define DATATYPE_INT             201
+#define DATATYPE_CHAR            202
+#define DATATYPE_REAL            203
+#define DATATYPE_BOOL            204
+#define DATATYPE_STRING          205
+
+#define DATATYPE_ARRAY_INT       210
+#define DATATYPE_ARRAY_CHAR      211
+#define DATATYPE_ARRAY_REAL      212
+#define DATATYPE_ARRAY_BOOL      213
 
 
 typedef struct astnode

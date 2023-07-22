@@ -19,8 +19,10 @@
     HASH_NODE *symbol;
     AST *ast;
 }
-%token<symbol> SYMBOL_LABEL
 %token<symbol> SYMBOL_VARIABLE
+%token<symbol> SYMBOL_ARRAY
+%token<symbol> SYMBOL_FUNC
+%token<symbol> SYMBOL_FUNC_ARGS
 
 
 %token<symbol> KW_CHAR      

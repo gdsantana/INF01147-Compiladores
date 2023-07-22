@@ -51,7 +51,6 @@ char* astTypeName(int type) {
     case AST_ATTR_ARRAY:        return "AST_ATTR_ARRAY"; break;
     case AST_ATTR_INPUT:        return "AST_ATTR_INPUT"; break;
     case AST_ATTR_ARRAY_INPUT:  return "AST_ATTR_ARRAY_INPUT"; break;
-    case AST_FLUX_CONTROL:      return "AST_FLUX_CONTROL"; break;
     case AST_EXPRESSION:        return "AST_EXPRESSION"; break;
     case AST_EXPRESSION_BLOCK:  return "AST_EXPRESSION_BLOCK"; break;
     case AST_ADD:               return "AST_ADD"; break;
@@ -108,6 +107,9 @@ char* astToCode(AST* node, int level) {
                 case LIT_INT:
                 case LIT_REAL:
                 case LIT_CHAR:
+                case SYMBOL_VARIABLE:
+                case SYMBOL_FUNC:
+                case SYMBOL_ARRAY:
                 case TK_IDENTIFIER: sprintf(buffer, "%s", node->symbol->text); break;
                 case LIT_STRING: sprintf(buffer, "\"%s\"", node->symbol->text); break;
             }
