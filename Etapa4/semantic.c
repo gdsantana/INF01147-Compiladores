@@ -229,6 +229,7 @@ void check_output(AST* node){
     for (int i=0; i<MAX_SONS; ++i)
         check_print(node->son[i]);
 }
+
 void check_expressions(AST* node) {
     if(node == 0) return;
 
@@ -273,13 +274,11 @@ void check_expressions(AST* node) {
         check_expressions(node->son[i]);
 }
 
-void check_array_acess(AST* node) {
+void check_array_access(AST* node) {
     if (node==0) return;
 
     switch (node->type) {
-        case AST_ARRAY_ELEMENT:
-            //logBinaryExpression(node);
-
+        case AST_ATTR_ARRAY:
             if(!is_valid_array_index(node->son[0])) {
                 fprintf(stderr, "\nSemantic ERROR: [CHECK INDEX]: \n invalid array access index [%s] datatype [%d] for OP[%s] \n\n", node->son[0]->symbol->text, node->son[0]->symbol->datatype, node->symbol->text);
                 ++SemanticErrors;
@@ -409,6 +408,51 @@ int is_valid_array_index(AST* node){
        && node->symbol->type == SYMBOL_ARRAY
        && is_integer(node->son[0])
        && node->symbol->datavalue > node->son[0]->symbol->datavalue)
+        return 1;
+    return 0;
+}
+
+int isInteger(AST* node){
+    if(node->type == AST_EXPRESSION_BLOCK && isInteger(node->son[0])
+    ||isLiteral(node, DATATYPE_INT)
+    ||isLiteral(node, DATATYPE_CHAR) 
+    ||(isArithmeticOp(node)&& isInteger(node->son[0])&&isInteger(node->son[1]))
+    ||isArrayType(node, DATATYPE_ARRAY_INT)
+    ||isFuncCallType(node, DATATYPE_INT)
+    ||isVariableType(node, DATATYPE_INT))
+        return 1;
+    else
+        return 0;
+}
+int isLiteral(AST* node, int type) {
+    if(node->type == AST_SYMBOL && node->symbol->datatype == type)
+        return 1;
+    return 0;
+}
+int isVariableType(AST* node, int tyoe) {
+    if(node->symbol && node->symbol->type == SYMBOL_VARIABLE && node->type == AST_SYMBOL && node->symbol->datatype == type)
+        return 1;
+    return 0;
+}
+int isFuncCallType(AST* node, int type) {
+    if(node->symbol && node->symbol->type == SYMBOL_FUNC && node->symbol->datatype == type)
+        return 1;
+    return 0;
+}
+int isArrayType(AST* node, int type) {
+    if(node->symbol
+       && node->symbol->type == SYMBOL_VECTOR
+       && node->symbol->datatype == type)
+        return 1;
+    return 0;
+}
+int isArithmeticOp(AST* node, int type) {
+    if(node->symbol && (
+            node->symbol->type == OPERATOR_ADD
+            || node->symbol->type == OPERATOR_SUB
+            || node->symbol->type == OPERATOR_MULT
+            || node->symbol->type == OPERATOR_DIV)
+            )
         return 1;
     return 0;
 }
