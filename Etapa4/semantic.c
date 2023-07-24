@@ -53,7 +53,7 @@ void check_declarations(AST* node) {
     switch (node->type) {
         case AST_GLOBAL_VAR:
             if (node->symbol)
-                if (node->symbol->text != TK_IDENTIFIER) {
+                if (node->symbol->type != TK_IDENTIFIER) {
                         fprintf(stderr, "Semantic ERROR[VARIABLE]: %s already declared \n", node->symbol->text);
                         ++SemanticErrors;
                     }
@@ -453,7 +453,7 @@ int isNumber(AST* node) {
        || isLiteral(node, DATATYPE_INT)
        || isLiteral(node, DATATYPE_CHAR)
        || isLiteral(node, DATATYPE_REAL)
-       || (isArithmeticOp(node) && isNumber(node->son[0]) && isNumber(node->son[1]))
+       || (isArithmeticOp(node, DATATYPE_ARRAY_INT) && isNumber(node->son[0]) && isNumber(node->son[1]))
        || (isVariableType(node, DATATYPE_ARRAY_INT) && isValidArrayIndex(node))
        || isVariableType(node, DATATYPE_INT)
        || isFuncCallType(node, DATATYPE_INT)
@@ -465,7 +465,7 @@ int isInteger(AST* node){
     if(node->type == AST_EXPRESSION_BLOCK && isInteger(node->son[0])
     ||isLiteral(node, DATATYPE_INT)
     ||isLiteral(node, DATATYPE_CHAR) 
-    ||(isArithmeticOp(node)&& isInteger(node->son[0])&&isInteger(node->son[1]))
+    ||(isArithmeticOp(node, DATATYPE_ARRAY_INT)&& isInteger(node->son[0])&&isInteger(node->son[1]))
     ||isArrayType(node, DATATYPE_ARRAY_INT)
     ||isFuncCallType(node, DATATYPE_INT)
     ||isVariableType(node, DATATYPE_INT))

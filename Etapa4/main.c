@@ -38,8 +38,9 @@ int main(int argc, char **argv)
 
   AST *rootNode = getRootNode();
   char *code = astToCode(rootNode, 0);
-  int semanticErrors = check_all_semantics(rootNode);
 
+  astPrint(rootNode,0);
+  int semanticErrors = check_all_semantics(rootNode);
   if (semanticErrors > 0)
   {
     printf("\n\nCompilation Fail! Semantic errors count %d\n", semanticErrors);
