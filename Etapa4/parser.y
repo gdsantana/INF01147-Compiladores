@@ -23,6 +23,7 @@
 %token<symbol> SYMBOL_ARRAY
 %token<symbol> SYMBOL_FUNC
 %token<symbol> SYMBOL_FUNC_ARGS
+%token<symbol> SYMBOL_STRING
 
 
 %token<symbol> KW_CHAR      

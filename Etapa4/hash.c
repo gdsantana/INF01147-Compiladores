@@ -64,3 +64,11 @@ void hashPrint(void) {
         }
     }
 }
+
+HASH_NODE* getNode(int i) {
+    HASH_NODE* node; 
+    // first = Table[first_node];
+    node = Table[i];
+
+    return node;
+}
