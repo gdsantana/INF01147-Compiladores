@@ -39,7 +39,7 @@ int main(int argc, char **argv)
   AST *rootNode = getRootNode();
   char *code = astToCode(rootNode, 0);
 
-  astPrint(rootNode,0);
+  // astPrint(rootNode,0);
   int semanticErrors = check_all_semantics(rootNode);
   if (semanticErrors > 0)
   {

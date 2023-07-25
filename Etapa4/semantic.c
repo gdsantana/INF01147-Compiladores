@@ -7,25 +7,31 @@ int SemanticErrors = 0;
 int check_all_semantics(AST* startNode) {
     rootNode = startNode;
 
-    fprintf(stderr, "\n\nhash before Semantics\n\n");
-    hashPrint();
+    // fprintf(stderr, "\n\nhash before Semantics\n\n");
+    // hashPrint();
 
-    fprintf(stderr, "\n\nSemantics start \n\n");
+    fprintf(stderr, "\n\nSemantics start \n");
     check_declarations(rootNode);
+    fprintf(stderr, "###### Declarations: FINISH ###### \n");
 
-    fprintf(stderr, "\nhash after Semantics\n\n");
-    hashPrint();
-
-    check_undeclared();
+    // check_undeclared();
     check_attribuition(rootNode);
-    check_flux_control(rootNode);
-    check_func_call(rootNode); 
-    check_output(rootNode);
-    check_expressions(rootNode);
-    check_array_access(rootNode);
+    fprintf(stderr, "###### ATTRIBUITION: FINISH ###### \n");
+    // check_flux_control(rootNode);
+    // check_func_call(rootNode); 
+    // fprintf(stderr, "###### FUNC CALL: FINISH ###### \n");
     check_return(rootNode);
+    fprintf(stderr, "###### RETURN: FINISH ###### \n");
+    check_output(rootNode);
+    fprintf(stderr, "###### OUTPUT: FINISH ###### \n");
+    check_expressions(rootNode);
+    fprintf(stderr, "###### EXPRESSIONS: FINISH ###### \n");
+    // check_array_access(rootNode);
+    // fprintf(stderr, "###### ARRAY ACCESS: PASS ###### \n");
 
 
+    // fprintf(stderr, "\nhash after Semantics\n\n");
+    // hashPrint();
 
     return SemanticErrors;
 }
@@ -35,7 +41,7 @@ void check_undeclared() {
     HASH_NODE *node;
 
     int undeclered_errors = 0;
-
+    fprintf(stderr, "###### UNDECLARED: START ###### \n\n");
     for (int i=0; i<HASH_SIZE; i++){
         for (node=getNode(i); node; node=node->next) {
             if(node -> type == TK_IDENTIFIER) {
@@ -45,7 +51,7 @@ void check_undeclared() {
             }
         }
     }
-    printf("\n\n Undeclared semantic errors: %d \n\n", undeclered_errors);
+    fprintf(stderr,"\n\n Undeclared semantic errors: %d \n\n", undeclered_errors);
 }
 void check_declarations(AST* node) {
     if(node == 0) return;
@@ -194,24 +200,6 @@ void check_list_args(AST* func_call_node) {
 
     return;
 }
-int get_func_call_args_size(AST* node) {
-    if (node==0) return 0;
-
-    int size = 0;
-    AST* args_node;
-
-    if (node->type == AST_FUNC_CALL) {
-        if (node->son[0] != 0) {
-            args_node = node->son[0];
-            do {
-                size += 1;
-                args_node = args_node->son[1];
-            } while (args_node != 0);
-        }
-    }
-    return size;
-}
-
 int get_args_size(char* func_name, AST* node) {
     if (node==0) return -1;
 
@@ -241,6 +229,25 @@ int get_args_size(char* func_name, AST* node) {
             return returned_size;
     }
 }
+int get_func_call_args_size(AST* node) {
+    if (node==0) return 0;
+
+    int size = 0;
+    AST* args_node;
+
+    if (node->type == AST_FUNC_CALL) {
+        if (node->son[0] != 0) {
+            args_node = node->son[0];
+            do {
+                size += 1;
+                args_node = args_node->son[1];
+            } while (args_node != 0);
+        }
+    }
+    return size;
+}
+
+
 
 void check_output(AST* node){
     if (node==0) return;
@@ -366,31 +373,52 @@ int check_return_type(AST* node, int type, int errors) {
 void set_datatype(AST* node) {
     switch (node->type) {
         case AST_GLOBAL_VAR:
+            switch (node->son[0]->type)
+            {
+                case AST_KW_INT:
+                    node->symbol->dataType = DATATYPE_ARRAY_INT;
+                    node->symbol->dataValue = atoi(node->son[1]->symbol->text);
+                    break;
+                case AST_KW_CHAR:
+                    node->symbol->dataType = DATATYPE_ARRAY_INT;
+                    node->symbol->dataValue = atoi(node->son[1]->symbol->text); 
+                    break;
+                case AST_KW_REAL:
+                    node->symbol->dataType = DATATYPE_ARRAY_REAL;
+                    node->symbol->dataValue = atoi(node->son[1]->symbol->text); 
+                    break;
+                case AST_KW_BOOL:
+                    node->symbol->dataType = DATATYPE_ARRAY_BOOL;
+                    node->symbol->dataValue = atoi(node->son[1]->symbol->text); // TODO: validação de true or false
+                    break;
+                default:
+                    break;
+            }
         case AST_GLOBAL_VAR_ARRAY:
             switch (node->son[0]->type)
             {
                 case AST_KW_INT:
                     node->symbol->dataType = DATATYPE_ARRAY_INT;
-                    // node->symbol->dataValue = atoi(node->son[1]->symbol->text);
+                    node->symbol->dataValue = atoi(node->son[1]->symbol->text);
                     break;
                 case AST_KW_CHAR:
                     node->symbol->dataType = DATATYPE_ARRAY_INT;
-                    // node->symbol->dataValue = atoi(node->son[1]->symbol->text); 
+                    node->symbol->dataValue = atoi(node->son[1]->symbol->text); 
                     break;
                 case AST_KW_REAL:
                     node->symbol->dataType = DATATYPE_ARRAY_REAL;
-                    // node->symbol->dataValue = atoi(node->son[1]->symbol->text); 
+                    node->symbol->dataValue = atoi(node->son[1]->symbol->text); 
                     break;
                 case AST_KW_BOOL:
                     node->symbol->dataType = DATATYPE_ARRAY_BOOL;
-                    // node->symbol->dataValue = atoi(node->son[1]->symbol->text); // TODO: validação de true or false
+                    node->symbol->dataValue = atoi(node->son[1]->symbol->text); // TODO: validação de true or false
                     break;
                 default:
                     break;
             }
         case AST_FUNC:
             // func -> header -> tipo 
-            switch (node->son[0]->son[0]->type)
+            switch (node->son[0]->type)
             {
                 case AST_KW_INT:
                     node->symbol->dataType = DATATYPE_ARRAY_INT;
@@ -434,13 +462,14 @@ void set_datatype(AST* node) {
                 char *code = astToCode(node, 0);
                 fprintf(stderr, "WARNING UNDEFINED AST_SYMBOL: \t %s \n\n", code);
             }
-            break;
+        //     break;
         default: 
             break;
     }
 }
 
 int isValidArrayIndex(AST* node){
+    fprintf(stderr,"%d %d",node->symbol->dataValue, node->son[0]->symbol->dataValue);
     if(node->symbol
        && node->symbol->type == SYMBOL_ARRAY
        && isInteger(node->son[0])
