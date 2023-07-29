@@ -4,6 +4,7 @@
 #include "hash.h"
 #include "ast.h"
 #include "semantic.h"
+#include "tacs.h"
 
 extern FILE *yyin;
 
@@ -46,7 +47,8 @@ int main(int argc, char **argv)
   //   printf("\n\nCompilation Fail! Semantic errors count %d\n", semanticErrors);
   //   exit(4);
   // }
-
+    // astPrint(rootNode, 0);
+    tacPrintBackwards(tacGenerateCode(rootNode));
   if (argc > 2)
   { // write output
     FILE *fp;

@@ -60,6 +60,7 @@
 #define AST_NOT 49
 #define AST_EXPRESSION_BLOCK 50
 #define AST_IF 51
+#define AST_IF_ELSE 61
 #define AST_LOOP 52
 
 #define ASSIGN 53

@@ -416,7 +416,8 @@ char* astToCode(AST* node, int level) {
             break;
         }     
         
-        case AST_IF: {
+        case AST_IF:
+        case AST_IF_ELSE: {
             fprintf(stderr, "AST_IF \n");    
 
             char* condition = astToCode(node->son[0], level);         

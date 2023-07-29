@@ -72,3 +72,23 @@ HASH_NODE* getNode(int i) {
 
     return node;
 }
+
+HASH_NODE* makeTemp(){
+    static int serial = 0;
+
+    char buffer[256] = "";
+
+    sprintf(buffer, "_TMP-VAR_[%d]", serial++);
+
+    return hashInsert(buffer, SYMBOL_TEMP);
+}
+
+HASH_NODE* makeLabel(){
+    static int serial = 0;
+
+    char buffer[256] = "";
+
+    sprintf(buffer, "__LABEL[%d]", serial++);
+
+    return hashInsert(buffer, SYMBOL_LABEL);
+}

@@ -19,11 +19,11 @@
     HASH_NODE *symbol;
     AST *ast;
 }
-%token<symbol> SYMBOL_VARIABLE
+/* %token<symbol> SYMBOL_VARIABLE
 %token<symbol> SYMBOL_ARRAY
 %token<symbol> SYMBOL_FUNC
 %token<symbol> SYMBOL_FUNC_ARGS
-%token<symbol> SYMBOL_STRING
+%token<symbol> SYMBOL_STRING */
 
 
 %token<symbol> KW_CHAR      
@@ -197,7 +197,7 @@ array_element: TK_IDENTIFIER '[' expression ']'   {$$ = astCreate(AST_ARRAY_ELEM
 
 
 flux_control: KW_IF '(' expression ')' command                  {$$ = astCreate(AST_IF,0,$3,$5,0,0);}
-            | KW_IF '(' expression ')' command KW_ELSE command  {$$ = astCreate(AST_IF,0,$3,$5,$7,0);}
+            | KW_IF '(' expression ')' command KW_ELSE command  {$$ = astCreate(AST_IF_ELSE,0,$3,$5,$7,0);}
             | KW_IF '(' expression ')' KW_LOOP command          {$$ = astCreate(AST_LOOP,0,$3,$6,0,0);}
             ;
 
