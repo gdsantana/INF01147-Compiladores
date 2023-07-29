@@ -37,7 +37,7 @@ int main(int argc, char **argv)
   int i = yyparse();
 
   AST *rootNode = getRootNode();
-  char *code = astToCode(rootNode, 0);
+  // char *code = astToCode(rootNode, 0);
 
   // astPrint(rootNode,0);
   int semanticErrors = check_all_semantics(rootNode);
@@ -52,7 +52,7 @@ int main(int argc, char **argv)
     FILE *fp;
 
     fp = fopen(argv[2], "w+");
-    fputs(code, fp);
+    // fputs(code, fp);
     fclose(fp);
   }
 

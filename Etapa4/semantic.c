@@ -15,14 +15,17 @@ int check_all_semantics(AST* startNode) {
     fprintf(stderr, "###### Declarations: FINISH ###### \n");
 
     // check_undeclared();
+
     check_attribuition(rootNode);
     fprintf(stderr, "###### ATTRIBUITION: FINISH ###### \n");
-    // check_flux_control(rootNode);
+    check_flux_control(rootNode);
+    fprintf(stderr, "###### FLUX CONTROL: FINISH ###### \n");
+
     // check_func_call(rootNode); 
     // fprintf(stderr, "###### FUNC CALL: FINISH ###### \n");
-    check_return(rootNode);
-    fprintf(stderr, "###### RETURN: FINISH ###### \n");
-    check_output(rootNode);
+    // check_return(rootNode);
+    // fprintf(stderr, "###### RETURN: FINISH ###### \n");
+    // check_output(rootNode);
     fprintf(stderr, "###### OUTPUT: FINISH ###### \n");
     check_expressions(rootNode);
     fprintf(stderr, "###### EXPRESSIONS: FINISH ###### \n");
@@ -44,7 +47,7 @@ void check_undeclared() {
     fprintf(stderr, "###### UNDECLARED: START ###### \n\n");
     for (int i=0; i<HASH_SIZE; i++){
         for (node=getNode(i); node; node=node->next) {
-            if(node -> type == TK_IDENTIFIER) {
+            if(node->type == TK_IDENTIFIER) {
                 printf("\nSEMANTIC ERROR: symbol %s undeclared.\n", node->text);
                 ++SemanticErrors;
                 ++undeclered_errors;
@@ -503,6 +506,8 @@ int isInteger(AST* node){
         return 0;
 }
 int isLiteral(AST* node, int type) {
+    fprintf(stderr, "--------> LITERAL <--------- \n\n");
+
     if(node->type == AST_SYMBOL && node->symbol->dataType == type)
         return 1;
     return 0;
@@ -525,11 +530,11 @@ int isArrayType(AST* node, int type) {
     return 0;
 }
 int isArithmeticOp(AST* node, int type) {
-    if(node->symbol && (
-            node->symbol->type == OPERATOR_ADD
-            || node->symbol->type == OPERATOR_SUB
-            || node->symbol->type == OPERATOR_MULT
-            || node->symbol->type == OPERATOR_DIV)
+    if(node->type && (
+            node->type == AST_ADD
+            || node->type == AST_SUB
+            || node->type == AST_MULT
+            || node->type == AST_DIV)
             )
         return 1;
     return 0;
@@ -541,15 +546,19 @@ int isBoolean(AST* node) {
         return 1;
 }
 int isBooleanOp(AST* node) {
-    if(node->symbol && (
-            node->symbol->type == OPERATOR_LE
-            || node->symbol->type == OPERATOR_LT
-            || node->symbol->type == OPERATOR_GE
-            || node->symbol->type == OPERATOR_GT
-            || node->symbol->type == OPERATOR_EQ
-            || node->symbol->type == OPERATOR_DIF)
+    if(node->type && (
+            node->type == AST_LE
+            || node->type == AST_LT
+            || node->type == AST_GE
+            || node->type == AST_GT
+            || node->type == AST_EQ
+            || node->type == AST_DIF)
             )
-        return 1;
+            {
+                fprintf(stderr, "--------> IS BOOLEAN OP TRUE <--------- \n\n");
+                return 1;
+            }
+        
     return 0;
 }
 int is_expression_of_type(AST* node, int type){

@@ -1,17 +1,23 @@
-int a=1;
-char b='A';
-int c='C';
-bool teste=0;
+\\ UFRGS - Compiladores - Marcelo Johann - 2023/1
 
-int flu(int a){
-  return a;
-}
+char c='x';
+char d=100;
+int a.a='A';
+int i=1;
 
-int main(int d, char e) 
-{
-  d = 1 +2;
-  output a, b;
-  int v[3];
-  a = flu(a);
-  return a;
-}
+int main ()
+  {
+  a.a = 0;
+  d = d - i;
+  d = 5;
+  v[d] = 55;
+  output v[5];
+  output d;
+  i = 2;
+  if (i<10) loop
+    {
+    i = incn(i,1);   
+    d = incn(d,d);
+    }
+
+  }
