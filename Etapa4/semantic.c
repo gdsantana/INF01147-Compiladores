@@ -10,25 +10,38 @@ int check_all_semantics(AST* startNode) {
     // fprintf(stderr, "\n\nhash before Semantics\n\n");
     // hashPrint();
 
-    fprintf(stderr, "\n\nSemantics start \n");
+    fprintf(stderr, "\n\n -------------------------------------------\n");
+    fprintf(stderr, "\n\n -------------> SEMANTIC START <------------\n");
+    fprintf(stderr, "\n\n -------------------------------------------\n\n\n");
+
+    fprintf(stderr, "###### DECLARATION: START ###### \n");
     check_declarations(rootNode);
-    fprintf(stderr, "###### Declarations: FINISH ###### \n");
+    fprintf(stderr, "###### DECLARATION: FINISH ###### \n");
 
-    // check_undeclared();
+    fprintf(stderr, "###### UNDECLARED: START ###### \n");
+    check_undeclared();
+    fprintf(stderr, "###### UNDECLARED: FINISH ###### \n");
 
+
+    fprintf(stderr, "###### ATTRIBUITION: START ###### \n");
     check_attribuition(rootNode);
     fprintf(stderr, "###### ATTRIBUITION: FINISH ###### \n");
-    check_flux_control(rootNode);
-    fprintf(stderr, "###### FLUX CONTROL: FINISH ###### \n");
 
-    // check_func_call(rootNode); 
-    // fprintf(stderr, "###### FUNC CALL: FINISH ###### \n");
-    // check_return(rootNode);
-    // fprintf(stderr, "###### RETURN: FINISH ###### \n");
+    // fprintf(stderr, "###### FLUX CONTROL: START ###### \n");
+    // check_flux_control(rootNode);
+    // fprintf(stderr, "###### FLUX CONTROL: FINISH ###### \n");
+
+    fprintf(stderr, "###### FUNC CALL: START ###### \n");
+    check_func_call(rootNode); 
+    fprintf(stderr, "###### FUNC CALL: FINISH ###### \n");
+
+    fprintf(stderr, "###### RETURN: START ###### \n");
+    check_return(rootNode);
+    fprintf(stderr, "###### RETURN: FINISH ###### \n");
     // check_output(rootNode);
-    fprintf(stderr, "###### OUTPUT: FINISH ###### \n");
-    check_expressions(rootNode);
-    fprintf(stderr, "###### EXPRESSIONS: FINISH ###### \n");
+    // fprintf(stderr, "###### OUTPUT: FINISH ###### \n");
+    // check_expressions(rootNode);
+    // fprintf(stderr, "###### EXPRESSIONS: FINISH ###### \n");
     // check_array_access(rootNode);
     // fprintf(stderr, "###### ARRAY ACCESS: PASS ###### \n");
 
@@ -44,7 +57,6 @@ void check_undeclared() {
     HASH_NODE *node;
 
     int undeclered_errors = 0;
-    fprintf(stderr, "###### UNDECLARED: START ###### \n\n");
     for (int i=0; i<HASH_SIZE; i++){
         for (node=getNode(i); node; node=node->next) {
             if(node->type == TK_IDENTIFIER) {
@@ -54,9 +66,10 @@ void check_undeclared() {
             }
         }
     }
-    fprintf(stderr,"\n\n Undeclared semantic errors: %d \n\n", undeclered_errors);
+   if(undeclered_errors) fprintf(stderr,"\n\n Undeclared semantic errors: %d \n\n", undeclered_errors);
 }
 void check_declarations(AST* node) {
+
     if(node == 0) return;
 
     switch (node->type) {
@@ -71,7 +84,7 @@ void check_declarations(AST* node) {
                         set_datatype(node);
                     }
             break;
-        case AST_ATTR_ARRAY:
+        case AST_GLOBAL_VAR_ARRAY:
             if (node->symbol)
                 if(node->symbol->type != TK_IDENTIFIER) {
                     fprintf(stderr, "Semantic ERROR[ARRAY]: %s already declared \n", node->symbol->text);
@@ -88,16 +101,20 @@ void check_declarations(AST* node) {
                     ++SemanticErrors;
                 } else{
                     node->symbol->type = SYMBOL_FUNC_ARGS;
+                    fprintf(stderr,"[DECLARATIONS] ANTES DE SETAR DATATYPE DA FUNC\n\n");
                     set_datatype(node);
                 }
             break;
-        case AST_HEADER:
-            if (node->symbol)
-                if(node->symbol->type != TK_IDENTIFIER) {
+        case AST_FUNC:
+            fprintf(stderr,"AQUIIII\n");
+            fprintf(stderr,"[DECLARATION FUNC] %d", node->symbol->dataType);
+            if (node->son[0]->symbol)
+                if(node->son[0]->symbol->type != TK_IDENTIFIER) {
                     fprintf(stderr, "Semantic ERROR[FUNC]:  %s already declared \n", node->symbol->text);
                     ++SemanticErrors;
                 } else{
-                    node->symbol->type = SYMBOL_FUNC;
+                    node->type = SYMBOL_FUNC;
+                    fprintf(stderr,"[DECLARATIONS] ANTES DE SETAR DATATYPE DA FUNC\n\n");
                     set_datatype(node);
                 }
             break;
@@ -109,6 +126,7 @@ void check_declarations(AST* node) {
     }
     for (int i=0; i<MAX_SONS; i++)
         check_declarations(node->son[i]);
+
 }
 void check_attribuition(AST* node) {
     if(node == 0) return;
@@ -144,6 +162,7 @@ void check_attribuition(AST* node) {
     default:
         break;
     }
+    
 }
 
 void check_flux_control(AST* node) {
@@ -171,6 +190,7 @@ void check_flux_control(AST* node) {
 }
 
 void check_func_call(AST* node){
+
     if (node==0) return;
 
     switch (node->type) {
@@ -183,6 +203,7 @@ void check_func_call(AST* node){
     }
     for (int i=0; i<MAX_SONS; ++i)
         check_func_call(node->son[i]);
+
 }
 
 void check_list_args(AST* func_call_node) {
@@ -191,7 +212,6 @@ void check_list_args(AST* func_call_node) {
     if (func_call_node->type == AST_FUNC_CALL) {
         int args_size = get_args_size(func_call_node->symbol->text, rootNode);
         if (args_size < 0) args_size = 0;
-
         int args_size_call = get_func_call_args_size(func_call_node);
         if (args_size_call < 0) args_size = 0;
 
@@ -213,7 +233,7 @@ int get_args_size(char* func_name, AST* node) {
     switch (node->type){
         case AST_HEADER: {
             if (node->symbol->text == func_name) {
-                args_node = node->son[0]; 
+                args_node = node->son[1]; 
                 while (args_node && args_node->son[0] != 0) {
                     size += 1;
                     args_node = args_node->son[0];
@@ -344,6 +364,8 @@ void check_return(AST* node) {
 
     switch (node->type) {
         case AST_FUNC:
+            fprintf(stderr, "[CHECK RETURN] %d\n\n ", node->type);
+
             if(check_return_type(node->son[1], node->symbol->dataType, 0))
                 ++SemanticErrors;
             break;
@@ -355,6 +377,9 @@ void check_return(AST* node) {
         check_return(node->son[i]);
 }
 int check_return_type(AST* node, int type, int errors) {
+
+    fprintf(stderr, "------> [CHECK RETURN TYPE] NODE: %d<------- \n", node->type);
+
     if(node->type == AST_RETURN)
         if(!is_expression_of_type(node->son[0], type)){
             fprintf(stderr, "\nSemantic ERROR: [CHECK RETURN VALUE]: expected [%d] found [%d]\n\n", type, node->son[0]->symbol->dataType);
@@ -419,7 +444,9 @@ void set_datatype(AST* node) {
                 default:
                     break;
             }
+            break;
         case AST_FUNC:
+            fprintf(stderr,"[SET DATA TYPE]");
             // func -> header -> tipo 
             switch (node->son[0]->type)
             {
