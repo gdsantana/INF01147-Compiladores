@@ -35,15 +35,21 @@ int check_all_semantics(AST* startNode) {
     check_func_call(rootNode); 
     fprintf(stderr, "###### FUNC CALL: FINISH ###### \n");
 
-    fprintf(stderr, "###### RETURN: START ###### \n");
-    check_return(rootNode);
-    fprintf(stderr, "###### RETURN: FINISH ###### \n");
-    // check_output(rootNode);
-    // fprintf(stderr, "###### OUTPUT: FINISH ###### \n");
+    // fprintf(stderr, "###### RETURN: START ###### \n");
+    // check_return(rootNode);
+    // fprintf(stderr, "###### RETURN: FINISH ###### \n");
+
+    fprintf(stderr, "###### OUTPUT: START ###### \n");
+    check_output(rootNode);
+    fprintf(stderr, "###### OUTPUT: FINISH ###### \n");
+
+    // fprintf(stderr, "###### EXPRESSIONS: START ###### \n");
     // check_expressions(rootNode);
     // fprintf(stderr, "###### EXPRESSIONS: FINISH ###### \n");
-    // check_array_access(rootNode);
-    // fprintf(stderr, "###### ARRAY ACCESS: PASS ###### \n");
+
+    fprintf(stderr, "###### ARRAY ACCESS: START ###### \n");
+    check_array_access(rootNode);
+    fprintf(stderr, "###### ARRAY ACCESS: FINISH ###### \n");
 
 
     // fprintf(stderr, "\nhash after Semantics\n\n");
@@ -105,15 +111,26 @@ void check_declarations(AST* node) {
                     set_datatype(node);
                 }
             break;
-        case AST_FUNC:
-            fprintf(stderr,"AQUIIII\n");
-            fprintf(stderr,"[DECLARATION FUNC] %d", node->symbol->dataType);
-            if (node->son[0]->symbol)
-                if(node->son[0]->symbol->type != TK_IDENTIFIER) {
+        //  case AST_FUNC:
+        //     if (node->son[0]->symbol)
+        //         fprintf(stderr, "ENTROU \n");
+        //         if(node->son[0]->symbol->type != TK_IDENTIFIER) {
+        //             fprintf(stderr, "Semantic ERROR[FUNC]:  %s already declared \n", node->symbol->text);
+        //             ++SemanticErrors;
+        //         } else{
+        //             fprintf(stderr,"[DECLARATIONS] entrou no else\n\n");
+        //             node->symbol->type = SYMBOL_FUNC;
+        //             fprintf(stderr,"[DECLARATIONS] chamda de func setdatatype\n\n");
+        //             set_datatype(node);
+        //         }
+        //     break;
+        case AST_HEADER:
+            if (node->symbol)
+                if(node->symbol->type != TK_IDENTIFIER) {
                     fprintf(stderr, "Semantic ERROR[FUNC]:  %s already declared \n", node->symbol->text);
                     ++SemanticErrors;
                 } else{
-                    node->type = SYMBOL_FUNC;
+                    node->symbol->type = SYMBOL_FUNC;
                     fprintf(stderr,"[DECLARATIONS] ANTES DE SETAR DATATYPE DA FUNC\n\n");
                     set_datatype(node);
                 }
@@ -346,7 +363,7 @@ void check_array_access(AST* node) {
     switch (node->type) {
         case AST_ATTR_ARRAY:
             if(!isValidArrayIndex(node->son[0])) {
-                fprintf(stderr, "\nSemantic ERROR: [CHECK INDEX]: \n invalid array access index [%s] datatype [%d] for OP[%s] \n\n", node->son[0]->symbol->text, node->son[0]->symbol->dataType, node->symbol->text);
+                fprintf(stderr, "\nSemantic ERROR: [CHECK INDEX]: \n invalid array access index [%s] datatype [%d] for OP[X] \n\n", node->son[0]->symbol->text, node->son[0]->symbol->dataType);
                 ++SemanticErrors;
             }
             break;
@@ -499,13 +516,21 @@ void set_datatype(AST* node) {
 }
 
 int isValidArrayIndex(AST* node){
-    fprintf(stderr,"%d %d",node->symbol->dataValue, node->son[0]->symbol->dataValue);
+    int a =  node->symbol->dataValue; 
+    int b = node->son[0]->symbol->dataValue;
+    // fprintf(stderr,"%d %d",a,b);
     if(node->symbol
        && node->symbol->type == SYMBOL_ARRAY
        && isInteger(node->son[0])
-       && node->symbol->dataValue > node->son[0]->symbol->dataValue)
-        return 1;
-    return 0;
+       && (a > b))
+        {
+            fprintf(stderr, "[isValidArrayIndex] true\n");
+            return 1;
+        }
+    else {
+        fprintf(stderr, "[isValidArrayIndex] false\n");
+        return 0;
+    }
 }
 int isNumber(AST* node) {
     if((node->type == AST_EXPRESSION_BLOCK && isNumber(node->son[0]))
@@ -528,13 +553,14 @@ int isInteger(AST* node){
     ||isArrayType(node, DATATYPE_ARRAY_INT)
     ||isFuncCallType(node, DATATYPE_INT)
     ||isVariableType(node, DATATYPE_INT))
-        return 1;
+        {
+            fprintf(stderr, "[isInteger: TRUE]\n");
+            return 1;}
     else
-        return 0;
+       { fprintf(stderr, "[isInteger: TRUE]\n");
+        return 0;}
 }
 int isLiteral(AST* node, int type) {
-    fprintf(stderr, "--------> LITERAL <--------- \n\n");
-
     if(node->type == AST_SYMBOL && node->symbol->dataType == type)
         return 1;
     return 0;
