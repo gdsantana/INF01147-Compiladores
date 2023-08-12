@@ -27,9 +27,9 @@ int check_all_semantics(AST* startNode) {
     check_attribuition(rootNode);
     fprintf(stderr, "###### ATTRIBUITION: FINISH ###### \n");
 
-    // fprintf(stderr, "###### FLUX CONTROL: START ###### \n");
-    // check_flux_control(rootNode);
-    // fprintf(stderr, "###### FLUX CONTROL: FINISH ###### \n");
+    fprintf(stderr, "###### FLUX CONTROL: START ###### \n");
+    check_flux_control(rootNode);
+    fprintf(stderr, "###### FLUX CONTROL: FINISH ###### \n");
 
     fprintf(stderr, "###### FUNC CALL: START ###### \n");
     check_func_call(rootNode); 
@@ -43,9 +43,9 @@ int check_all_semantics(AST* startNode) {
     check_output(rootNode);
     fprintf(stderr, "###### OUTPUT: FINISH ###### \n");
 
-    // fprintf(stderr, "###### EXPRESSIONS: START ###### \n");
-    // check_expressions(rootNode);
-    // fprintf(stderr, "###### EXPRESSIONS: FINISH ###### \n");
+    fprintf(stderr, "###### EXPRESSIONS: START ###### \n");
+    check_expressions(rootNode);
+    fprintf(stderr, "###### EXPRESSIONS: FINISH ###### \n");
 
     fprintf(stderr, "###### ARRAY ACCESS: START ###### \n");
     check_array_access(rootNode);
@@ -107,7 +107,6 @@ void check_declarations(AST* node) {
                     ++SemanticErrors;
                 } else{
                     node->symbol->type = SYMBOL_FUNC_ARGS;
-                    fprintf(stderr,"[DECLARATIONS] ANTES DE SETAR DATATYPE DA FUNC\n\n");
                     set_datatype(node);
                 }
             break;
@@ -118,8 +117,8 @@ void check_declarations(AST* node) {
         //             fprintf(stderr, "Semantic ERROR[FUNC]:  %s already declared \n", node->symbol->text);
         //             ++SemanticErrors;
         //         } else{
-        //             fprintf(stderr,"[DECLARATIONS] entrou no else\n\n");
-        //             node->symbol->type = SYMBOL_FUNC;
+        //             fprintf(stderr,"[DECLARATIONS] entrou no else %d\n\n", node->symbol->type);
+        //             node->son[0]->symbol->type = SYMBOL_FUNC;
         //             fprintf(stderr,"[DECLARATIONS] chamda de func setdatatype\n\n");
         //             set_datatype(node);
         //         }
@@ -184,7 +183,6 @@ void check_attribuition(AST* node) {
 
 void check_flux_control(AST* node) {
     if (node==0) return;
-
     switch (node->type) {
         case AST_IF:
             if(!isBoolean(node->son[0])){
@@ -363,7 +361,7 @@ void check_array_access(AST* node) {
     switch (node->type) {
         case AST_ATTR_ARRAY:
             if(!isValidArrayIndex(node->son[0])) {
-                fprintf(stderr, "\nSemantic ERROR: [CHECK INDEX]: \n invalid array access index [%s] datatype [%d] for OP[X] \n\n", node->son[0]->symbol->text, node->son[0]->symbol->dataType);
+                fprintf(stderr, "\nSemantic ERROR: [CHECK INDEX]: \n invalid array access index [%s]\n\n", node->son[0]->symbol->text);
                 ++SemanticErrors;
             }
             break;
@@ -381,9 +379,8 @@ void check_return(AST* node) {
 
     switch (node->type) {
         case AST_FUNC:
-            fprintf(stderr, "[CHECK RETURN] %d\n\n ", node->type);
 
-            if(check_return_type(node->son[1], node->symbol->dataType, 0))
+            if(check_return_type(node->son[1], node->son[0]->symbol->dataType, 0))
                 ++SemanticErrors;
             break;
         default:
@@ -394,9 +391,6 @@ void check_return(AST* node) {
         check_return(node->son[i]);
 }
 int check_return_type(AST* node, int type, int errors) {
-
-    fprintf(stderr, "------> [CHECK RETURN TYPE] NODE: %d<------- \n", node->type);
-
     if(node->type == AST_RETURN)
         if(!is_expression_of_type(node->son[0], type)){
             fprintf(stderr, "\nSemantic ERROR: [CHECK RETURN VALUE]: expected [%d] found [%d]\n\n", type, node->son[0]->symbol->dataType);
@@ -421,24 +415,25 @@ void set_datatype(AST* node) {
             switch (node->son[0]->type)
             {
                 case AST_KW_INT:
-                    node->symbol->dataType = DATATYPE_ARRAY_INT;
+                    node->symbol->dataType = DATATYPE_INT;
                     node->symbol->dataValue = atoi(node->son[1]->symbol->text);
                     break;
                 case AST_KW_CHAR:
-                    node->symbol->dataType = DATATYPE_ARRAY_INT;
+                    node->symbol->dataType = DATATYPE_INT;
                     node->symbol->dataValue = atoi(node->son[1]->symbol->text); 
                     break;
                 case AST_KW_REAL:
-                    node->symbol->dataType = DATATYPE_ARRAY_REAL;
+                    node->symbol->dataType = DATATYPE_REAL;
                     node->symbol->dataValue = atoi(node->son[1]->symbol->text); 
                     break;
                 case AST_KW_BOOL:
-                    node->symbol->dataType = DATATYPE_ARRAY_BOOL;
+                    node->symbol->dataType = DATATYPE_BOOL;
                     node->symbol->dataValue = atoi(node->son[1]->symbol->text); // TODO: validação de true or false
                     break;
                 default:
                     break;
             }
+            break;
         case AST_GLOBAL_VAR_ARRAY:
             switch (node->son[0]->type)
             {
@@ -463,29 +458,30 @@ void set_datatype(AST* node) {
             }
             break;
         case AST_FUNC:
-            fprintf(stderr,"[SET DATA TYPE]");
+        case AST_HEADER:
             // func -> header -> tipo 
             switch (node->son[0]->type)
             {
                 case AST_KW_INT:
-                    node->symbol->dataType = DATATYPE_ARRAY_INT;
+                    node->symbol->dataType = DATATYPE_INT;
                     // node->symbol->dataValue = atoi(node->son[1]->symbol->text);
                     break;
                 case AST_KW_CHAR:
-                    node->symbol->dataType = DATATYPE_ARRAY_INT;
+                    node->symbol->dataType = DATATYPE_INT;
                     // node->symbol->dataValue = atoi(node->son[1]->symbol->text); 
                     break;
                 case AST_KW_REAL:
-                    node->symbol->dataType = DATATYPE_ARRAY_REAL;
+                    node->symbol->dataType = DATATYPE_REAL;
                     // node->symbol->dataValue = atoi(node->son[1]->symbol->text); 
                     break;
                 case AST_KW_BOOL:
-                    node->symbol->dataType = DATATYPE_ARRAY_BOOL;
+                    node->symbol->dataType = DATATYPE_BOOL;
                     // node->symbol->dataValue = atoi(node->son[1]->symbol->text); // TODO: validação de true or false
                     break;
                 default:
                     break;
             }
+            break;
         case AST_SYMBOL:
             if (node->symbol) {
                 if (node->symbol->type == LIT_INT) {
@@ -509,7 +505,7 @@ void set_datatype(AST* node) {
                 char *code = astToCode(node, 0);
                 fprintf(stderr, "WARNING UNDEFINED AST_SYMBOL: \t %s \n\n", code);
             }
-        //     break;
+            break;
         default: 
             break;
     }
@@ -518,47 +514,39 @@ void set_datatype(AST* node) {
 int isValidArrayIndex(AST* node){
     int a =  node->symbol->dataValue; 
     int b = node->son[0]->symbol->dataValue;
-    // fprintf(stderr,"%d %d",a,b);
     if(node->symbol
        && node->symbol->type == SYMBOL_ARRAY
        && isInteger(node->son[0])
        && (a > b))
-        {
-            fprintf(stderr, "[isValidArrayIndex] true\n");
             return 1;
-        }
-    else {
-        fprintf(stderr, "[isValidArrayIndex] false\n");
+    else 
         return 0;
-    }
 }
 int isNumber(AST* node) {
     if((node->type == AST_EXPRESSION_BLOCK && isNumber(node->son[0]))
        || isLiteral(node, DATATYPE_INT)
        || isLiteral(node, DATATYPE_CHAR)
        || isLiteral(node, DATATYPE_REAL)
-       || (isArithmeticOp(node, DATATYPE_ARRAY_INT) && isNumber(node->son[0]) && isNumber(node->son[1]))
-       || (isVariableType(node, DATATYPE_ARRAY_INT) && isValidArrayIndex(node))
        || isVariableType(node, DATATYPE_INT)
+       || (isVariableType(node, DATATYPE_ARRAY_INT) && isValidArrayIndex(node))
        || isFuncCallType(node, DATATYPE_INT)
-            )
+       || (isArithmeticOp(node) && (node->son[0] && isNumber(node->son[0])) && (node->son[1] && isNumber(node->son[1])))
+            )            
         return 1;
+    
     return 0;
 }
 int isInteger(AST* node){
     if(node->type == AST_EXPRESSION_BLOCK && isInteger(node->son[0])
     ||isLiteral(node, DATATYPE_INT)
     ||isLiteral(node, DATATYPE_CHAR) 
-    ||(isArithmeticOp(node, DATATYPE_ARRAY_INT)&& isInteger(node->son[0])&&isInteger(node->son[1]))
+    ||(isArithmeticOp(node)&& isInteger(node->son[0])&&isInteger(node->son[1]))
     ||isArrayType(node, DATATYPE_ARRAY_INT)
     ||isFuncCallType(node, DATATYPE_INT)
     ||isVariableType(node, DATATYPE_INT))
-        {
-            fprintf(stderr, "[isInteger: TRUE]\n");
-            return 1;}
+        return 1;
     else
-       { fprintf(stderr, "[isInteger: TRUE]\n");
-        return 0;}
+        return 0;
 }
 int isLiteral(AST* node, int type) {
     if(node->type == AST_SYMBOL && node->symbol->dataType == type)
@@ -582,7 +570,7 @@ int isArrayType(AST* node, int type) {
         return 1;
     return 0;
 }
-int isArithmeticOp(AST* node, int type) {
+int isArithmeticOp(AST* node) {
     if(node->type && (
             node->type == AST_ADD
             || node->type == AST_SUB
@@ -597,20 +585,18 @@ int isBoolean(AST* node) {
        || (isBooleanOp(node) && isNumber(node->son[0]) && isNumber(node->son[1]))
             )
         return 1;
+    else 
+        return 0;
 }
 int isBooleanOp(AST* node) {
     if(node->type && (
-            node->type == AST_LE
-            || node->type == AST_LT
-            || node->type == AST_GE
-            || node->type == AST_GT
-            || node->type == AST_EQ
-            || node->type == AST_DIF)
-            )
-            {
-                fprintf(stderr, "--------> IS BOOLEAN OP TRUE <--------- \n\n");
+        node->type == AST_LE
+        || node->type == AST_LT
+        || node->type == AST_GE
+        || node->type == AST_GT
+        || node->type == AST_EQ
+        || node->type == AST_DIF))
                 return 1;
-            }
         
     return 0;
 }

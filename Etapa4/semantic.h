@@ -31,7 +31,7 @@ int isLiteral(AST* node, int type);
 int isVariableType(AST* node, int type);
 int isFuncCallType(AST* node, int type);
 int isArrayType(AST* node, int type);
-int isArithmeticOp(AST* node, int type);
+int isArithmeticOp(AST* node);
 int isBoolean(AST* node);
 int isBooleanOp(AST* node);
 int is_expression_of_type(AST* node, int type);
