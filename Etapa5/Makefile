@@ -7,9 +7,6 @@ main.o: main.c
 tacs.o: tacs.c ast.o
 	gcc -c -g tacs.c
 
-semantic.o: semantic.c ast.o
-	gcc -c -g  semantic.c
-
 ast.o: ast.c
 	gcc -c -g ast.c
 

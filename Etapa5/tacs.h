@@ -74,7 +74,7 @@ typedef struct tac_node{
 TAC* tacJoin(TAC* l1, TAC* l2);
 TAC* tacCreate(int type, HASH_NODE* res, HASH_NODE* op1, HASH_NODE* op2);
 void tacPrint(TAC* tac);
-void tacPrintBackwards(TAC* tac); // recebe o prev
+void tacPrintBackwards(TAC* tac); 
 TAC* tacGenerateCode(AST* node);
 TAC* makeGlobalCreate(TAC* code0, TAC* code1, HASH_NODE* symbol, int type);
 
@@ -96,7 +96,6 @@ TAC* flipArgsTAC(TAC* code0, TAC* code1);
 TAC* makeCallFunction(TAC* code0, HASH_NODE* symbol, int type);
 TAC* makeCallFunctionArgs(TAC* code0, TAC* code1, AST* node, int type);
 
-TAC* makeLabelTac(AST* node);
 TAC* makeIf( TAC* code0, TAC* code1);
 TAC* makeIfElse( TAC* code0, TAC* code1, TAC* code2);
 TAC* makeLoop( TAC* code0, TAC* code1);
