@@ -20,9 +20,9 @@ void asm_TAC_DIV(FILE* fout, TAC* tac);
 void asm_TAC_LABEL(FILE* fout, TAC* tac);
 
 void asm_TAC_GT(FILE* fout, TAC* tac);
-void asm_TAC_GTE(FILE* fout, TAC* tac);
+void asm_TAC_GE(FILE* fout, TAC* tac);
 void asm_TAC_LT(FILE* fout, TAC* tac);
-void asm_TAC_LTE(FILE* fout, TAC* tac);
+void asm_TAC_LE(FILE* fout, TAC* tac);
 void asm_TAC_EQ(FILE* fout, TAC* tac);
 void asm_TAC_DIF(FILE* fout, TAC* tac);
 
@@ -106,9 +106,9 @@ void generateAsm(TAC* first, char* outpath) {
             case TAC_LABEL: asm_TAC_LABEL(fout, tac); break;
 
             case TAC_GT: asm_TAC_GT(fout, tac); break;
-            case TAC_GTE: asm_TAC_GTE(fout, tac); break;
+            case TAC_GE: asm_TAC_GE(fout, tac); break;
             case TAC_LT: asm_TAC_LT(fout, tac); break;
-            case TAC_LTE: asm_TAC_LTE(fout, tac); break;
+            case TAC_LE: asm_TAC_LE(fout, tac); break;
             case TAC_EQ: asm_TAC_EQ(fout, tac); break;
             case TAC_DIF: asm_TAC_DIF(fout, tac); break;
 
@@ -404,8 +404,8 @@ void asm_TAC_GT(FILE* fout, TAC* tac){
 
     CMP_LBL_TEMP += 2;
 }
-void asm_TAC_GTE(FILE* fout, TAC* tac){
-    fprintf(fout, "\n\n# TAC_GTE \n"
+void asm_TAC_GE(FILE* fout, TAC* tac){
+    fprintf(fout, "\n\n# TAC_GE \n"
                   "\tmovl\t_%s(%%rip), %%edx\n"
                   "\tmovl\t_%s(%%rip), %%eax\n"
                   "\tcmpl\t%%eax, %%edx \n", tac->op1->text, tac->op2->text);
@@ -442,8 +442,8 @@ void asm_TAC_LT(FILE* fout, TAC* tac){
 
     CMP_LBL_TEMP += 2;
 }
-void asm_TAC_LTE(FILE* fout, TAC* tac){
-    fprintf(fout, "\n\n# TAC_LTE \n"
+void asm_TAC_LE(FILE* fout, TAC* tac){
+    fprintf(fout, "\n\n# TAC_LE \n"
                   "\tmovl\t_%s(%%rip), %%edx\n"
                   "\tmovl\t_%s(%%rip), %%eax\n"
                   "\tcmpl\t%%eax, %%edx \n", tac->op1->text, tac->op2->text);

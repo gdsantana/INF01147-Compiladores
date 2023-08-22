@@ -27,9 +27,9 @@ void asm_TAC_DIV(FILE* fout, TAC* tac);
 void asm_TAC_LABEL(FILE* fout, TAC* tac);
 
 void asm_TAC_GT(FILE* fout, TAC* tac);
-void asm_TAC_GTE(FILE* fout, TAC* tac);
+void asm_TAC_GE(FILE* fout, TAC* tac);
 void asm_TAC_LT(FILE* fout, TAC* tac);
-void asm_TAC_LTE(FILE* fout, TAC* tac);
+void asm_TAC_LE(FILE* fout, TAC* tac);
 void asm_TAC_EQ(FILE* fout, TAC* tac);
 void asm_TAC_DIF(FILE* fout, TAC* tac);
 
@@ -49,5 +49,3 @@ void asm_TAC_FUN_CALL(FILE* fout, TAC* tac);
 void generateAsm(TAC* first, char* outpath);
 
 #endif
-
-// EOF
