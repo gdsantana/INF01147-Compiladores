@@ -1,0 +1,336 @@
+gdsantana@DESKTOP-IF73HRM:/mnt/e/Area de Trabalho/INF01147-Compiladores/Etapa6$ make clean && make && ./etapa6 test_programs/input.txt output.txt && gcc test_programs/input.s && ./a.out
+rm lex.yy.c y.tab.c y.tab.h *.o etapa6
+gcc -c -g main.c
+yacc -d parser.y
+parser.y: warning: 1 shift/reduce conflict [-Wconflicts-sr]
+parser.y: warning: 2 reduce/reduce conflict [-Wconflicts-rr]
+lex scanner.l
+gcc -c -g  lex.yy.c
+gcc -c -g  y.tab.c
+gcc -c -g  hash.c
+gcc -c -g  ast.c
+gcc -c -g  semantic.c
+gcc -c -g tacs.c
+gcc -c -g  asm.c
+gcc -c -g commons.c
+gcc main.o lex.yy.o y.tab.o hash.o ast.o semantic.o tacs.o asm.o commons.o -g -o etapa6
+
+
+Semantics start
+
+ Undeclared semantic errors: 0
+
+ast(AST_PROGRAM) {
+  ast(AST_DECLARATION_LIST) {
+    ast(AST_DECLARATION_GLOBAL_CHAR, c) {
+      ast(AST_SYMBOL, 'x') {
+    ast(AST_DECLARATION_LIST) {
+      ast(AST_DECLARATION_GLOBAL_CHAR, d) {
+        ast(AST_SYMBOL, 100) {
+      ast(AST_DECLARATION_LIST) {
+        ast(AST_DECLARATION_GLOBAL_INT, a) {
+          ast(AST_SYMBOL, 'A') {
+        ast(AST_DECLARATION_LIST) {
+          ast(AST_DECLARATION_GLOBAL_INT, i) {
+            ast(AST_SYMBOL, 1) {
+          ast(AST_DECLARATION_LIST) {
+            ast(AST_DECLARATION_GLOBAL_ARRAY_INT, v) {
+              ast(AST_SYMBOL, 10) {
+              ast(AST_ARRAY_VAL, 'a') {
+                ast(AST_ARRAY_VAL, 0) {
+                  ast(AST_ARRAY_VAL, 0) {
+                    ast(AST_ARRAY_VAL, 0) {
+                      ast(AST_ARRAY_VAL, 0) {
+                        ast(AST_ARRAY_VAL, 0) {
+                          ast(AST_ARRAY_VAL, 0) {
+                            ast(AST_ARRAY_VAL, 0) {
+                              ast(AST_ARRAY_VAL, 0) {
+                                ast(AST_ARRAY_VAL, 0) {
+            ast(AST_DECLARATION_LIST) {
+              ast(AST_DECLARATION_GLOBAL_ARRAY_INT, matrix) {
+                ast(AST_SYMBOL, 100) {
+              ast(AST_DECLARATION_LIST) {
+                ast(AST_DECLARATION_GLOBAL_FLOAT, f) {
+                  ast(AST_SYMBOL, 2) {
+                  ast(AST_SYMBOL, 3) {
+                ast(AST_DECLARATION_LIST) {
+                  ast(AST_DECLARATION_FUNCTION_INT, main) {
+                    ast(AST_DECLARATION_FUNCTION_BODY) {
+                      ast(AST_COMMAND_BLOCK) {
+                        ast(AST_COMMAND_LIST) {
+                          ast(AST_ATTRIBUITION, a) {
+                            ast(AST_SYMBOL, 0) {
+                          ast(AST_COMMAND_LIST) {
+                            ast(AST_ATTRIBUITION, a) {
+                              ast(AST_SUB, __dash__) {
+                                ast(AST_SYMBOL, a) {
+                                ast(AST_SYMBOL, i) {
+                            ast(AST_COMMAND_LIST) {
+                              ast(AST_ATTRIBUITION, a) {
+                                ast(AST_SYMBOL, 5) {
+                              ast(AST_COMMAND_LIST) {
+                                ast(AST_ARRAY_ATTRIBUITION, v) {
+                                  ast(AST_SYMBOL, a) {
+                                  ast(AST_SYMBOL, 55) {
+                                ast(AST_COMMAND_LIST) {
+                                  ast(AST_PRINT) {
+                                    ast(AST_PRINT_EXP) {
+                                      ast(AST_ARRAY_ELEMENT, v) {
+                                        ast(AST_SYMBOL, 5) {
+                                  ast(AST_COMMAND_LIST) {
+                                    ast(AST_PRINT) {
+                                      ast(AST_PRINT_EXP) {
+                                        ast(AST_SYMBOL, a) {
+                                    ast(AST_COMMAND_LIST) {
+                                      ast(AST_ATTRIBUITION, i) {
+                                        ast(AST_SYMBOL, 2) {
+                                      ast(AST_COMMAND_LIST) {
+                                        ast(AST_PRINT) {
+                                          ast(AST_PRINT_STRING) {
+                                            ast(AST_SYMBOL, Digite um numero: \n) {
+                                        ast(AST_COMMAND_LIST) {
+                                          ast(AST_ATTRIBUITION, a) {
+                                            ast(AST_READ) {
+                                          ast(AST_COMMAND_LIST) {
+                                            ast(AST_FLUX_CONTROLL_WHILE) {
+                                              ast(AST_LT, <) {
+                                                ast(AST_SYMBOL, i) {
+                                                ast(AST_SYMBOL, 10) {
+                                              ast(AST_COMMAND_BLOCK) {
+                                                ast(AST_COMMAND_LIST) {
+                                                  ast(AST_ATTRIBUITION, i) {
+                                                    ast(AST_FUNCTION_CALL, incn) {
+                                                      ast(AST_FUNCTION_CALL_ARGS) {
+                                                        ast(AST_SYMBOL, i) {
+                                                        ast(AST_FUNCTION_CALL_ARGS) {
+                                                          ast(AST_SYMBOL, 1) {
+                                                  ast(AST_COMMAND_LIST) {
+                                                    ast(AST_ATTRIBUITION, a) {
+                                                      ast(AST_FUNCTION_CALL, incn) {
+                                                        ast(AST_FUNCTION_CALL_ARGS) {
+                                                          ast(AST_SYMBOL, a) {
+                                                          ast(AST_FUNCTION_CALL_ARGS) {
+                                                            ast(AST_SYMBOL, 1) {
+                                            ast(AST_COMMAND_LIST) {
+                                              ast(AST_PRINT) {
+                                                ast(AST_PRINT_STRING) {
+                                                  ast(AST_SYMBOL, Incrementado algumas vezes a fica ) {
+                                                  ast(AST_PRINT_EXP) {
+                                                    ast(AST_SYMBOL, a) {
+                                                    ast(AST_PRINT_STRING) {
+                                                      ast(AST_SYMBOL, \n) {
+                                              ast(AST_COMMAND_LIST) {
+                                                ast(AST_FLUX_CONTROLL_IF|ELSE) {
+                                                  ast(AST_EQ, ==) {
+                                                    ast(AST_SYMBOL, a) {
+                                                    ast(AST_SYMBOL, 15) {
+                                                  ast(AST_COMMAND_BLOCK) {
+                                                    ast(AST_COMMAND_LIST) {
+                                                      ast(AST_LABEL, label__dash__x) {
+                                                      ast(AST_COMMAND_LIST) {
+                                                        ast(AST_ATTRIBUITION, a) {
+                                                          ast(AST_SUB, __dash__) {
+                                                            ast(AST_SYMBOL, a) {
+                                                            ast(AST_SYMBOL, 1) {
+                                                        ast(AST_COMMAND_LIST) {
+                                                          ast(AST_PRINT) {
+                                                            ast(AST_PRINT_STRING) {
+                                                              ast(AST_SYMBOL, A era=15\n) {
+                                                ast(AST_COMMAND_LIST) {
+                                                  ast(AST_FLUX_CONTROLL_IF|ELSE) {
+                                                    ast(AST_EXPRESSION_BLOCK) {
+                                                      ast(AST_EQ, ==) {
+                                                        ast(AST_SYMBOL, i) {
+                                                        ast(AST_SYMBOL, 100) {
+                                                    ast(AST_COMMAND_BLOCK) {
+                                                      ast(AST_COMMAND_LIST) {
+                                                        ast(AST_PRINT) {
+                                                          ast(AST_PRINT_STRING) {
+                                                            ast(AST_SYMBOL, Nao tem como isso....\n) {
+                                                    ast(AST_PRINT) {
+                                                      ast(AST_PRINT_STRING) {
+                                                        ast(AST_SYMBOL, OK!\n) {
+                                                  ast(AST_COMMAND_LIST) {
+                                                    ast(AST_FLUX_CONTROLL_IF|ELSE) {
+                                                      ast(AST_GT, >) {
+                                                        ast(AST_SYMBOL, a) {
+                                                        ast(AST_SYMBOL, 0) {
+                                                      ast(AST_FLUX_CONTROLL_GOTO, label__dash__x) {
+                  ast(AST_DECLARATION_LIST) {
+                    ast(AST_DECLARATION_FUNCTION_INT, incn) {
+                      ast(AST_DECLARATION_FUNCTION_ARGS_INT, x) {
+                        ast(AST_DECLARATION_FUNCTION_ARGS_INT, n) {
+                      ast(AST_DECLARATION_FUNCTION_BODY) {
+                        ast(AST_COMMAND_BLOCK) {
+                          ast(AST_COMMAND_LIST) {
+                            ast(AST_RETURN) {
+                              ast(AST_ADD, +) {
+                                ast(AST_SYMBOL, x) {
+                                ast(AST_SYMBOL, n) {
+
+hash after tacGenerateCode
+
+_TMP_LABEL_0Table[23]    has main        type 259        datatype 1      datavalue 0     datastring (null)
+Table[24]        has _TMP_VAR_11         type 1607       datatype 5      datavalue 0     datastring \n
+Table[36]        has _TMP_VAR_4          type 1607       datatype 0      datavalue 0     datastring (null)
+Table[43]        has +           type 269        datatype 0      datavalue 0     datastring (null)
+Table[47]        has /           type 272        datatype 0      datavalue 0     datastring (null)
+Table[48]        has 0           type 262        datatype 1      datavalue 0     datastring (null)
+Table[49]        has 1           type 262        datatype 1      datavalue 1     datastring (null)
+Table[50]        has _TMP_LABEL_1        type 265        datatype 0      datavalue 0     datastring (null)
+Table[50]        has 2           type 262        datatype 1      datavalue 2     datastring (null)
+Table[51]        has 3           type 262        datatype 1      datavalue 3     datastring (null)
+Table[53]        has 5           type 262        datatype 1      datavalue 5     datastring (null)
+Table[60]        has <           type 274        datatype 0      datavalue 0     datastring (null)
+Table[62]        has >           type 276        datatype 0      datavalue 0     datastring (null)
+Table[87]        has _TMP_VAR_15         type 1607       datatype 5      datavalue 0     datastring A era=15\n
+Table[97]        has a           type 258        datatype 1      datavalue 0     datastring (null)
+Table[99]        has _TMP_VAR_20         type 1607       datatype 0      datavalue 0     datastring (null)
+Table[99]        has c           type 258        datatype 2      datavalue 120   datastring 'x'
+Table[100]       has d           type 258        datatype 2      datavalue 48    datastring 100
+Table[102]       has f           type 258        datatype 3      datavalue 2     datastring 3
+Table[105]       has i           type 258        datatype 1      datavalue 1     datastring (null)
+Table[110]       has n           type 260        datatype 1      datavalue 0     datastring (null)
+Table[112]       has _TMP_VAR_3          type 1607       datatype 0      datavalue 0     datastring (null)
+Table[118]       has v           type 261        datatype 10     datavalue 10    datastring (null)
+Table[120]       has x           type 260        datatype 1      datavalue 0     datastring (null)
+Table[150]       has _TMP_VAR_19         type 1607       datatype 0      datavalue 0     datastring (null)
+Table[171]       has matrix      type 261        datatype 10     datavalue 100   datastring (null)
+Table[188]       has _TMP_VAR_2          type 1607       datatype 5      datavalue 0     datastring Digite um numero: \n
+Table[260]       has \n          type 264        datatype 5      datavalue 0     datastring (null)
+Table[264]       has _TMP_VAR_1          type 1607       datatype 0      datavalue 0     datastring (null)
+Table[289]       has _TMP_VAR_12         type 1607       datatype 5      datavalue 0     datastring Incrementado algumas vezes a fica
+Table[340]       has _TMP_VAR_0          type 1607       datatype 0      datavalue 0     datastring (null)
+Table[352]       has _TMP_VAR_16         type 1607       datatype 0      datavalue 0     datastring (null)
+Table[364]       has label__dash__x      type 265        datatype 0      datavalue 0     datastring (null)
+Table[401]       has _TMP_LABEL_6        type 265        datatype 0      datavalue 0     datastring (null)
+Table[406]       has 10          type 262        datatype 1      datavalue 10    datastring (null)
+Table[460]       has _TMP_LABEL_4        type 265        datatype 0      datavalue 0     datastring (null)
+Table[510]       has incn        type 259        datatype 1      datavalue 0     datastring (null)
+Table[519]       has _TMP_LABEL_2        type 265        datatype 265    datavalue 0     datastring label__dash__x
+Table[554]       has _TMP_VAR_13         type 1607       datatype 0      datavalue 0     datastring (null)
+Table[578]       has _TMP_LABEL_0        type 265        datatype 0      datavalue 0     datastring (null)
+Table[592]       has OK!\n       type 264        datatype 5      datavalue 0     datastring (null)
+Table[593]       has 100         type 262        datatype 1      datavalue 100   datastring (null)
+Table[617]       has _TMP_VAR_17         type 1607       datatype 5      datavalue 0     datastring Nao tem como isso....\n
+Table[653]       has _TMP_VAR_9          type 1607       datatype 0      datavalue 0     datastring (null)
+Table[656]       has 15          type 262        datatype 1      datavalue 15    datastring (null)
+Table[705]       has Digite um numero: \n        type 264        datatype 5      datavalue 0     datastring (null)
+Table[729]       has _TMP_VAR_8          type 1607       datatype 0      datavalue 0     datastring (null)
+Table[742]       has 'A'         type 263        datatype 2      datavalue 0     datastring (null)
+Table[756]       has _TMP_VAR_10         type 1607       datatype 0      datavalue 0     datastring (null)
+Table[779]       has Nao tem como isso....\n             type 264        datatype 5      datavalue 0     datastring (null)
+Table[781]       has Incrementado algumas vezes a fica           type 264        datatype 5      datavalue 0     datastring (null)
+Table[791]       has ==          type 277        datatype 0      datavalue 0     datastring (null)
+Table[800]       has 'x'         type 263        datatype 2      datavalue 0     datastring (null)
+Table[805]       has _TMP_VAR_7          type 1607       datatype 0      datavalue 0     datastring (null)
+Table[812]       has 'a'         type 281        datatype 0      datavalue 0     datastring (null)
+Table[814]       has __dash__            type 270        datatype 0      datavalue 0     datastring (null)
+Table[819]       has _TMP_VAR_14         type 1607       datatype 0      datavalue 0     datastring (null)
+Table[855]       has A era=15\n          type 264        datatype 5      datavalue 0     datastring (null)
+Table[868]       has 55          type 262        datatype 1      datavalue 55    datastring (null)
+Table[881]       has _TMP_VAR_6          type 1607       datatype 0      datavalue 0     datastring (null)
+Table[882]       has _TMP_VAR_18         type 1607       datatype 5      datavalue 0     datastring OK!\n
+Table[929]       has _TMP_LABEL_5        type 265        datatype 0      datavalue 0     datastring (null)
+Table[957]       has _TMP_VAR_5          type 1607       datatype 0      datavalue 0     datastring (null)
+Table[988]       has _TMP_LABEL_3        type 265        datatype 0      datavalue 0     datastring (null)
+
+
+TAC(TAC_DEC_GLOBAL_CHAR, c, 'x', 0);
+TAC(TAC_DEC_GLOBAL_CHAR, d, 100, 0);
+TAC(TAC_DEC_GLOBAL_INT, a, 'A', 0);
+TAC(TAC_DEC_GLOBAL_INT, i, 1, 0);
+TAC(TAC_DEC_GLOBAL_ARR, v, 'a', 10);
+TAC(TAC_DEC_GLOBAL_ARR, v, 0, 10);
+TAC(TAC_DEC_GLOBAL_ARR, v, 0, 10);
+TAC(TAC_DEC_GLOBAL_ARR, v, 0, 10);
+TAC(TAC_DEC_GLOBAL_ARR, v, 0, 10);
+TAC(TAC_DEC_GLOBAL_ARR, v, 0, 10);
+TAC(TAC_DEC_GLOBAL_ARR, v, 0, 10);
+TAC(TAC_DEC_GLOBAL_ARR, v, 0, 10);
+TAC(TAC_DEC_GLOBAL_ARR, v, 0, 10);
+TAC(TAC_DEC_GLOBAL_ARR, v, 0, 10);
+TAC(TAC_DEC_GLOBAL_ARR, matrix, 0, 100);
+TAC(TAC_DEC_GLOBAL_FLOAT, f, 2, 3);
+TAC(TAC_BEGINFUN, main, _TMP_LABEL_6, 0);
+TAC(TAC_MOVE, a, 0, 0);
+TAC(TAC_SUB, _TMP_VAR_0, a, i);
+TAC(TAC_MOVE, a, _TMP_VAR_0, 0);
+TAC(TAC_MOVE, a, 5, 0);
+TAC(TAC_ARR_SET_ELEMENT, v, a, 55);
+TAC(TAC_ARR_GET_ELEMENT, _TMP_VAR_1, v, 5);
+TAC(TAC_PRINT_INT, _TMP_VAR_1, 0, 0);
+TAC(TAC_PRINT, _TMP_VAR_1, 0, 0);
+TAC(TAC_PRINT_INT, a, 0, 0);
+TAC(TAC_PRINT, a, 0, 0);
+TAC(TAC_MOVE, i, 2, 0);
+TAC(TAC_PRINT_STRING, _TMP_VAR_2, 0, 0);
+TAC(TAC_PRINT, _TMP_VAR_2, 0, 0);
+TAC(TAC_READ, _TMP_VAR_3, 0, 0);
+TAC(TAC_MOVE, a, _TMP_VAR_3, 0);
+TAC(TAC_LABEL, _TMP_LABEL_0, 0, 0);
+TAC(TAC_LT, _TMP_VAR_4, i, 10);
+TAC(TAC_JMPZ, _TMP_LABEL_1, _TMP_VAR_4, 0);
+TAC(TAC_FUNC_CALL_ARGS, _TMP_VAR_5, 1, 0);
+TAC(TAC_FUNC_CALL_ARGS, _TMP_VAR_6, i, _TMP_VAR_5);
+TAC(TAC_FUN_CALL, _TMP_VAR_7, incn, 0);
+TAC(TAC_MOVE, i, _TMP_VAR_7, 0);
+TAC(TAC_FUNC_CALL_ARGS, _TMP_VAR_8, 1, 0);
+TAC(TAC_FUNC_CALL_ARGS, _TMP_VAR_9, a, _TMP_VAR_8);
+TAC(TAC_FUN_CALL, _TMP_VAR_10, incn, 0);
+TAC(TAC_MOVE, a, _TMP_VAR_10, 0);
+TAC(TAC_JMP, _TMP_LABEL_0, 0, 0);
+TAC(TAC_LABEL, _TMP_LABEL_1, 0, 0);
+TAC(TAC_PRINT_STRING, _TMP_VAR_12, 0, 0);
+TAC(TAC_PRINT_INT, a, 0, 0);
+TAC(TAC_PRINT_STRING, _TMP_VAR_11, 0, 0);
+TAC(TAC_PRINT, _TMP_VAR_11, 0, 0);
+TAC(TAC_EQ, _TMP_VAR_13, a, 15);
+TAC(TAC_JMPZ, _TMP_LABEL_3, _TMP_VAR_13, 0);
+TAC(TAC_LABEL, _TMP_LABEL_2, label__dash__x, 0);
+TAC(TAC_SUB, _TMP_VAR_14, a, 1);
+TAC(TAC_MOVE, a, _TMP_VAR_14, 0);
+TAC(TAC_PRINT_STRING, _TMP_VAR_15, 0, 0);
+TAC(TAC_PRINT, _TMP_VAR_15, 0, 0);
+TAC(TAC_LABEL, _TMP_LABEL_3, 0, 0);
+TAC(TAC_EQ, _TMP_VAR_16, i, 100);
+TAC(TAC_JMPZ, _TMP_LABEL_4, _TMP_VAR_16, 0);
+TAC(TAC_PRINT_STRING, _TMP_VAR_17, 0, 0);
+TAC(TAC_PRINT, _TMP_VAR_17, 0, 0);
+TAC(TAC_JMP, _TMP_LABEL_5, 0, 0);
+TAC(TAC_LABEL, _TMP_LABEL_4, 0, 0);
+TAC(TAC_PRINT_STRING, _TMP_VAR_18, 0, 0);
+TAC(TAC_PRINT, _TMP_VAR_18, 0, 0);
+TAC(TAC_LABEL, _TMP_LABEL_5, 0, 0);
+TAC(TAC_GT, _TMP_VAR_19, a, 0);
+TAC(TAC_JMPZ, _TMP_LABEL_6, _TMP_VAR_19, 0);
+TAC(TAC_LABEL, _TMP_LABEL_6, 0, 0);
+TAC(TAC_ENDFUN, main, 0, 0);
+TAC(TAC_DEC_FUNC_ARGS, n, 0, 0);
+TAC(TAC_DEC_FUNC_ARGS, x, n, 0);
+TAC(TAC_BEGINFUN, incn, _TMP_VAR_20, 0);
+TAC(TAC_ADD, _TMP_VAR_20, x, n);
+TAC(TAC_RETURN, _TMP_VAR_20, 0, 0);
+TAC(TAC_ENDFUN, incn, x, 0);
+values: 'a' 0 0 0 0 0 0 0 0 0
+values:
+condition: a==15 body_if: {
+label__dash__x:
+a=a - 1;
+print "A era=15\n";
+
+} body_else:
+
+.condition: (i==100) body_if: {
+print "Nao tem como isso....\n";
+
+} body_else:print "OK!\n"
+
+.condition: a>0 body_if: goto label__dash__x body_else:
+
+.Numero de linhas: 59.
+Compilation Success.
+555Digite um numero:
+15
+Incrementado algumas vezes a fica 23
+OK!
