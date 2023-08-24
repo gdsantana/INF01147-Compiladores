@@ -1,19 +1,19 @@
-int input-one: 0;
-int input-two: 0;
-int result: 0;
+int a = 0;
+int b = 0;
+int result = 0;
 
 int main() {
     output "Teste 1:";
 
-    output "Atribuições e operações aritmeticas com impressão:  [read, +, -, *, /] \n";
+    output "Atribuições e operações aritmeticas com impressão:  [input, +, -, *, /] \n";
 
     output "\n", "Enter the first value: ";
-    input-one = input(int);
+    a = input(int);
     output "Enter the second value: ";
-    input-two = input(int);
+    b = input(int);
 
-    output "\n", "input1 + input2 = ", input-one + input-two;
-    output "\n", "input1 - input2 = ", input-one - input-two;
-    output "\n", "input1 * input2 = ", input-one * input-two;
-    output "\n", "input1 / input2 = ", input-one / input-two, "\n";
+    output "\n", "input1 + input2 = ", a + b;
+    output "\n", "input1 - input2 = ", a - b;
+    output "\n", "input1 * input2 = ", a * b;
+    output "\n", "input1 / input2 = ", a / b, "\n";
 }

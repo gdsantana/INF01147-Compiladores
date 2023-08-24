@@ -7,15 +7,15 @@
 #include "ast.h"
 #include "tacs.h"
 
-oid asm_TAC_BEGINFUN(FILE* fout, TAC* tac);
+void asm_TAC_BEGINFUN(FILE* fout, TAC* tac);
 void asm_TAC_ENDFUN(FILE* fout, TAC* tac);
 void asm_TAC_RETURN(FILE* fout, TAC* tac);
 
-void asm_TAC_PRINT_STRING(FILE* fout, TAC* tac);
-void asm_TAC_PRINT_INT(FILE* fout, TAC* tac);
-void asm_TAC_PRINT_FLOAT(FILE* fout, TAC* tac);
-void asm_TAC_PRINT_CHAR(FILE* fout, TAC* tac);
-void asm_TAC_PRINT(FILE* fout, TAC* tac);
+void asm_TAC_OUTPUT_STRING(FILE* fout, TAC* tac);
+void asm_TAC_OUTPUT_INT(FILE* fout, TAC* tac);
+void asm_TAC_OUTPUT_REAL(FILE* fout, TAC* tac);
+void asm_TAC_OUTPUT_CHAR(FILE* fout, TAC* tac);
+void asm_TAC_OUTPUT(FILE* fout, TAC* tac);
 
 void asm_TAC_MOVE(FILE* fout, TAC* tac);
 
@@ -37,7 +37,7 @@ void asm_TAC_JMP(FILE* fout, TAC* tac);
 void asm_TAC_JMPZ(FILE* fout, TAC* tac);
 void asm_TAC_GOTO(FILE* fout, TAC* tac);
 
-void asm_TAC_READ(FILE* fout, TAC* tac);
+void asm_TAC_INPUT(FILE* fout, TAC* tac);
 
 void asm_TAC_TAC_DEC_GLOBAL_ARR(FILE* fout, TAC* tac);
 void asm_TAC_ARR_GET_ELEMENT(FILE* fout, TAC* tac);
@@ -47,5 +47,7 @@ TAC* asm_TAC_FUN_CALL_ARGS(FILE* fout, TAC* tac);
 void asm_TAC_FUN_CALL(FILE* fout, TAC* tac);
 
 void generateAsm(TAC* first, char* outpath);
+
+
 
 #endif

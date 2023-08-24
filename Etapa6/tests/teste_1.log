@@ -20,86 +20,87 @@ Semantics start
 
  Undeclared semantic errors: 0
 
-ast(AST_PROGRAM) {
-  ast(AST_DECLARATION_LIST) {
-    ast(AST_DECLARATION_GLOBAL_INT, input__dash__one) {
-      ast(AST_SYMBOL, 0) {
-    ast(AST_DECLARATION_LIST) {
-      ast(AST_DECLARATION_GLOBAL_INT, input__dash__two) {
-        ast(AST_SYMBOL, 0) {
-      ast(AST_DECLARATION_LIST) {
-        ast(AST_DECLARATION_GLOBAL_INT, result) {
-          ast(AST_SYMBOL, 0) {
-        ast(AST_DECLARATION_LIST) {
-          ast(AST_DECLARATION_FUNCTION_INT, main) {
-            ast(AST_DECLARATION_FUNCTION_BODY) {
-              ast(AST_COMMAND_BLOCK) {
-                ast(AST_COMMAND_LIST) {
-                  ast(AST_PRINT) {
-                    ast(AST_PRINT_STRING) {
-                      ast(AST_SYMBOL, Teste 1:) {
-                  ast(AST_COMMAND_LIST) {
-                    ast(AST_PRINT) {
-                      ast(AST_PRINT_STRING) {
-                        ast(AST_SYMBOL, Atribuições e operações aritmeticas com impressão:  [read, +, __dash__, *, /] \n) {
-                    ast(AST_COMMAND_LIST) {
-                      ast(AST_PRINT) {
-                        ast(AST_PRINT_STRING) {
-                          ast(AST_SYMBOL, \n) {
-                          ast(AST_PRINT_STRING) {
-                            ast(AST_SYMBOL, Enter the first value: ) {
-                      ast(AST_COMMAND_LIST) {
-                        ast(AST_ATTRIBUITION, input__dash__one) {
-                          ast(AST_READ) {
-                        ast(AST_COMMAND_LIST) {
-                          ast(AST_PRINT) {
-                            ast(AST_PRINT_STRING) {
-                              ast(AST_SYMBOL, Enter the second value: ) {
-                          ast(AST_COMMAND_LIST) {
-                            ast(AST_ATTRIBUITION, input__dash__two) {
-                              ast(AST_READ) {
-                            ast(AST_COMMAND_LIST) {
-                              ast(AST_PRINT) {
-                                ast(AST_PRINT_STRING) {
-                                  ast(AST_SYMBOL, \n) {
-                                  ast(AST_PRINT_STRING) {
-                                    ast(AST_SYMBOL, input1 + input2 = ) {
-                                    ast(AST_PRINT_EXP) {
-                                      ast(AST_ADD, +) {
-                                        ast(AST_SYMBOL, input__dash__one) {
-                                        ast(AST_SYMBOL, input__dash__two) {
-                              ast(AST_COMMAND_LIST) {
-                                ast(AST_PRINT) {
-                                  ast(AST_PRINT_STRING) {
-                                    ast(AST_SYMBOL, \n) {
-                                    ast(AST_PRINT_STRING) {
-                                      ast(AST_SYMBOL, input1 __dash__ input2 = ) {
-                                      ast(AST_PRINT_EXP) {
-                                        ast(AST_SUB, __dash__) {
-                                          ast(AST_SYMBOL, input__dash__one) {
-                                          ast(AST_SYMBOL, input__dash__two) {
-                                ast(AST_COMMAND_LIST) {
-                                  ast(AST_PRINT) {
-                                    ast(AST_PRINT_STRING) {
-                                      ast(AST_SYMBOL, \n) {
-                                      ast(AST_PRINT_STRING) {
-                                        ast(AST_SYMBOL, input1 * input2 = ) {
-                                        ast(AST_PRINT_EXP) {
-                                          ast(AST_MULT, *) {
-                                            ast(AST_SYMBOL, input__dash__one) {
-                                            ast(AST_SYMBOL, input__dash__two) {
-                                  ast(AST_COMMAND_LIST) {
-                                    ast(AST_PRINT) {
-                                      ast(AST_PRINT_STRING) {
-                                        ast(AST_SYMBOL, \n) {
-                                        ast(AST_PRINT_STRING) {
-                                          ast(AST_SYMBOL, input1 / input2 = ) {
-                                          ast(AST_PRINT_EXP) {
-                                            ast(AST_DIV, /) {
-                                              ast(AST_SYMBOL, input__dash__one) {
-                                              ast(AST_SYMBOL, input__dash__two) {
-                                            ast(AST_PRINT_STRING) {
-                                              ast(AST_SYMBOL, \n) {
+AST_PROGRAM
+  AST_LIST
+    AST_ELEMENT
+      AST_GLOBAL_VAR
+        AST_KW_INT
+        AST_SYMBOL
+    AST_LIST
+      AST_ELEMENT
+        AST_GLOBAL_VAR
+          AST_KW_INT
+          AST_SYMBOL
+      AST_LIST
+        AST_ELEMENT
+          AST_GLOBAL_VAR
+            AST_KW_INT
+            AST_SYMBOL
+        AST_LIST
+          AST_ELEMENT
+            AST_FUNC
+              AST_HEADER
+                AST_KW_INT
+              AST_BLOCK
+                AST_COMMAND_LIST
+                  AST_OUTPUT
+                    AST_SYMBOL
+                  AST_COMMAND_LIST
+                    AST_OUTPUT
+                      AST_SYMBOL
+                    AST_COMMAND_LIST
+                      AST_OUTPUT
+                        AST_LIST_ELEMENTS
+                          AST_SYMBOL
+                          AST_SYMBOL
+                      AST_COMMAND_LIST
+                        AST_ATTR_INPUT
+                          AST_INPUT
+                            AST_KW_INT
+                        AST_COMMAND_LIST
+                          AST_OUTPUT
+                            AST_SYMBOL
+                          AST_COMMAND_LIST
+                            AST_ATTR_INPUT
+                              AST_INPUT
+                                AST_KW_INT
+                            AST_COMMAND_LIST
+                              AST_OUTPUT
+                                AST_LIST_ELEMENTS
+                                  AST_SYMBOL
+                                  AST_LIST_ELEMENTS
+                                    AST_SYMBOL
+                                    AST_ADD
+                                      AST_SYMBOL
+                                      AST_SYMBOL
+                              AST_COMMAND_LIST
+                                AST_OUTPUT
+                                  AST_LIST_ELEMENTS
+                                    AST_SYMBOL
+                                    AST_LIST_ELEMENTS
+                                      AST_SYMBOL
+                                      AST_SUB
+                                        AST_SYMBOL
+                                        AST_SYMBOL
+                                AST_COMMAND_LIST
+                                  AST_OUTPUT
+                                    AST_LIST_ELEMENTS
+                                      AST_SYMBOL
+                                      AST_LIST_ELEMENTS
+                                        AST_SYMBOL
+                                        AST_MULT
+                                          AST_SYMBOL
+                                          AST_SYMBOL
+                                  AST_OUTPUT
+                                    AST_LIST_ELEMENTS
+                                      AST_SYMBOL
+                                      AST_LIST_ELEMENTS
+                                        AST_SYMBOL
+                                        AST_LIST_ELEMENTS
+                                          AST_DIV
+                                            AST_SYMBOL
+                                            AST_SYMBOL
+                                          AST_SYMBOL
 
 hash after tacGenerateCode
 
@@ -147,40 +148,40 @@ TAC(TAC_DEC_GLOBAL_INT, input__dash__one, 0, 0);
 TAC(TAC_DEC_GLOBAL_INT, input__dash__two, 0, 0);
 TAC(TAC_DEC_GLOBAL_INT, result, 0, 0);
 TAC(TAC_BEGINFUN, main, _TMP_VAR_17, 0);
-TAC(TAC_PRINT_STRING, _TMP_VAR_0, 0, 0);
-TAC(TAC_PRINT, _TMP_VAR_0, 0, 0);
-TAC(TAC_PRINT_STRING, _TMP_VAR_1, 0, 0);
-TAC(TAC_PRINT, _TMP_VAR_1, 0, 0);
-TAC(TAC_PRINT_STRING, _TMP_VAR_3, 0, 0);
-TAC(TAC_PRINT_STRING, _TMP_VAR_2, 0, 0);
-TAC(TAC_PRINT, _TMP_VAR_2, 0, 0);
-TAC(TAC_READ, _TMP_VAR_4, 0, 0);
+TAC(TAC_OUTPUT_STRING, _TMP_VAR_0, 0, 0);
+TAC(TAC_OUTPUT, _TMP_VAR_0, 0, 0);
+TAC(TAC_OUTPUT_STRING, _TMP_VAR_1, 0, 0);
+TAC(TAC_OUTPUT, _TMP_VAR_1, 0, 0);
+TAC(TAC_OUTPUT_STRING, _TMP_VAR_3, 0, 0);
+TAC(TAC_OUTPUT_STRING, _TMP_VAR_2, 0, 0);
+TAC(TAC_OUTPUT, _TMP_VAR_2, 0, 0);
+TAC(TAC_INPUT, _TMP_VAR_4, 0, 0);
 TAC(TAC_MOVE, input__dash__one, _TMP_VAR_4, 0);
-TAC(TAC_PRINT_STRING, _TMP_VAR_5, 0, 0);
-TAC(TAC_PRINT, _TMP_VAR_5, 0, 0);
-TAC(TAC_READ, _TMP_VAR_6, 0, 0);
+TAC(TAC_OUTPUT_STRING, _TMP_VAR_5, 0, 0);
+TAC(TAC_OUTPUT, _TMP_VAR_5, 0, 0);
+TAC(TAC_INPUT, _TMP_VAR_6, 0, 0);
 TAC(TAC_MOVE, input__dash__two, _TMP_VAR_6, 0);
-TAC(TAC_PRINT_STRING, _TMP_VAR_9, 0, 0);
-TAC(TAC_PRINT_STRING, _TMP_VAR_8, 0, 0);
+TAC(TAC_OUTPUT_STRING, _TMP_VAR_9, 0, 0);
+TAC(TAC_OUTPUT_STRING, _TMP_VAR_8, 0, 0);
 TAC(TAC_ADD, _TMP_VAR_7, input__dash__one, input__dash__two);
-TAC(TAC_PRINT_INT, _TMP_VAR_7, 0, 0);
-TAC(TAC_PRINT, _TMP_VAR_7, 0, 0);
-TAC(TAC_PRINT_STRING, _TMP_VAR_12, 0, 0);
-TAC(TAC_PRINT_STRING, _TMP_VAR_11, 0, 0);
+TAC(TAC_OUTPUT_INT, _TMP_VAR_7, 0, 0);
+TAC(TAC_OUTPUT, _TMP_VAR_7, 0, 0);
+TAC(TAC_OUTPUT_STRING, _TMP_VAR_12, 0, 0);
+TAC(TAC_OUTPUT_STRING, _TMP_VAR_11, 0, 0);
 TAC(TAC_SUB, _TMP_VAR_10, input__dash__one, input__dash__two);
-TAC(TAC_PRINT_INT, _TMP_VAR_10, 0, 0);
-TAC(TAC_PRINT, _TMP_VAR_10, 0, 0);
-TAC(TAC_PRINT_STRING, _TMP_VAR_15, 0, 0);
-TAC(TAC_PRINT_STRING, _TMP_VAR_14, 0, 0);
+TAC(TAC_OUTPUT_INT, _TMP_VAR_10, 0, 0);
+TAC(TAC_OUTPUT, _TMP_VAR_10, 0, 0);
+TAC(TAC_OUTPUT_STRING, _TMP_VAR_15, 0, 0);
+TAC(TAC_OUTPUT_STRING, _TMP_VAR_14, 0, 0);
 TAC(TAC_MULT, _TMP_VAR_13, input__dash__one, input__dash__two);
-TAC(TAC_PRINT_INT, _TMP_VAR_13, 0, 0);
-TAC(TAC_PRINT, _TMP_VAR_13, 0, 0);
-TAC(TAC_PRINT_STRING, _TMP_VAR_19, 0, 0);
-TAC(TAC_PRINT_STRING, _TMP_VAR_18, 0, 0);
+TAC(TAC_OUTPUT_INT, _TMP_VAR_13, 0, 0);
+TAC(TAC_OUTPUT, _TMP_VAR_13, 0, 0);
+TAC(TAC_OUTPUT_STRING, _TMP_VAR_19, 0, 0);
+TAC(TAC_OUTPUT_STRING, _TMP_VAR_18, 0, 0);
 TAC(TAC_DIV, _TMP_VAR_16, input__dash__one, input__dash__two);
-TAC(TAC_PRINT_INT, _TMP_VAR_16, 0, 0);
-TAC(TAC_PRINT_STRING, _TMP_VAR_17, 0, 0);
-TAC(TAC_PRINT, _TMP_VAR_17, 0, 0);
+TAC(TAC_OUTPUT_INT, _TMP_VAR_16, 0, 0);
+TAC(TAC_OUTPUT_STRING, _TMP_VAR_17, 0, 0);
+TAC(TAC_OUTPUT, _TMP_VAR_17, 0, 0);
 TAC(TAC_ENDFUN, main, 0, 0);
 Numero de linhas: 19.
 Compilation Success.

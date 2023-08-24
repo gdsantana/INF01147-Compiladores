@@ -4,6 +4,8 @@
 #include "hash.h"
 #include "ast.h"
 #include "tacs.h"
+#include "asm.h"
+
 
 extern FILE *yyin;
 
@@ -37,19 +39,25 @@ int main(int argc, char **argv)
   int i = yyparse();
 
   AST *rootNode = getRootNode();
-  char *code = astToCode(rootNode, 0);
+  // char *code = astToCode(rootNode, 0);
+  TAC *code = tacGenerateCode(rootNode);
 
   // astPrint(rootNode,0);
 
-    tacPrintBackwards(tacGenerateCode(rootNode));
-  if (argc > 2)
-  { // write output
+  tacPrintBackwards(tacGenerateCode(rootNode));
+  TAC* reversedTac = tacReverseTAC(code);
+  generateAsm(reversedTac, argv[1]);
+
+  if (argc > 2) {  
     FILE *fp;
 
+    char *code = astToCode(rootNode, 0);
     fp = fopen(argv[2], "w+");
     fputs(code, fp);
+
+
     fclose(fp);
-  }
+    }
 
   printf("Numero de linhas: %d.\n", getLineNumber());
   printf("Compilation Success.\n");

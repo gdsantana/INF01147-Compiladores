@@ -4,14 +4,11 @@ etapa6: lex.yy.o main.o hash.o ast.o y.tab tacs.o
 main.o: main.c
 	gcc -c -g main.c
 
-asm.o: asm.c tacs.o ast.o
-	gcc -c -g asm.c
+asm.o: asm.c ast.o
+	gcc -c -g  asm.c
 
 tacs.o: tacs.c ast.o
 	gcc -c -g tacs.c
-
-# semantic.o: semantic.c ast.o
-# 	gcc -c -g  semantic.c
 
 ast.o: ast.c
 	gcc -c -g ast.c

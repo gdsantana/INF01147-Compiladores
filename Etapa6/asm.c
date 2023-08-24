@@ -1,44 +1,5 @@
 #include "asm.h"
 
-void asm_TAC_BEGINFUN(FILE* fout, TAC* tac);
-void asm_TAC_ENDFUN(FILE* fout, TAC* tac);
-void asm_TAC_RETURN(FILE* fout, TAC* tac);
-
-void asm_TAC_PRINT_STRING(FILE* fout, TAC* tac);
-void asm_TAC_PRINT_INT(FILE* fout, TAC* tac);
-void asm_TAC_PRINT_FLOAT(FILE* fout, TAC* tac);
-void asm_TAC_PRINT_CHAR(FILE* fout, TAC* tac);
-void asm_TAC_PRINT(FILE* fout, TAC* tac);
-
-void asm_TAC_MOVE(FILE* fout, TAC* tac);
-
-void asm_TAC_ADD(FILE* fout, TAC* tac);
-void asm_TAC_SUB(FILE* fout, TAC* tac);
-void asm_TAC_MULT(FILE* fout, TAC* tac);
-void asm_TAC_DIV(FILE* fout, TAC* tac);
-
-void asm_TAC_LABEL(FILE* fout, TAC* tac);
-
-void asm_TAC_GT(FILE* fout, TAC* tac);
-void asm_TAC_GE(FILE* fout, TAC* tac);
-void asm_TAC_LT(FILE* fout, TAC* tac);
-void asm_TAC_LE(FILE* fout, TAC* tac);
-void asm_TAC_EQ(FILE* fout, TAC* tac);
-void asm_TAC_DIF(FILE* fout, TAC* tac);
-
-void asm_TAC_JMP(FILE* fout, TAC* tac);
-void asm_TAC_JMPZ(FILE* fout, TAC* tac);
-void asm_TAC_GOTO(FILE* fout, TAC* tac);
-
-void asm_TAC_READ(FILE* fout, TAC* tac);
-
-void asm_TAC_TAC_DEC_GLOBAL_ARR(FILE* fout, TAC* tac);
-void asm_TAC_ARR_GET_ELEMENT(FILE* fout, TAC* tac);
-void asm_TAC_ARR_SET_ELEMENT(FILE* fout, TAC* tac);
-
-TAC* asm_TAC_FUN_CALL_ARGS(FILE* fout, TAC* tac);
-void asm_TAC_FUN_CALL(FILE* fout, TAC* tac);
-
 
 int BL = 0;
 int CMP_LBL_TEMP = 0;
@@ -58,16 +19,16 @@ void generateAsm(TAC* first, char* outpath) {
     // init
 
     fprintf(fout, "\n # PRINT"
-                  "\nprint_string_int:\n"
+                  "\noutput_string_int:\n"
                   "\t.string\t\"%%d\"\n"
 
-                  "\nprint_string_float:\n"
+                  "\noutput_string_float:\n"
                   "\t.string\t\"%%d/%%d\"\n"
 
-                  "\nprint_string_char:\n"
+                  "\noutput_string_char:\n"
                   "\t.string\t\"%%c\"\n"
 
-                  "print_string:\n"
+                  "output_string:\n"
                   "\t.string\t\"%%s\"\n\n");
 
     fprintf(fout, "\n #READ"
@@ -90,11 +51,11 @@ void generateAsm(TAC* first, char* outpath) {
             case TAC_ENDFUN: asm_TAC_ENDFUN(fout, tac); break;
             case TAC_RETURN: asm_TAC_RETURN(fout, tac); break;
 
-            case TAC_PRINT_STRING: asm_TAC_PRINT_STRING(fout, tac); break;
-            case TAC_PRINT_INT: asm_TAC_PRINT_INT(fout, tac); break;
-            case TAC_PRINT_FLOAT: asm_TAC_PRINT_FLOAT(fout, tac); break;
-            case TAC_PRINT_CHAR: asm_TAC_PRINT_CHAR(fout, tac); break;
-            case TAC_PRINT: asm_TAC_PRINT(fout, tac); break;
+            case TAC_OUTPUT_STRING: asm_TAC_OUTPUT_STRING(fout, tac); break;
+            case TAC_OUTPUT_INT: asm_TAC_OUTPUT_INT(fout, tac); break;
+            case TAC_OUTPUT_REAL: asm_TAC_OUTPUT_REAL(fout, tac); break;
+            case TAC_OUTPUT_CHAR: asm_TAC_OUTPUT_CHAR(fout, tac); break;
+            case TAC_OUTPUT: asm_TAC_OUTPUT(fout, tac); break;
 
             case TAC_MOVE: asm_TAC_MOVE(fout, tac); break;
 
@@ -117,7 +78,7 @@ void generateAsm(TAC* first, char* outpath) {
 
             case TAC_GOTO: asm_TAC_GOTO(fout, tac); break;
 
-            case TAC_READ: asm_TAC_READ(fout, tac); break;
+            case TAC_INPUT: asm_TAC_INPUT(fout, tac); break;
 
             case TAC_ARR_GET_ELEMENT: asm_TAC_ARR_GET_ELEMENT(fout, tac); break;
             case TAC_ARR_SET_ELEMENT: asm_TAC_ARR_SET_ELEMENT(fout, tac); break;
@@ -157,9 +118,9 @@ void asm_TAC_BEGINFUN(FILE* fout, TAC* tac) {
                       "    movl\t$0, %%edx\n");
 
 
-        while (tac_rest->type == TAC_DEC_FUNC_ARGS || tac_rest->type == TAC_DEC_FUNC_ARGS_FLOAT) {
+        while (tac_rest->type == TAC_DEC_FUNC_ARGS || tac_rest->type == TAC_DEC_FUNC_ARGS_REAL) {
             int pos = 16 + (8 * args_count);
-            if(tac_rest->type == TAC_DEC_FUNC_ARGS_FLOAT) {
+            if(tac_rest->type == TAC_DEC_FUNC_ARGS_REAL) {
                 fprintf(fout, "\n\tmovl\t%d(%%rbp), %%eax"
                               "\n\tmovl\t%d(%%rbp), %%edx"
                               "\n\tmovl\t%%eax, _%s(%%rip)"
@@ -215,7 +176,7 @@ TAC* asm_TAC_FUN_CALL_ARGS(FILE* fout, TAC* tac) {
     fprintf(fout, "\n\n# TAC_TAC_FUN_CALL_ARGS\n");
     while(tac_temp->type == TAC_FUNC_CALL_ARGS) {
 //        if(0) {
-        if(tac_temp->op1->datatype == DATATYPE_FLOAT) {
+        if(tac_temp->op1->dataType == DATATYPE_REAL) {
             fprintf(fout, "\n"
                           "\tmovl\t4+_%s(%%rip), %%r10d\n"
                           "\tpushq\t%%r10\n"
@@ -257,38 +218,38 @@ void asm_TAC_FUN_CALL(FILE* fout, TAC* tac) {
 
 
 
-void asm_TAC_PRINT_STRING(FILE* fout, TAC* tac){
-    fprintf(fout, "\n\n# TAC_PRINT_STRING \n"
+void asm_TAC_OUTPUT_STRING(FILE* fout, TAC* tac){
+    fprintf(fout, "\n\n# TAC_OUTPUT_STRING \n"
                   "    leaq\t_%s(%%rip), %%rdi\n"
                   "    movl\t$0, %%eax\n"
                   "    call\tprintf@PLT\n"
                   "    movl\t$0, %%eax\n\n", tac->res->text);
 }
-void asm_TAC_PRINT_INT(FILE* fout, TAC* tac){
-    fprintf(fout, "\n# TAC_PRINT_INT \n"
+void asm_TAC_OUTPUT_INT(FILE* fout, TAC* tac){
+    fprintf(fout, "\n# TAC_OUTPUT_INT \n"
                   "    movl\t_%s(%%rip), %%esi   # mov a to reg\n"
                   "    #movl\t%%eax, %%esi\n"
-                  "    leaq\tprint_string_int(%%rip), %%rdi\n"
+                  "    leaq\toutput_string_int(%%rip), %%rdi\n"
                   "\tcall\tprintf@PLT\n\n", tac->res->text);
 }
-void asm_TAC_PRINT_FLOAT(FILE* fout, TAC* tac){
-    fprintf(fout, "\n# TAC_PRINT_FLOAT \n"
+void asm_TAC_OUTPUT_REAL(FILE* fout, TAC* tac){
+    fprintf(fout, "\n# TAC_OUTPUT_REAL \n"
                   "    movl\t4+_%s(%%rip), %%edx   # mov a to reg\n"
                   "    movl\t_%s(%%rip), %%eax   # mov a to reg\n"
                   "    movl\t%%eax, %%esi\n"
-                  "    leaq\tprint_string_float(%%rip), %%rdi\n"
+                  "    leaq\toutput_string_float(%%rip), %%rdi\n"
                   "\tcall\tprintf@PLT\n\n", tac->res->text, tac->res->text);
 }
-void asm_TAC_PRINT_CHAR(FILE* fout, TAC* tac){
-    fprintf(fout, "\n# TAC_PRINT_CHAR \n"
+void asm_TAC_OUTPUT_CHAR(FILE* fout, TAC* tac){
+    fprintf(fout, "\n# TAC_OUTPUT_CHAR \n"
                   "    movzbl\t_%s(%%rip), %%eax   # mov a to reg\n"
                   "    movsbl\t%%al, %%eax\n"
                   "    movl\t%%eax, %%esi\n"
-                  "    leaq\tprint_string_char(%%rip), %%rdi\n"
+                  "    leaq\toutput_string_char(%%rip), %%rdi\n"
                   "\tcall\tprintf@PLT\n\n", tac->res->text);
 }
-void asm_TAC_PRINT(FILE* fout, TAC* tac){
-    // ignore, all in tac_print_string and tac_print_int
+void asm_TAC_OUTPUT(FILE* fout, TAC* tac){
+    // ignore, all in tac_OUTPUT_string and tac_OUTPUT_int
 }
 
 void asm_TAC_MOVE(FILE* fout, TAC* tac){
@@ -382,7 +343,7 @@ void asm_TAC_DIV(FILE* fout, TAC* tac){
 void asm_TAC_LABEL(FILE* fout, TAC* tac){
     fprintf(fout, "\n\n# TAC_LABEL\n"
                   "    _%s:\t# %s"
-                  "\n\n", tac->res->text, tac->res->datastring?tac->res->datastring:"AUTO");
+                  "\n\n", tac->res->text, tac->res->dataString?tac->res->dataString:"AUTO");
 }
 
 void asm_TAC_GT(FILE* fout, TAC* tac){
@@ -521,13 +482,13 @@ void asm_TAC_JMPZ(FILE* fout, TAC* tac){
 void asm_TAC_GOTO(FILE* fout, TAC* tac){
     fprintf(fout, "\n\n# TAC_GOTO\n"
                   "\tjmp\t_%s \t# alias for label [%s]"
-                  "\n\n", tac->res->text, tac->res->datastring);
+                  "\n\n", tac->res->text, tac->res->dataString);
 
 }
 
-void asm_TAC_READ(FILE* fout, TAC* tac){
+void asm_TAC_INPUT(FILE* fout, TAC* tac){
     // compara o temp
-    fprintf(fout, "\n\n# TAC_READ\n"
+    fprintf(fout, "\n\n# TAC_INPUT\n"
                   "\tleaq\t_%s(%%rip), %%rsi\n"
                   "\tleaq\tread(%%rip), %%rdi\n"
                   "\tmovl\t$0, %%eax\n"
@@ -556,7 +517,7 @@ void asm_TAC_ARR_GET_ELEMENT(FILE* fout, TAC* tac) {
                       "    movl\t%%eax, _%s(%%rip)",
                 tac->op2->text, tac->op1->text, tac->res->text);
     } else {
-        int index = tac->op2->datavalue * 4;
+        int index = tac->op2->dataValue * 4;
 
         fprintf(fout, "\n\n# TAC_ARRAY GET_ELEMENT\n"
                       "    movl\t%d+_%s(%%rip), %%eax\n"
@@ -589,7 +550,7 @@ void asm_TAC_ARR_SET_ELEMENT(FILE* fout, TAC* tac){
 
     } else {
 
-        int index = tac->op1->datavalue * 4;
+        int index = tac->op1->dataValue * 4;
 
         fprintf(fout, "\n\n# TAC_ARRAY SET_ELEMENT\n"
                       "    movl\t_%s(%%rip), %%eax\n"
@@ -610,7 +571,7 @@ void asm_TAC_TAC_DEC_GLOBAL_ARR(FILE* fout, TAC* first){
 
     for (tac=first; tac; tac=tac->next) {
         switch (tac->type) {
-            case TAC_DEC_GLOBAL_ARR: {
+            case TAC_GLOBAL_VAR_ARR: {
                 temp = tac;
 
                 fprintf(fout, "\n\n# TAC_ARRAY\n"
@@ -622,7 +583,7 @@ void asm_TAC_TAC_DEC_GLOBAL_ARR(FILE* fout, TAC* first){
                         count++;
                     }
                 } else {
-                    while (count < tac->op2->datavalue) {
+                    while (count < tac->op2->dataValue) {
                         fprintf(fout, "\n\t .long 0 \t# %s[%d]", temp->res->text, count);
                         count++;
                     }

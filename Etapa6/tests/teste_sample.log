@@ -20,153 +20,188 @@ Semantics start
 
  Undeclared semantic errors: 0
 
-ast(AST_PROGRAM) {
-  ast(AST_DECLARATION_LIST) {
-    ast(AST_DECLARATION_GLOBAL_CHAR, c) {
-      ast(AST_SYMBOL, 'x') {
-    ast(AST_DECLARATION_LIST) {
-      ast(AST_DECLARATION_GLOBAL_CHAR, d) {
-        ast(AST_SYMBOL, 100) {
-      ast(AST_DECLARATION_LIST) {
-        ast(AST_DECLARATION_GLOBAL_INT, a) {
-          ast(AST_SYMBOL, 'A') {
-        ast(AST_DECLARATION_LIST) {
-          ast(AST_DECLARATION_GLOBAL_INT, i) {
-            ast(AST_SYMBOL, 1) {
-          ast(AST_DECLARATION_LIST) {
-            ast(AST_DECLARATION_GLOBAL_ARRAY_INT, v) {
-              ast(AST_SYMBOL, 10) {
-              ast(AST_ARRAY_VAL, 'a') {
-                ast(AST_ARRAY_VAL, 0) {
-                  ast(AST_ARRAY_VAL, 0) {
-                    ast(AST_ARRAY_VAL, 0) {
-                      ast(AST_ARRAY_VAL, 0) {
-                        ast(AST_ARRAY_VAL, 0) {
-                          ast(AST_ARRAY_VAL, 0) {
-                            ast(AST_ARRAY_VAL, 0) {
-                              ast(AST_ARRAY_VAL, 0) {
-                                ast(AST_ARRAY_VAL, 0) {
-            ast(AST_DECLARATION_LIST) {
-              ast(AST_DECLARATION_GLOBAL_ARRAY_INT, matrix) {
-                ast(AST_SYMBOL, 100) {
-              ast(AST_DECLARATION_LIST) {
-                ast(AST_DECLARATION_GLOBAL_FLOAT, f) {
-                  ast(AST_SYMBOL, 2) {
-                  ast(AST_SYMBOL, 3) {
-                ast(AST_DECLARATION_LIST) {
-                  ast(AST_DECLARATION_FUNCTION_INT, main) {
-                    ast(AST_DECLARATION_FUNCTION_BODY) {
-                      ast(AST_COMMAND_BLOCK) {
-                        ast(AST_COMMAND_LIST) {
-                          ast(AST_ATTRIBUITION, a) {
-                            ast(AST_SYMBOL, 0) {
-                          ast(AST_COMMAND_LIST) {
-                            ast(AST_ATTRIBUITION, a) {
-                              ast(AST_SUB, __dash__) {
-                                ast(AST_SYMBOL, a) {
-                                ast(AST_SYMBOL, i) {
-                            ast(AST_COMMAND_LIST) {
-                              ast(AST_ATTRIBUITION, a) {
-                                ast(AST_SYMBOL, 5) {
-                              ast(AST_COMMAND_LIST) {
-                                ast(AST_ARRAY_ATTRIBUITION, v) {
-                                  ast(AST_SYMBOL, a) {
-                                  ast(AST_SYMBOL, 55) {
-                                ast(AST_COMMAND_LIST) {
-                                  ast(AST_PRINT) {
-                                    ast(AST_PRINT_EXP) {
-                                      ast(AST_ARRAY_ELEMENT, v) {
-                                        ast(AST_SYMBOL, 5) {
-                                  ast(AST_COMMAND_LIST) {
-                                    ast(AST_PRINT) {
-                                      ast(AST_PRINT_EXP) {
-                                        ast(AST_SYMBOL, a) {
-                                    ast(AST_COMMAND_LIST) {
-                                      ast(AST_ATTRIBUITION, i) {
-                                        ast(AST_SYMBOL, 2) {
-                                      ast(AST_COMMAND_LIST) {
-                                        ast(AST_PRINT) {
-                                          ast(AST_PRINT_STRING) {
-                                            ast(AST_SYMBOL, Digite um numero: \n) {
-                                        ast(AST_COMMAND_LIST) {
-                                          ast(AST_ATTRIBUITION, a) {
-                                            ast(AST_READ) {
-                                          ast(AST_COMMAND_LIST) {
-                                            ast(AST_FLUX_CONTROLL_WHILE) {
-                                              ast(AST_LT, <) {
-                                                ast(AST_SYMBOL, i) {
-                                                ast(AST_SYMBOL, 10) {
-                                              ast(AST_COMMAND_BLOCK) {
-                                                ast(AST_COMMAND_LIST) {
-                                                  ast(AST_ATTRIBUITION, i) {
-                                                    ast(AST_FUNCTION_CALL, incn) {
-                                                      ast(AST_FUNCTION_CALL_ARGS) {
-                                                        ast(AST_SYMBOL, i) {
-                                                        ast(AST_FUNCTION_CALL_ARGS) {
-                                                          ast(AST_SYMBOL, 1) {
-                                                  ast(AST_COMMAND_LIST) {
-                                                    ast(AST_ATTRIBUITION, a) {
-                                                      ast(AST_FUNCTION_CALL, incn) {
-                                                        ast(AST_FUNCTION_CALL_ARGS) {
-                                                          ast(AST_SYMBOL, a) {
-                                                          ast(AST_FUNCTION_CALL_ARGS) {
-                                                            ast(AST_SYMBOL, 1) {
-                                            ast(AST_COMMAND_LIST) {
-                                              ast(AST_PRINT) {
-                                                ast(AST_PRINT_STRING) {
-                                                  ast(AST_SYMBOL, Incrementado algumas vezes a fica ) {
-                                                  ast(AST_PRINT_EXP) {
-                                                    ast(AST_SYMBOL, a) {
-                                                    ast(AST_PRINT_STRING) {
-                                                      ast(AST_SYMBOL, \n) {
-                                              ast(AST_COMMAND_LIST) {
-                                                ast(AST_FLUX_CONTROLL_IF|ELSE) {
-                                                  ast(AST_EQ, ==) {
-                                                    ast(AST_SYMBOL, a) {
-                                                    ast(AST_SYMBOL, 15) {
-                                                  ast(AST_COMMAND_BLOCK) {
-                                                    ast(AST_COMMAND_LIST) {
-                                                      ast(AST_LABEL, label__dash__x) {
-                                                      ast(AST_COMMAND_LIST) {
-                                                        ast(AST_ATTRIBUITION, a) {
-                                                          ast(AST_SUB, __dash__) {
-                                                            ast(AST_SYMBOL, a) {
-                                                            ast(AST_SYMBOL, 1) {
-                                                        ast(AST_COMMAND_LIST) {
-                                                          ast(AST_PRINT) {
-                                                            ast(AST_PRINT_STRING) {
-                                                              ast(AST_SYMBOL, A era=15\n) {
-                                                ast(AST_COMMAND_LIST) {
-                                                  ast(AST_FLUX_CONTROLL_IF|ELSE) {
-                                                    ast(AST_EXPRESSION_BLOCK) {
-                                                      ast(AST_EQ, ==) {
-                                                        ast(AST_SYMBOL, i) {
-                                                        ast(AST_SYMBOL, 100) {
-                                                    ast(AST_COMMAND_BLOCK) {
-                                                      ast(AST_COMMAND_LIST) {
-                                                        ast(AST_PRINT) {
-                                                          ast(AST_PRINT_STRING) {
-                                                            ast(AST_SYMBOL, Nao tem como isso....\n) {
-                                                    ast(AST_PRINT) {
-                                                      ast(AST_PRINT_STRING) {
-                                                        ast(AST_SYMBOL, OK!\n) {
-                                                  ast(AST_COMMAND_LIST) {
-                                                    ast(AST_FLUX_CONTROLL_IF|ELSE) {
-                                                      ast(AST_GT, >) {
-                                                        ast(AST_SYMBOL, a) {
-                                                        ast(AST_SYMBOL, 0) {
-                                                      ast(AST_FLUX_CONTROLL_GOTO, label__dash__x) {
-                  ast(AST_DECLARATION_LIST) {
-                    ast(AST_DECLARATION_FUNCTION_INT, incn) {
-                      ast(AST_DECLARATION_FUNCTION_ARGS_INT, x) {
-                        ast(AST_DECLARATION_FUNCTION_ARGS_INT, n) {
-                      ast(AST_DECLARATION_FUNCTION_BODY) {
-                        ast(AST_COMMAND_BLOCK) {
-                          ast(AST_COMMAND_LIST) {
-                            ast(AST_RETURN) {
-                              ast(AST_ADD, +) {
-                                ast(AST_SYMBOL, x) {
-                                ast(AST_SYMBOL, n) {
+AST_PROGRAM
+  AST_LIST
+    AST_ELEMENT
+      AST_GLOBAL_VAR
+        AST_KW_CHAR
+        AST_SYMBOL
+    AST_LIST
+      AST_ELEMENT
+        AST_GLOBAL_VAR
+          AST_KW_CHAR
+          AST_SYMBOL
+      AST_LIST
+        AST_ELEMENT
+          AST_GLOBAL_VAR
+            AST_KW_INT
+            AST_SYMBOL
+        AST_LIST
+          AST_ELEMENT
+            AST_GLOBAL_VAR
+              AST_KW_INT
+              AST_SYMBOL
+          AST_LIST
+            AST_ELEMENT
+              AST_GLOBAL_VAR_ARRAY
+                AST_KW_INT
+                AST_SYMBOL
+                AST_ARRAY
+                  AST_SYMBOL
+                  AST_ARRAY
+                    AST_SYMBOL
+                    AST_ARRAY
+                      AST_SYMBOL
+                      AST_ARRAY
+                        AST_SYMBOL
+                        AST_ARRAY
+                          AST_SYMBOL
+                          AST_SYMBOL
+            AST_LIST
+              AST_ELEMENT
+                AST_GLOBAL_VAR_ARRAY
+                  AST_KW_INT
+                  AST_SYMBOL
+              AST_LIST
+                AST_ELEMENT
+                  AST_GLOBAL_VAR
+                    AST_KW_REAL
+                    AST_SYMBOL
+                AST_LIST
+                  AST_ELEMENT
+                    AST_GLOBAL_VAR
+                      AST_KW_BOOL
+                      AST_SYMBOL
+                  AST_LIST
+                    AST_ELEMENT
+                      AST_FUNC
+                        AST_HEADER
+                          AST_KW_INT
+                        AST_BLOCK
+                          AST_COMMAND_LIST
+                            AST_ATTR
+                              AST_SYMBOL
+                            AST_COMMAND_LIST
+                              AST_ATTR
+                                AST_SUB
+                                  AST_SYMBOL
+                                  AST_SYMBOL
+                              AST_COMMAND_LIST
+                                AST_ATTR
+                                  AST_SYMBOL
+                                AST_COMMAND_LIST
+                                  AST_ATTR_ARRAY
+                                    AST_ARRAY_ELEMENT
+                                      AST_SYMBOL
+                                    AST_SYMBOL
+                                  AST_COMMAND_LIST
+                                    AST_OUTPUT
+                                      AST_ARRAY_ELEMENT
+                                        AST_SYMBOL
+                                    AST_COMMAND_LIST
+                                      AST_OUTPUT
+                                        AST_SYMBOL
+                                      AST_COMMAND_LIST
+                                        AST_ATTR
+                                          AST_SYMBOL
+                                        AST_COMMAND_LIST
+                                          AST_LOOP
+                                            AST_LT
+                                              AST_SYMBOL
+                                              AST_SYMBOL
+                                            AST_BLOCK
+                                              AST_COMMAND_LIST
+                                                AST_ATTR
+                                                  AST_FUNC_CALL
+                                                    AST_LIST_ARGS
+                                                      AST_SYMBOL
+                                                      AST_SYMBOL
+                                                AST_ATTR
+                                                  AST_FUNC_CALL
+                                                    AST_LIST_ARGS
+                                                      AST_SYMBOL
+                                                      AST_SYMBOL
+                                          AST_COMMAND_LIST
+                                            AST_OUTPUT
+                                              AST_SYMBOL
+                                            AST_COMMAND_LIST
+                                              AST_ATTR_INPUT
+                                                AST_INPUT
+                                                  AST_KW_INT
+                                              AST_COMMAND_LIST
+                                                AST_OUTPUT
+                                                  AST_SYMBOL
+                                                AST_COMMAND_LIST
+                                                  AST_LOOP
+                                                    AST_LT
+                                                      AST_SYMBOL
+                                                      AST_SYMBOL
+                                                    AST_BLOCK
+                                                      AST_COMMAND_LIST
+                                                        AST_ATTR
+                                                          AST_FUNC_CALL
+                                                            AST_LIST_ARGS
+                                                              AST_SYMBOL
+                                                              AST_SYMBOL
+                                                        AST_ATTR
+                                                          AST_FUNC_CALL
+                                                            AST_LIST_ARGS
+                                                              AST_SYMBOL
+                                                              AST_SYMBOL
+                                                  AST_COMMAND_LIST
+                                                    AST_OUTPUT
+                                                      AST_LIST_ELEMENTS
+                                                        AST_SYMBOL
+                                                        AST_LIST_ELEMENTS
+                                                          AST_EXPRESSION_BLOCK
+                                                            AST_ADD
+                                                              AST_SYMBOL
+                                                              AST_SYMBOL
+                                                          AST_LIST_ELEMENTS
+                                                            AST_SYMBOL
+                                                            AST_SYMBOL
+                                                    AST_COMMAND_LIST
+                                                      AST_IF
+                                                        AST_EQ
+                                                          AST_SYMBOL
+                                                          AST_SYMBOL
+                                                        AST_BLOCK
+                                                          AST_COMMAND_LIST
+                                                            AST_ATTR
+                                                              AST_ADD
+                                                                AST_SYMBOL
+                                                                AST_SYMBOL
+                                                            AST_OUTPUT
+                                                              AST_SYMBOL
+                                                      AST_COMMAND_LIST
+                                                        AST_IF
+                                                          AST_EQ
+                                                            AST_SYMBOL
+                                                            AST_SYMBOL
+                                                          AST_BLOCK
+                                                            AST_OUTPUT
+                                                              AST_SYMBOL
+                                                          AST_OUTPUT
+                                                            AST_SYMBOL
+                                                        AST_COMMAND_LIST
+                                                          AST_BLOCK
+                                                            AST_BLOCK
+                                                          AST_BLOCK
+                    AST_LIST
+                      AST_ELEMENT
+                        AST_FUNC
+                          AST_HEADER
+                            AST_KW_INT
+                            AST_PARAMS
+                              AST_PARAM
+                                AST_KW_INT
+                              AST_PARAM
+                                AST_KW_INT
+                          AST_BLOCK
+                            AST_RETURN
+                              AST_ADD
+                                AST_SYMBOL
+                                AST_SYMBOL
 
 hash after tacGenerateCode
 
@@ -251,7 +286,7 @@ TAC(TAC_DEC_GLOBAL_ARR, v, 0, 10);
 TAC(TAC_DEC_GLOBAL_ARR, v, 0, 10);
 TAC(TAC_DEC_GLOBAL_ARR, v, 0, 10);
 TAC(TAC_DEC_GLOBAL_ARR, matrix, 0, 100);
-TAC(TAC_DEC_GLOBAL_FLOAT, f, 2, 3);
+TAC(TAC_DEC_GLOBAL_REAL, f, 2, 3);
 TAC(TAC_BEGINFUN, main, _TMP_LABEL_6, 0);
 TAC(TAC_MOVE, a, 0, 0);
 TAC(TAC_SUB, _TMP_VAR_0, a, i);
@@ -259,14 +294,14 @@ TAC(TAC_MOVE, a, _TMP_VAR_0, 0);
 TAC(TAC_MOVE, a, 5, 0);
 TAC(TAC_ARR_SET_ELEMENT, v, a, 55);
 TAC(TAC_ARR_GET_ELEMENT, _TMP_VAR_1, v, 5);
-TAC(TAC_PRINT_INT, _TMP_VAR_1, 0, 0);
-TAC(TAC_PRINT, _TMP_VAR_1, 0, 0);
-TAC(TAC_PRINT_INT, a, 0, 0);
-TAC(TAC_PRINT, a, 0, 0);
+TAC(TAC_OUTPUT_INT, _TMP_VAR_1, 0, 0);
+TAC(TAC_OUTPUT, _TMP_VAR_1, 0, 0);
+TAC(TAC_OUTPUT_INT, a, 0, 0);
+TAC(TAC_OUTPUT, a, 0, 0);
 TAC(TAC_MOVE, i, 2, 0);
-TAC(TAC_PRINT_STRING, _TMP_VAR_2, 0, 0);
-TAC(TAC_PRINT, _TMP_VAR_2, 0, 0);
-TAC(TAC_READ, _TMP_VAR_3, 0, 0);
+TAC(TAC_OUTPUT_STRING, _TMP_VAR_2, 0, 0);
+TAC(TAC_OUTPUT, _TMP_VAR_2, 0, 0);
+TAC(TAC_INPUT, _TMP_VAR_3, 0, 0);
 TAC(TAC_MOVE, a, _TMP_VAR_3, 0);
 TAC(TAC_LABEL, _TMP_LABEL_0, 0, 0);
 TAC(TAC_LT, _TMP_VAR_4, i, 10);
@@ -281,26 +316,26 @@ TAC(TAC_FUN_CALL, _TMP_VAR_10, incn, 0);
 TAC(TAC_MOVE, a, _TMP_VAR_10, 0);
 TAC(TAC_JMP, _TMP_LABEL_0, 0, 0);
 TAC(TAC_LABEL, _TMP_LABEL_1, 0, 0);
-TAC(TAC_PRINT_STRING, _TMP_VAR_12, 0, 0);
-TAC(TAC_PRINT_INT, a, 0, 0);
-TAC(TAC_PRINT_STRING, _TMP_VAR_11, 0, 0);
-TAC(TAC_PRINT, _TMP_VAR_11, 0, 0);
+TAC(TAC_OUTPUT_STRING, _TMP_VAR_12, 0, 0);
+TAC(TAC_OUTPUT_INT, a, 0, 0);
+TAC(TAC_OUTPUT_STRING, _TMP_VAR_11, 0, 0);
+TAC(TAC_OUTPUT, _TMP_VAR_11, 0, 0);
 TAC(TAC_EQ, _TMP_VAR_13, a, 15);
 TAC(TAC_JMPZ, _TMP_LABEL_3, _TMP_VAR_13, 0);
 TAC(TAC_LABEL, _TMP_LABEL_2, label__dash__x, 0);
 TAC(TAC_SUB, _TMP_VAR_14, a, 1);
 TAC(TAC_MOVE, a, _TMP_VAR_14, 0);
-TAC(TAC_PRINT_STRING, _TMP_VAR_15, 0, 0);
-TAC(TAC_PRINT, _TMP_VAR_15, 0, 0);
+TAC(TAC_OUTPUT_STRING, _TMP_VAR_15, 0, 0);
+TAC(TAC_OUTPUT, _TMP_VAR_15, 0, 0);
 TAC(TAC_LABEL, _TMP_LABEL_3, 0, 0);
 TAC(TAC_EQ, _TMP_VAR_16, i, 100);
 TAC(TAC_JMPZ, _TMP_LABEL_4, _TMP_VAR_16, 0);
-TAC(TAC_PRINT_STRING, _TMP_VAR_17, 0, 0);
-TAC(TAC_PRINT, _TMP_VAR_17, 0, 0);
+TAC(TAC_OUTPUT_STRING, _TMP_VAR_17, 0, 0);
+TAC(TAC_OUTPUT, _TMP_VAR_17, 0, 0);
 TAC(TAC_JMP, _TMP_LABEL_5, 0, 0);
 TAC(TAC_LABEL, _TMP_LABEL_4, 0, 0);
-TAC(TAC_PRINT_STRING, _TMP_VAR_18, 0, 0);
-TAC(TAC_PRINT, _TMP_VAR_18, 0, 0);
+TAC(TAC_OUTPUT_STRING, _TMP_VAR_18, 0, 0);
+TAC(TAC_OUTPUT, _TMP_VAR_18, 0, 0);
 TAC(TAC_LABEL, _TMP_LABEL_5, 0, 0);
 TAC(TAC_GT, _TMP_VAR_19, a, 0);
 TAC(TAC_JMPZ, _TMP_LABEL_6, _TMP_VAR_19, 0);

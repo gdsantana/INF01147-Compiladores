@@ -32,12 +32,13 @@
 #define TAC_EQ     305
 #define TAC_DIF    306
 
-#define TAC_PRINT           601
-#define TAC_PRINT_CONCAT    602
-#define TAC_READ            702
-#define TAC_PRINT_INT       603
-#define TAC_PRINT_CHAR      604
-#define TAC_PRINT_FLOAT      605
+#define TAC_OUTPUT           601
+#define TAC_OUTPUT_STRING    607
+#define TAC_OUTPUT_CONCAT    602
+#define TAC_INPUT            702
+#define TAC_OUTPUT_INT       603
+#define TAC_OUTPUT_CHAR      604
+#define TAC_OUTPUT_REAL      605
 #define TAC_BEGINFUN         810
 #define TAC_ENDFUN           820
 
@@ -74,7 +75,9 @@ typedef struct tac_node{
 TAC* tacJoin(TAC* l1, TAC* l2);
 TAC* tacCreate(int type, HASH_NODE* res, HASH_NODE* op1, HASH_NODE* op2);
 void tacPrint(TAC* tac);
-void tacPrintBackwards(TAC* tac); // recebe o prev
+void tacPrintBackwards(TAC* tac);
+TAC* tacReverseTAC(TAC* tac);
+
 TAC* tacGenerateCode(AST* node);
 TAC* makeGlobalCreate(TAC* code0, TAC* code1, HASH_NODE* symbol, int type);
 
