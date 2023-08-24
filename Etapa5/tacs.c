@@ -27,7 +27,7 @@ void tacPrint(TAC* tac) {
         case TAC_GLOBAL_VAR: fprintf(stderr, "TAC_DEC_GLOBAL"); break;
         case TAC_GLOBAL_VAR_INT: fprintf(stderr, "TAC_DEC_GLOBAL_INT"); break;
         case TAC_GLOBAL_VAR_CHAR: fprintf(stderr, "TAC_DEC_GLOBAL_CHAR"); break;
-        case TAC_GLOBAL_VAR_REAL: fprintf(stderr, "TAC_DEC_GLOBAL_FLOAT"); break;
+        case TAC_GLOBAL_VAR_REAL: fprintf(stderr, "TAC_DEC_GLOBAL_REAL"); break;
 
         case TAC_GLOBAL_VAR_ARR: fprintf(stderr, "TAC_DEC_GLOBAL_ARR"); break;
         case TAC_GLOBAL_VAR_ARR_VAL: fprintf(stderr, "TAC_DEC_GLOBAL_ARR_VAL"); break;
@@ -47,10 +47,10 @@ void tacPrint(TAC* tac) {
         case TAC_EQ:    fprintf(stderr, "TAC_EQ"); break;
         case TAC_DIF:   fprintf(stderr, "TAC_DIF"); break;
 
-        case TAC_PRINT:   fprintf(stderr, "TAC_PRINT"); break;
-        case TAC_PRINT_INT:   fprintf(stderr, "TAC_PRINT_INT"); break;
-        case TAC_PRINT_CHAR:   fprintf(stderr, "TAC_PRINT_CHAR"); break;
-        case TAC_READ:   fprintf(stderr, "TAC_READ"); break;
+        case TAC_OUTPUT:   fprintf(stderr, "TAC_OUTPUT"); break;
+        case TAC_OUTPUT_INT:   fprintf(stderr, "TAC_OUTPUT_INT"); break;
+        case TAC_OUTPUT_CHAR:   fprintf(stderr, "TAC_OUTPUT_CHAR"); break;
+        case TAC_INPUT:   fprintf(stderr, "TAC_INPUT"); break;
 
         case TAC_BEGINFUN:   fprintf(stderr, "TAC_BEGINFUN"); break;
         case TAC_ENDFUN:   fprintf(stderr, "TAC_ENDFUN"); break;
@@ -290,19 +290,19 @@ TAC* makeOutput(TAC* code0, TAC* code1, int nodeType){
     if(nodeType == AST_LIST_ELEMENTS)
         return tacJoin(
                 tacJoin(code0?code0:0, code1?code1:0),
-                tacCreate(TAC_PRINT_CONCAT,
+                tacCreate(TAC_OUTPUT_CONCAT,
                           makeTemp(),
                           code0?code0->res:0,
                           code1?code1->res:0)
         );
     else
-        return tacJoin(code0?code0:0, tacCreate(TAC_PRINT, code0?code0->res:0, 0, 0));
+        return tacJoin(code0?code0:0, tacCreate(TAC_OUTPUT, code0?code0->res:0, 0, 0));
 
 }
 
 TAC* makeInput(TAC* code0){
 
-    return tacCreate(TAC_READ,
+    return tacCreate(TAC_INPUT,
               makeTemp(),
               code0?code0->res:0,
               0);

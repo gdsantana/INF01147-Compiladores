@@ -32,12 +32,12 @@
 #define TAC_EQ     305
 #define TAC_DIF    306
 
-#define TAC_PRINT           601
-#define TAC_PRINT_CONCAT    602
-#define TAC_READ            702
-#define TAC_PRINT_INT       603
-#define TAC_PRINT_CHAR      604
-#define TAC_PRINT_FLOAT      605
+#define TAC_OUTPUT           601
+#define TAC_OUTPUT_CONCAT    602
+#define TAC_INPUT            702
+#define TAC_OUTPUT_INT       603
+#define TAC_OUTPUT_CHAR      604
+#define TAC_OUTPUT_FLOAT      605
 #define TAC_BEGINFUN         810
 #define TAC_ENDFUN           820
 
