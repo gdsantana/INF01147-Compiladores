@@ -1,4 +1,4 @@
-gdsantana@DESKTOP-IF73HRM:/mnt/e/Area de Trabalho/INF01147-Compiladores/Etapa6$ make clean && make && ./etapa6 test_programs/input.txt output.txt && gcc test_programs/input.s && ./a.out
+gdsantana@DESKTOP-IF73HRM:/mnt/e/Area de Trabalho/INF01147-Compiladores/Etapa6$ make clean && make && ./etapa6 tests/teste_sample.txt output.txt && gcc tests/teste_sample.s && ./a.out
 rm lex.yy.c y.tab.c y.tab.h *.o etapa6
 gcc -c -g main.c
 yacc -d parser.y
@@ -15,10 +15,6 @@ gcc -c -g  asm.c
 gcc -c -g commons.c
 gcc main.o lex.yy.o y.tab.o hash.o ast.o semantic.o tacs.o asm.o commons.o -g -o etapa6
 
-
-Semantics start
-
- Undeclared semantic errors: 0
 
 AST_PROGRAM
   AST_LIST
