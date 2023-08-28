@@ -9,16 +9,10 @@ gcc -c -g  lex.yy.c
 gcc -c -g  y.tab.c
 gcc -c -g  hash.c
 gcc -c -g  ast.c
-gcc -c -g  semantic.c
 gcc -c -g tacs.c
 gcc -c -g  asm.c
-gcc -c -g commons.c
-gcc main.o lex.yy.o y.tab.o hash.o ast.o semantic.o tacs.o asm.o commons.o -g -o etapa6
+gcc main.o lex.yy.o y.tab.o hash.o ast.o semantic.o tacs.o asm.o -g -o etapa6
 
-
-Semantics start
-
- Undeclared semantic errors: 0
 
 AST_PROGRAM
   AST_LIST

@@ -28,7 +28,7 @@ __TMP_VAR_5: .string	"Enter the second value: "
 output_string_int:
 	.string	"%d"
 
-output_string_float:
+output_string_real:
 	.string	"%d/%d"
 
 output_string_char:

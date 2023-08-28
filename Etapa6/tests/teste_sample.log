@@ -9,11 +9,9 @@ gcc -c -g  lex.yy.c
 gcc -c -g  y.tab.c
 gcc -c -g  hash.c
 gcc -c -g  ast.c
-gcc -c -g  semantic.c
 gcc -c -g tacs.c
 gcc -c -g  asm.c
-gcc -c -g commons.c
-gcc main.o lex.yy.o y.tab.o hash.o ast.o semantic.o tacs.o asm.o commons.o -g -o etapa6
+gcc main.o lex.yy.o y.tab.o hash.o ast.o tacs.o asm.o -g -o etapa6
 
 
 AST_PROGRAM
@@ -343,27 +341,14 @@ TAC(TAC_BEGINFUN, incn, _TMP_VAR_20, 0);
 TAC(TAC_ADD, _TMP_VAR_20, x, n);
 TAC(TAC_RETURN, _TMP_VAR_20, 0, 0);
 TAC(TAC_ENDFUN, incn, x, 0);
-values: 'a' 0 0 0 0 0 0 0 0 0
-values:
-condition: a==15 body_if: {
-label__dash__x:
-a=a - 1;
-print "A era=15\n";
 
-} body_else:
 
-.condition: (i==100) body_if: {
-print "Nao tem como isso....\n";
-
-} body_else:print "OK!\n"
-
-.condition: a>0 body_if: goto label__dash__x body_else:
-
-.Numero de linhas: 59.
-Compilation Success.
+.Numero de linhas: 63.
 555Digite um numero:
-15
-Incrementado algumas vezes a fica 23
+3
+Digite mais um numero:
+4
+Incrementado algumas vezes a fica 24
 OK!
 
 Table[13] has __LABEL[2]
