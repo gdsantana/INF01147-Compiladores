@@ -41,7 +41,8 @@ int main(int argc, char **argv)
 
   // astPrint(rootNode,0);
 
-    tacPrintBackwards(tacGenerateCode(rootNode));
+  tacPrintBackwards(tacGenerateCode(rootNode));
+  hashPrint();
   if (argc > 2)
   { // write output
     FILE *fp;

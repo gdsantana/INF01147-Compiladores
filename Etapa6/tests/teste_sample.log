@@ -201,88 +201,88 @@ AST_PROGRAM
 
 hash after tacGenerateCode
 
-_TMP_LABEL_0Table[23]    has main        type 259        datatype 1      datavalue 0     datastring (null)
-Table[24]        has _TMP_VAR_11         type 1607       datatype 5      datavalue 0     datastring \n
-Table[36]        has _TMP_VAR_4          type 1607       datatype 0      datavalue 0     datastring (null)
-Table[43]        has +           type 269        datatype 0      datavalue 0     datastring (null)
-Table[47]        has /           type 272        datatype 0      datavalue 0     datastring (null)
-Table[48]        has 0           type 262        datatype 1      datavalue 0     datastring (null)
-Table[49]        has 1           type 262        datatype 1      datavalue 1     datastring (null)
-Table[50]        has _TMP_LABEL_1        type 265        datatype 0      datavalue 0     datastring (null)
-Table[50]        has 2           type 262        datatype 1      datavalue 2     datastring (null)
-Table[51]        has 3           type 262        datatype 1      datavalue 3     datastring (null)
-Table[53]        has 5           type 262        datatype 1      datavalue 5     datastring (null)
-Table[60]        has <           type 274        datatype 0      datavalue 0     datastring (null)
-Table[62]        has >           type 276        datatype 0      datavalue 0     datastring (null)
-Table[87]        has _TMP_VAR_15         type 1607       datatype 5      datavalue 0     datastring A era=15\n
-Table[97]        has a           type 258        datatype 1      datavalue 0     datastring (null)
-Table[99]        has _TMP_VAR_20         type 1607       datatype 0      datavalue 0     datastring (null)
-Table[99]        has c           type 258        datatype 2      datavalue 120   datastring 'x'
-Table[100]       has d           type 258        datatype 2      datavalue 48    datastring 100
-Table[102]       has f           type 258        datatype 3      datavalue 2     datastring 3
-Table[105]       has i           type 258        datatype 1      datavalue 1     datastring (null)
-Table[110]       has n           type 260        datatype 1      datavalue 0     datastring (null)
-Table[112]       has _TMP_VAR_3          type 1607       datatype 0      datavalue 0     datastring (null)
-Table[118]       has v           type 261        datatype 10     datavalue 10    datastring (null)
-Table[120]       has x           type 260        datatype 1      datavalue 0     datastring (null)
-Table[150]       has _TMP_VAR_19         type 1607       datatype 0      datavalue 0     datastring (null)
-Table[171]       has matrix      type 261        datatype 10     datavalue 100   datastring (null)
-Table[188]       has _TMP_VAR_2          type 1607       datatype 5      datavalue 0     datastring Digite um numero: \n
-Table[260]       has \n          type 264        datatype 5      datavalue 0     datastring (null)
-Table[264]       has _TMP_VAR_1          type 1607       datatype 0      datavalue 0     datastring (null)
-Table[289]       has _TMP_VAR_12         type 1607       datatype 5      datavalue 0     datastring Incrementado algumas vezes a fica
-Table[340]       has _TMP_VAR_0          type 1607       datatype 0      datavalue 0     datastring (null)
-Table[352]       has _TMP_VAR_16         type 1607       datatype 0      datavalue 0     datastring (null)
-Table[364]       has label__dash__x      type 265        datatype 0      datavalue 0     datastring (null)
-Table[401]       has _TMP_LABEL_6        type 265        datatype 0      datavalue 0     datastring (null)
-Table[406]       has 10          type 262        datatype 1      datavalue 10    datastring (null)
-Table[460]       has _TMP_LABEL_4        type 265        datatype 0      datavalue 0     datastring (null)
-Table[510]       has incn        type 259        datatype 1      datavalue 0     datastring (null)
-Table[519]       has _TMP_LABEL_2        type 265        datatype 265    datavalue 0     datastring label__dash__x
-Table[554]       has _TMP_VAR_13         type 1607       datatype 0      datavalue 0     datastring (null)
-Table[578]       has _TMP_LABEL_0        type 265        datatype 0      datavalue 0     datastring (null)
-Table[592]       has OK!\n       type 264        datatype 5      datavalue 0     datastring (null)
-Table[593]       has 100         type 262        datatype 1      datavalue 100   datastring (null)
-Table[617]       has _TMP_VAR_17         type 1607       datatype 5      datavalue 0     datastring Nao tem como isso....\n
-Table[653]       has _TMP_VAR_9          type 1607       datatype 0      datavalue 0     datastring (null)
-Table[656]       has 15          type 262        datatype 1      datavalue 15    datastring (null)
-Table[705]       has Digite um numero: \n        type 264        datatype 5      datavalue 0     datastring (null)
-Table[729]       has _TMP_VAR_8          type 1607       datatype 0      datavalue 0     datastring (null)
-Table[742]       has 'A'         type 263        datatype 2      datavalue 0     datastring (null)
-Table[756]       has _TMP_VAR_10         type 1607       datatype 0      datavalue 0     datastring (null)
-Table[779]       has Nao tem como isso....\n             type 264        datatype 5      datavalue 0     datastring (null)
-Table[781]       has Incrementado algumas vezes a fica           type 264        datatype 5      datavalue 0     datastring (null)
-Table[791]       has ==          type 277        datatype 0      datavalue 0     datastring (null)
-Table[800]       has 'x'         type 263        datatype 2      datavalue 0     datastring (null)
-Table[805]       has _TMP_VAR_7          type 1607       datatype 0      datavalue 0     datastring (null)
-Table[812]       has 'a'         type 281        datatype 0      datavalue 0     datastring (null)
-Table[814]       has __dash__            type 270        datatype 0      datavalue 0     datastring (null)
-Table[819]       has _TMP_VAR_14         type 1607       datatype 0      datavalue 0     datastring (null)
-Table[855]       has A era=15\n          type 264        datatype 5      datavalue 0     datastring (null)
-Table[868]       has 55          type 262        datatype 1      datavalue 55    datastring (null)
-Table[881]       has _TMP_VAR_6          type 1607       datatype 0      datavalue 0     datastring (null)
-Table[882]       has _TMP_VAR_18         type 1607       datatype 5      datavalue 0     datastring OK!\n
-Table[929]       has _TMP_LABEL_5        type 265        datatype 0      datavalue 0     datastring (null)
-Table[957]       has _TMP_VAR_5          type 1607       datatype 0      datavalue 0     datastring (null)
-Table[988]       has _TMP_LABEL_3        type 265        datatype 0      datavalue 0     datastring (null)
+_TMP_LABEL_0Table[23]    has main        type 259        dataType 1      dataValue 0     dataString (null)
+Table[24]        has _TMP_VAR_11         type 1607       dataType 5      dataValue 0     dataString \n
+Table[36]        has _TMP_VAR_4          type 1607       dataType 0      dataValue 0     dataString (null)
+Table[43]        has +           type 269        dataType 0      dataValue 0     dataString (null)
+Table[47]        has /           type 272        dataType 0      dataValue 0     dataString (null)
+Table[48]        has 0           type 262        dataType 1      dataValue 0     dataString (null)
+Table[49]        has 1           type 262        dataType 1      dataValue 1     dataString (null)
+Table[50]        has _TMP_LABEL_1        type 265        dataType 0      dataValue 0     dataString (null)
+Table[50]        has 2           type 262        dataType 1      dataValue 2     dataString (null)
+Table[51]        has 3           type 262        dataType 1      dataValue 3     dataString (null)
+Table[53]        has 5           type 262        dataType 1      dataValue 5     dataString (null)
+Table[60]        has <           type 274        dataType 0      dataValue 0     dataString (null)
+Table[62]        has >           type 276        dataType 0      dataValue 0     dataString (null)
+Table[87]        has _TMP_VAR_15         type 1607       dataType 5      dataValue 0     dataString A era=15\n
+Table[97]        has a           type 258        dataType 1      dataValue 0     dataString (null)
+Table[99]        has _TMP_VAR_20         type 1607       dataType 0      dataValue 0     dataString (null)
+Table[99]        has c           type 258        dataType 2      dataValue 120   dataString 'x'
+Table[100]       has d           type 258        dataType 2      dataValue 48    dataString 100
+Table[102]       has f           type 258        dataType 3      dataValue 2     dataString 3
+Table[105]       has i           type 258        dataType 1      dataValue 1     dataString (null)
+Table[110]       has n           type 260        dataType 1      dataValue 0     dataString (null)
+Table[112]       has _TMP_VAR_3          type 1607       dataType 0      dataValue 0     dataString (null)
+Table[118]       has v           type 261        dataType 10     dataValue 10    dataString (null)
+Table[120]       has x           type 260        dataType 1      dataValue 0     dataString (null)
+Table[150]       has _TMP_VAR_19         type 1607       dataType 0      dataValue 0     dataString (null)
+Table[171]       has matrix      type 261        dataType 10     dataValue 100   dataString (null)
+Table[188]       has _TMP_VAR_2          type 1607       dataType 5      dataValue 0     dataString Digite um numero: \n
+Table[260]       has \n          type 264        dataType 5      dataValue 0     dataString (null)
+Table[264]       has _TMP_VAR_1          type 1607       dataType 0      dataValue 0     dataString (null)
+Table[289]       has _TMP_VAR_12         type 1607       dataType 5      dataValue 0     dataString Incrementado algumas vezes a fica
+Table[340]       has _TMP_VAR_0          type 1607       dataType 0      dataValue 0     dataString (null)
+Table[352]       has _TMP_VAR_16         type 1607       dataType 0      dataValue 0     dataString (null)
+Table[364]       has label__dash__x      type 265        dataType 0      dataValue 0     dataString (null)
+Table[401]       has _TMP_LABEL_6        type 265        dataType 0      dataValue 0     dataString (null)
+Table[406]       has 10          type 262        dataType 1      dataValue 10    dataString (null)
+Table[460]       has _TMP_LABEL_4        type 265        dataType 0      dataValue 0     dataString (null)
+Table[510]       has incn        type 259        dataType 1      dataValue 0     dataString (null)
+Table[519]       has _TMP_LABEL_2        type 265        dataType 265    dataValue 0     dataString label__dash__x
+Table[554]       has _TMP_VAR_13         type 1607       dataType 0      dataValue 0     dataString (null)
+Table[578]       has _TMP_LABEL_0        type 265        dataType 0      dataValue 0     dataString (null)
+Table[592]       has OK!\n       type 264        dataType 5      dataValue 0     dataString (null)
+Table[593]       has 100         type 262        dataType 1      dataValue 100   dataString (null)
+Table[617]       has _TMP_VAR_17         type 1607       dataType 5      dataValue 0     dataString Nao tem como isso....\n
+Table[653]       has _TMP_VAR_9          type 1607       dataType 0      dataValue 0     dataString (null)
+Table[656]       has 15          type 262        dataType 1      dataValue 15    dataString (null)
+Table[705]       has Digite um numero: \n        type 264        dataType 5      dataValue 0     dataString (null)
+Table[729]       has _TMP_VAR_8          type 1607       dataType 0      dataValue 0     dataString (null)
+Table[742]       has 'A'         type 263        dataType 2      dataValue 0     dataString (null)
+Table[756]       has _TMP_VAR_10         type 1607       dataType 0      dataValue 0     dataString (null)
+Table[779]       has Nao tem como isso....\n             type 264        dataType 5      dataValue 0     dataString (null)
+Table[781]       has Incrementado algumas vezes a fica           type 264        dataType 5      dataValue 0     dataString (null)
+Table[791]       has ==          type 277        dataType 0      dataValue 0     dataString (null)
+Table[800]       has 'x'         type 263        dataType 2      dataValue 0     dataString (null)
+Table[805]       has _TMP_VAR_7          type 1607       dataType 0      dataValue 0     dataString (null)
+Table[812]       has 'a'         type 281        dataType 0      dataValue 0     dataString (null)
+Table[814]       has __dash__            type 270        dataType 0      dataValue 0     dataString (null)
+Table[819]       has _TMP_VAR_14         type 1607       dataType 0      dataValue 0     dataString (null)
+Table[855]       has A era=15\n          type 264        dataType 5      dataValue 0     dataString (null)
+Table[868]       has 55          type 262        dataType 1      dataValue 55    dataString (null)
+Table[881]       has _TMP_VAR_6          type 1607       dataType 0      dataValue 0     dataString (null)
+Table[882]       has _TMP_VAR_18         type 1607       dataType 5      dataValue 0     dataString OK!\n
+Table[929]       has _TMP_LABEL_5        type 265        dataType 0      dataValue 0     dataString (null)
+Table[957]       has _TMP_VAR_5          type 1607       dataType 0      dataValue 0     dataString (null)
+Table[988]       has _TMP_LABEL_3        type 265        dataType 0      dataValue 0     dataString (null)
 
 
-TAC(TAC_DEC_GLOBAL_CHAR, c, 'x', 0);
-TAC(TAC_DEC_GLOBAL_CHAR, d, 100, 0);
-TAC(TAC_DEC_GLOBAL_INT, a, 'A', 0);
-TAC(TAC_DEC_GLOBAL_INT, i, 1, 0);
-TAC(TAC_DEC_GLOBAL_ARR, v, 'a', 10);
-TAC(TAC_DEC_GLOBAL_ARR, v, 0, 10);
-TAC(TAC_DEC_GLOBAL_ARR, v, 0, 10);
-TAC(TAC_DEC_GLOBAL_ARR, v, 0, 10);
-TAC(TAC_DEC_GLOBAL_ARR, v, 0, 10);
-TAC(TAC_DEC_GLOBAL_ARR, v, 0, 10);
-TAC(TAC_DEC_GLOBAL_ARR, v, 0, 10);
-TAC(TAC_DEC_GLOBAL_ARR, v, 0, 10);
-TAC(TAC_DEC_GLOBAL_ARR, v, 0, 10);
-TAC(TAC_DEC_GLOBAL_ARR, v, 0, 10);
-TAC(TAC_DEC_GLOBAL_ARR, matrix, 0, 100);
-TAC(TAC_DEC_GLOBAL_REAL, f, 2, 3);
+TAC(TAC_GLOBAL_VAR_CHAR, c, 'x', 0);
+TAC(TAC_GLOBAL_VAR_CHAR, d, 100, 0);
+TAC(TAC_GLOBAL_VAR_INT, a, 'A', 0);
+TAC(TAC_GLOBAL_VAR_INT, i, 1, 0);
+TAC(TAC_GLOBAL_VAR_ARR, v, 'a', 10);
+TAC(TAC_GLOBAL_VAR_ARR, v, 0, 10);
+TAC(TAC_GLOBAL_VAR_ARR, v, 0, 10);
+TAC(TAC_GLOBAL_VAR_ARR, v, 0, 10);
+TAC(TAC_GLOBAL_VAR_ARR, v, 0, 10);
+TAC(TAC_GLOBAL_VAR_ARR, v, 0, 10);
+TAC(TAC_GLOBAL_VAR_ARR, v, 0, 10);
+TAC(TAC_GLOBAL_VAR_ARR, v, 0, 10);
+TAC(TAC_GLOBAL_VAR_ARR, v, 0, 10);
+TAC(TAC_GLOBAL_VAR_ARR, v, 0, 10);
+TAC(TAC_GLOBAL_VAR_ARR, matrix, 0, 100);
+TAC(TAC_GLOBAL_VAR_REAL, f, 2, 3);
 TAC(TAC_BEGINFUN, main, _TMP_LABEL_6, 0);
 TAC(TAC_MOVE, a, 0, 0);
 TAC(TAC_SUB, _TMP_VAR_0, a, i);
@@ -365,3 +365,68 @@ Compilation Success.
 15
 Incrementado algumas vezes a fica 23
 OK!
+
+Table[13] has __LABEL[2]
+Table[23] has main
+Table[43] has +
+Table[45] has -
+Table[48] has 0
+Table[49] has 1
+Table[50] has 2
+Table[53] has 5
+Table[60] has <
+Table[97] has a
+Table[98] has b
+Table[99] has c
+Table[100] has d
+Table[102] has _TMP-VAR_[15]
+Table[102] has f
+Table[105] has i
+Table[110] has n
+Table[118] has v
+Table[120] has x
+Table[171] has matrix
+Table[206] has __LABEL[6]
+Table[214] has __LABEL[1]
+Table[233] has _TMP-VAR_[11]
+Table[253] has _TMP-VAR_[18]
+Table[260] has \n
+Table[273] has Nao tem como isso...\n
+Table[384] has _TMP-VAR_[14]
+Table[406] has 10
+Table[407] has __LABEL[5]
+Table[407] has Digite mais um numero: \n
+Table[415] has __LABEL[0]
+Table[491] has _TMP-VAR_[9]
+Table[510] has incn
+Table[515] has _TMP-VAR_[10]
+Table[519] has _TMP-VAR_[8]
+Table[535] has _TMP-VAR_[17]
+Table[537] has 0 0
+Table[547] has _TMP-VAR_[7]
+Table[575] has _TMP-VAR_[6]
+Table[592] has OK!\n
+Table[593] has 100
+Table[603] has _TMP-VAR_[5]
+Table[608] has __LABEL[4]
+Table[631] has _TMP-VAR_[4]
+Table[656] has 15
+Table[659] has _TMP-VAR_[3]
+Table[666] has _TMP-VAR_[13]
+Table[687] has _TMP-VAR_[2]
+Table[687] has a.a
+Table[705] has Digite um numero: \n
+Table[715] has _TMP-VAR_[1]
+Table[742] has 'A'
+Table[743] has _TMP-VAR_[0]
+Table[763] has 2.5
+Table[781] has Incrementado algumas vezes a fica 
+Table[791] has ==
+Table[800] has 'x'
+Table[809] has __LABEL[3]
+Table[812] has 'a'
+Table[817] has _TMP-VAR_[16]
+Table[855] has A era=15\n
+Table[868] has 55
+Table[948] has _TMP-VAR_[12]
+Table[968] has _TMP-VAR_[19]

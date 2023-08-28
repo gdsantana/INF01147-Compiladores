@@ -39,19 +39,19 @@ __TMP_VAR_18: .string	"OK!\n"
 __TMP_VAR_5: .long	0
 
  # PRINT
-print_string_int:
+output_string_int:
 	.string	"%d"
 
-print_string_float:
+output_string_float:
 	.string	"%d/%d"
 
-print_string_char:
+output_string_char:
 	.string	"%c"
-print_string:
+output_string:
 	.string	"%s"
 
 
- #READ
+ #INPUT
 read:
 	.string	"%d"
 
@@ -127,17 +127,17 @@ main:
     movl	$0, %eax
 
 
-# TAC_PRINT_INT 
+# TAC_OUTPUT_INT 
     movl	__TMP_VAR_1(%rip), %esi   # mov a to reg
     #movl	%eax, %esi
-    leaq	print_string_int(%rip), %rdi
+    leaq	output_string_int(%rip), %rdi
 	call	printf@PLT
 
 
-# TAC_PRINT_INT 
+# TAC_OUTPUT_INT 
     movl	_a(%rip), %esi   # mov a to reg
     #movl	%eax, %esi
-    leaq	print_string_int(%rip), %rdi
+    leaq	output_string_int(%rip), %rdi
 	call	printf@PLT
 
 
@@ -150,7 +150,7 @@ main:
 
 
 
-# TAC_PRINT_STRING 
+# TAC_OUTPUT_string 
     leaq	__TMP_VAR_2(%rip), %rdi
     movl	$0, %eax
     call	printf@PLT
@@ -158,7 +158,7 @@ main:
 
 
 
-# TAC_READ
+# TAC_INPUT
 	leaq	__TMP_VAR_3(%rip), %rsi
 	leaq	read(%rip), %rdi
 	movl	$0, %eax
@@ -253,22 +253,22 @@ CMP_LBL_TEMP_1:	#final do bloco
 
 
 
-# TAC_PRINT_STRING 
+# TAC_output_string 
     leaq	__TMP_VAR_12(%rip), %rdi
     movl	$0, %eax
     call	printf@PLT
     movl	$0, %eax
 
 
-# TAC_PRINT_INT 
+# TAC_OUTPUT_INT 
     movl	_a(%rip), %esi   # mov a to reg
     #movl	%eax, %esi
-    leaq	print_string_int(%rip), %rdi
+    leaq	output_string_int(%rip), %rdi
 	call	printf@PLT
 
 
 
-# TAC_PRINT_STRING 
+# TAC_output_string 
     leaq	__TMP_VAR_11(%rip), %rdi
     movl	$0, %eax
     call	printf@PLT
@@ -322,7 +322,7 @@ CMP_LBL_TEMP_3:	#final do bloco
 
 
 
-# TAC_PRINT_STRING 
+# TAC_output_string 
     leaq	__TMP_VAR_15(%rip), %rdi
     movl	$0, %eax
     call	printf@PLT
@@ -357,7 +357,7 @@ CMP_LBL_TEMP_5:	#final do bloco
     jz __TMP_LABEL_4
 
 
-# TAC_PRINT_STRING 
+# TAC_output_string 
     leaq	__TMP_VAR_17(%rip), %rdi
     movl	$0, %eax
     call	printf@PLT
@@ -375,7 +375,7 @@ CMP_LBL_TEMP_5:	#final do bloco
 
 
 
-# TAC_PRINT_STRING 
+# TAC_output_string 
     leaq	__TMP_VAR_18(%rip), %rdi
     movl	$0, %eax
     call	printf@PLT

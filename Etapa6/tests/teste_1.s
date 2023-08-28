@@ -25,20 +25,20 @@ __TMP_VAR_18: .string	"input1 / input2 = "
 __TMP_VAR_5: .string	"Enter the second value: "
 
  # PRINT
-print_string_int:
+output_string_int:
 	.string	"%d"
 
-print_string_float:
+output_string_float:
 	.string	"%d/%d"
 
-print_string_char:
+output_string_char:
 	.string	"%c"
-print_string:
+output_string:
 	.string	"%s"
 
 
  #READ
-read:
+input:
 	.string	"%d"
 
 
@@ -51,7 +51,7 @@ main:
 	movq	%rsp, %rbp
 
 
-# TAC_PRINT_STRING 
+# TAC_OUTPUT_STRING 
     leaq	__TMP_VAR_0(%rip), %rdi
     movl	$0, %eax
     call	printf@PLT
@@ -59,7 +59,7 @@ main:
 
 
 
-# TAC_PRINT_STRING 
+# TAC_OUTPUT_STRING 
     leaq	__TMP_VAR_1(%rip), %rdi
     movl	$0, %eax
     call	printf@PLT
@@ -67,7 +67,7 @@ main:
 
 
 
-# TAC_PRINT_STRING 
+# TAC_OUTPUT_STRING 
     leaq	__TMP_VAR_3(%rip), %rdi
     movl	$0, %eax
     call	printf@PLT
@@ -75,7 +75,7 @@ main:
 
 
 
-# TAC_PRINT_STRING 
+# TAC_OUTPUT_STRING 
     leaq	__TMP_VAR_2(%rip), %rdi
     movl	$0, %eax
     call	printf@PLT
@@ -83,7 +83,7 @@ main:
 
 
 
-# TAC_READ
+# TAC_INPUT
 	leaq	__TMP_VAR_4(%rip), %rsi
 	leaq	read(%rip), %rdi
 	movl	$0, %eax
@@ -97,7 +97,7 @@ main:
 
 
 
-# TAC_PRINT_STRING 
+# TAC_OUTPUT_STRING 
     leaq	__TMP_VAR_5(%rip), %rdi
     movl	$0, %eax
     call	printf@PLT
@@ -105,7 +105,7 @@ main:
 
 
 
-# TAC_READ
+# TAC_INPUT
 	leaq	__TMP_VAR_6(%rip), %rsi
 	leaq	read(%rip), %rdi
 	movl	$0, %eax
@@ -119,7 +119,7 @@ main:
 
 
 
-# TAC_PRINT_STRING 
+# TAC_OUTPUT_STRING 
     leaq	__TMP_VAR_9(%rip), %rdi
     movl	$0, %eax
     call	printf@PLT
@@ -127,7 +127,7 @@ main:
 
 
 
-# TAC_PRINT_STRING 
+# TAC_OUTPUT_STRING 
     leaq	__TMP_VAR_8(%rip), %rdi
     movl	$0, %eax
     call	printf@PLT
@@ -144,15 +144,15 @@ main:
 
 
 
-# TAC_PRINT_INT 
+# TAC_OUTPUT_INT 
     movl	__TMP_VAR_7(%rip), %esi   # mov a to reg
     #movl	%eax, %esi
-    leaq	print_string_int(%rip), %rdi
+    leaq	output_string_int(%rip), %rdi
 	call	printf@PLT
 
 
 
-# TAC_PRINT_STRING 
+# TAC_OUTPUT_STRING 
     leaq	__TMP_VAR_12(%rip), %rdi
     movl	$0, %eax
     call	printf@PLT
@@ -160,7 +160,7 @@ main:
 
 
 
-# TAC_PRINT_STRING 
+# TAC_OUTPUT_STRING 
     leaq	__TMP_VAR_11(%rip), %rdi
     movl	$0, %eax
     call	printf@PLT
@@ -178,15 +178,15 @@ main:
 
 
 
-# TAC_PRINT_INT 
+# TAC_OUTPUT_INT 
     movl	__TMP_VAR_10(%rip), %esi   # mov a to reg
     #movl	%eax, %esi
-    leaq	print_string_int(%rip), %rdi
+    leaq	output_string_int(%rip), %rdi
 	call	printf@PLT
 
 
 
-# TAC_PRINT_STRING 
+# TAC_OUTPUT_STRING 
     leaq	__TMP_VAR_15(%rip), %rdi
     movl	$0, %eax
     call	printf@PLT
@@ -194,7 +194,7 @@ main:
 
 
 
-# TAC_PRINT_STRING 
+# TAC_OUTPUT_STRING 
     leaq	__TMP_VAR_14(%rip), %rdi
     movl	$0, %eax
     call	printf@PLT
@@ -211,15 +211,15 @@ main:
 
 
 
-# TAC_PRINT_INT 
+# TAC_OUTPUT_INT 
     movl	__TMP_VAR_13(%rip), %esi   # mov a to reg
     #movl	%eax, %esi
-    leaq	print_string_int(%rip), %rdi
+    leaq	output_string_int(%rip), %rdi
 	call	printf@PLT
 
 
 
-# TAC_PRINT_STRING 
+# TAC_OUTPUT_STRING 
     leaq	__TMP_VAR_19(%rip), %rdi
     movl	$0, %eax
     call	printf@PLT
@@ -227,7 +227,7 @@ main:
 
 
 
-# TAC_PRINT_STRING 
+# TAC_OUTPUT_STRING 
     leaq	__TMP_VAR_18(%rip), %rdi
     movl	$0, %eax
     call	printf@PLT
@@ -246,15 +246,15 @@ main:
 
 
 
-# TAC_PRINT_INT 
+# TAC_OUTPUT_INT 
     movl	__TMP_VAR_16(%rip), %esi   # mov a to reg
     #movl	%eax, %esi
-    leaq	print_string_int(%rip), %rdi
+    leaq	output_string_int(%rip), %rdi
 	call	printf@PLT
 
 
 
-# TAC_PRINT_STRING 
+# TAC_OUTPUT_STRING 
     leaq	__TMP_VAR_17(%rip), %rdi
     movl	$0, %eax
     call	printf@PLT

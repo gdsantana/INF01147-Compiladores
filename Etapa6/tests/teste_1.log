@@ -104,49 +104,49 @@ AST_PROGRAM
 
 hash after tacGenerateCode
 
-Table[0]         has input1 * input2 =           type 264        datatype 5      datavalue 0     datastring (null)
-Table[23]        has main        type 259        datatype 1      datavalue 0     datastring (null)
-Table[24]        has _TMP_VAR_11         type 1607       datatype 5      datavalue 0     datastring input1 __dash__ input2 =
-Table[36]        has _TMP_VAR_4          type 1607       datatype 0      datavalue 0     datastring (null)
-Table[37]        has Enter the first value:              type 264        datatype 5      datavalue 0     datastring (null)
-Table[42]        has *           type 271        datatype 0      datavalue 0     datastring (null)
-Table[43]        has +           type 269        datatype 0      datavalue 0     datastring (null)
-Table[47]        has /           type 272        datatype 0      datavalue 0     datastring (null)
-Table[48]        has 0           type 262        datatype 1      datavalue 0     datastring (null)
-Table[75]        has Teste 1:            type 264        datatype 5      datavalue 0     datastring (null)
-Table[87]        has _TMP_VAR_15         type 1607       datatype 5      datavalue 0     datastring \n
-Table[112]       has _TMP_VAR_3          type 1607       datatype 5      datavalue 0     datastring \n
-Table[150]       has _TMP_VAR_19         type 1607       datatype 5      datavalue 0     datastring \n
-Table[154]       has input__dash__one            type 258        datatype 1      datavalue 0     datastring (null)
-Table[188]       has _TMP_VAR_2          type 1607       datatype 5      datavalue 0     datastring Enter the first value:
-Table[208]       has input1 / input2 =           type 264        datatype 5      datavalue 0     datastring (null)
-Table[241]       has input1 + input2 =           type 264        datatype 5      datavalue 0     datastring (null)
-Table[260]       has \n          type 264        datatype 5      datavalue 0     datastring (null)
-Table[264]       has _TMP_VAR_1          type 1607       datatype 5      datavalue 0     datastring Atribuições e operações aritmeticas com impressão:  [read, +, __dash__, *, /] \n
-Table[289]       has _TMP_VAR_12         type 1607       datatype 5      datavalue 0     datastring \n
-Table[340]       has _TMP_VAR_0          type 1607       datatype 5      datavalue 0     datastring Teste 1:
-Table[352]       has _TMP_VAR_16         type 1607       datatype 0      datavalue 0     datastring (null)
-Table[554]       has _TMP_VAR_13         type 1607       datatype 0      datavalue 0     datastring (null)
-Table[617]       has _TMP_VAR_17         type 1607       datatype 5      datavalue 0     datastring \n
-Table[653]       has _TMP_VAR_9          type 1607       datatype 5      datavalue 0     datastring \n
-Table[686]       has input__dash__two            type 258        datatype 1      datavalue 0     datastring (null)
-Table[717]       has Enter the second value:             type 264        datatype 5      datavalue 0     datastring (null)
-Table[729]       has _TMP_VAR_8          type 1607       datatype 5      datavalue 0     datastring input1 + input2 =
-Table[748]       has result      type 258        datatype 1      datavalue 0     datastring (null)
-Table[756]       has _TMP_VAR_10         type 1607       datatype 0      datavalue 0     datastring (null)
-Table[805]       has _TMP_VAR_7          type 1607       datatype 0      datavalue 0     datastring (null)
-Table[814]       has __dash__            type 270        datatype 0      datavalue 0     datastring (null)
-Table[819]       has _TMP_VAR_14         type 1607       datatype 5      datavalue 0     datastring input1 * input2 =
-Table[876]       has input1 __dash__ input2 =            type 264        datatype 5      datavalue 0     datastring (null)
-Table[881]       has _TMP_VAR_6          type 1607       datatype 0      datavalue 0     datastring (null)
-Table[882]       has _TMP_VAR_18         type 1607       datatype 5      datavalue 0     datastring input1 / input2 =
-Table[943]       has Atribuições e operações aritmeticas com impressão:  [read, +, __dash__, *, /] \n            type 264        datatype 5      datavalue 0     datastring (null)
-Table[957]       has _TMP_VAR_5          type 1607       datatype 5      datavalue 0     datastring Enter the second value:
+Table[0]         has input1 * input2 =           type 264        dataType 5      dataValue 0     dataString (null)
+Table[23]        has main        type 259        dataType 1      dataValue 0     dataString (null)
+Table[24]        has _TMP_VAR_11         type 1607       dataType 5      dataValue 0     dataString input1 __dash__ input2 =
+Table[36]        has _TMP_VAR_4          type 1607       dataType 0      dataValue 0     dataString (null)
+Table[37]        has Enter the first value:              type 264        dataType 5      dataValue 0     dataString (null)
+Table[42]        has *           type 271        dataType 0      dataValue 0     dataString (null)
+Table[43]        has +           type 269        dataType 0      dataValue 0     dataString (null)
+Table[47]        has /           type 272        dataType 0      dataValue 0     dataString (null)
+Table[48]        has 0           type 262        dataType 1      dataValue 0     dataString (null)
+Table[75]        has Teste 1:            type 264        dataType 5      dataValue 0     dataString (null)
+Table[87]        has _TMP_VAR_15         type 1607       dataType 5      dataValue 0     dataString \n
+Table[112]       has _TMP_VAR_3          type 1607       dataType 5      dataValue 0     dataString \n
+Table[150]       has _TMP_VAR_19         type 1607       dataType 5      dataValue 0     dataString \n
+Table[154]       has input__dash__one            type 258        dataType 1      dataValue 0     dataString (null)
+Table[188]       has _TMP_VAR_2          type 1607       dataType 5      dataValue 0     dataString Enter the first value:
+Table[208]       has input1 / input2 =           type 264        dataType 5      dataValue 0     dataString (null)
+Table[241]       has input1 + input2 =           type 264        dataType 5      dataValue 0     dataString (null)
+Table[260]       has \n          type 264        dataType 5      dataValue 0     dataString (null)
+Table[264]       has _TMP_VAR_1          type 1607       dataType 5      dataValue 0     dataString Atribuições e operações aritmeticas com impressão:  [read, +, __dash__, *, /] \n
+Table[289]       has _TMP_VAR_12         type 1607       dataType 5      dataValue 0     dataString \n
+Table[340]       has _TMP_VAR_0          type 1607       dataType 5      dataValue 0     dataString Teste 1:
+Table[352]       has _TMP_VAR_16         type 1607       dataType 0      dataValue 0     dataString (null)
+Table[554]       has _TMP_VAR_13         type 1607       dataType 0      dataValue 0     dataString (null)
+Table[617]       has _TMP_VAR_17         type 1607       dataType 5      dataValue 0     dataString \n
+Table[653]       has _TMP_VAR_9          type 1607       dataType 5      dataValue 0     dataString \n
+Table[686]       has input__dash__two            type 258        dataType 1      dataValue 0     dataString (null)
+Table[717]       has Enter the second value:             type 264        dataType 5      dataValue 0     dataString (null)
+Table[729]       has _TMP_VAR_8          type 1607       dataType 5      dataValue 0     dataString input1 + input2 =
+Table[748]       has result      type 258        dataType 1      dataValue 0     dataString (null)
+Table[756]       has _TMP_VAR_10         type 1607       dataType 0      dataValue 0     dataString (null)
+Table[805]       has _TMP_VAR_7          type 1607       dataType 0      dataValue 0     dataString (null)
+Table[814]       has __dash__            type 270        dataType 0      dataValue 0     dataString (null)
+Table[819]       has _TMP_VAR_14         type 1607       dataType 5      dataValue 0     dataString input1 * input2 =
+Table[876]       has input1 __dash__ input2 =            type 264        dataType 5      dataValue 0     dataString (null)
+Table[881]       has _TMP_VAR_6          type 1607       dataType 0      dataValue 0     dataString (null)
+Table[882]       has _TMP_VAR_18         type 1607       dataType 5      dataValue 0     dataString input1 / input2 =
+Table[943]       has Atribuições e operações aritmeticas com impressão:  [read, +, __dash__, *, /] \n            type 264        dataType 5      dataValue 0     dataString (null)
+Table[957]       has _TMP_VAR_5          type 1607       dataType 5      dataValue 0     dataString Enter the second value:
 
 
-TAC(TAC_DEC_GLOBAL_INT, input__dash__one, 0, 0);
-TAC(TAC_DEC_GLOBAL_INT, input__dash__two, 0, 0);
-TAC(TAC_DEC_GLOBAL_INT, result, 0, 0);
+TAC(TAC_GLOBAL_VAR_INT, input__dash__one, 0, 0);
+TAC(TAC_GLOBAL_VAR_INT, input__dash__two, 0, 0);
+TAC(TAC_GLOBAL_VAR_INT, result, 0, 0);
 TAC(TAC_BEGINFUN, main, _TMP_VAR_17, 0);
 TAC(TAC_OUTPUT_STRING, _TMP_VAR_0, 0, 0);
 TAC(TAC_OUTPUT, _TMP_VAR_0, 0, 0);
