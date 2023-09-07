@@ -70,7 +70,6 @@
 %type<ast> array
 %type<ast> value
 %type<ast> func
-%type<ast> header
 %type<ast> type
 %type<ast> params
 %type<ast> param
@@ -81,7 +80,6 @@
 %type<ast> block
 %type<ast> output
 %type<ast> list_elements
-%type<ast> el
 %type<ast> return
 %type<ast> input
 %type<ast> attr
@@ -121,12 +119,10 @@ value: LIT_INT      {$$ = astCreate(AST_SYMBOL, $1, 0,0,0,0);}
 //############## 
 //    FUNÇÕES
 //##############
-func: header command  {$$ = astCreate(AST_FUNC,0,$1,$2,0,0);}
+func: type TK_IDENTIFIER '(' params ')' command  {$$ = astCreate(AST_FUNC,$2,$1,$4,$6,0);}
+    | type TK_IDENTIFIER '('  ')' command  {$$ = astCreate(AST_FUNC,$2,$1,0,$5,0);}
     ;
-//body: block;
-header: type TK_IDENTIFIER '(' params ')'    {$$ = astCreate(AST_HEADER,$2,$1,$4,0,0);}
-      | type TK_IDENTIFIER '(' ')'           {$$ = astCreate(AST_HEADER,$2,$1,0,0,0);}
-      ; 
+
 type: KW_INT  {$$ = astCreate(AST_KW_INT,0,0,0,0,0);}
     | KW_REAL {$$ = astCreate(AST_KW_REAL,0,0,0,0,0);}
     | KW_CHAR {$$ = astCreate(AST_KW_CHAR,0,0,0,0,0);}
@@ -174,12 +170,11 @@ command_list: command  command_list  {$$ = astCreate(AST_COMMAND_LIST, 0, $1, $2
 //########################
 output: KW_OUTPUT list_elements ';'  {$$ = astCreate(AST_OUTPUT, 0, $2, 0, 0, 0);}
       ;
-list_elements: el ',' list_elements  {$$ = astCreate(AST_LIST_ELEMENTS, 0, $1, $3, 0, 0);}
-             | el                    { $$ = $1; }
+list_elements: LIT_STRING                    { AST* lit = astCreate(AST_SYMBOL, $1, 0,0,0,0); $$ = astCreate(AST_OUTPUT_STRING, 0, lit,0,0,0); }
+             | LIT_STRING ',' list_elements  { AST* lit = astCreate(AST_SYMBOL, $1, 0,0,0,0); $$ = astCreate(AST_OUTPUT_STRING, 0, lit,$3,0,0); }
+             | expression ',' list_elements  { $$ = astCreate(AST_OUTPUT_EXP, 0, $1,$3,0,0); }
+             | expression                    { $$ = astCreate(AST_OUTPUT_EXP, 0, $1,0,0,0); }
              ;
-el: expression                       { $$ = $1; }
-  | LIT_STRING                       {$$ = astCreate(AST_SYMBOL, $1, 0, 0, 0, 0);}
-  ;
 
 return: KW_RETURN expression ';' {$$ = astCreate(AST_RETURN,0,$2,0,0,0);}
       ; 
@@ -201,12 +196,12 @@ flux_control: KW_IF '(' expression ')' command                  {$$ = astCreate(
             | KW_IF '(' expression ')' KW_LOOP command          {$$ = astCreate(AST_LOOP,0,$3,$6,0,0);}
             ;
 
-expression: expression OPERATOR_ADD expression               {$$ = astCreate(AST_ADD,0,$1,$3,0,0);}
-          | expression OPERATOR_SUB expression               {$$ = astCreate(AST_SUB,0,$1,$3,0,0);}
-          | expression OPERATOR_MULT expression               {$$ = astCreate(AST_MULT,0,$1,$3,0,0);}
-          | expression OPERATOR_DIV expression               {$$ = astCreate(AST_DIV,0,$1,$3,0,0);}
-          | expression OPERATOR_GT expression               {$$ = astCreate(AST_GT,0,$1,$3,0,0);}
-          | expression OPERATOR_LT expression               {$$ = astCreate(AST_LT,0,$1,$3,0,0);}
+expression: expression OPERATOR_ADD expression      {$$ = astCreate(AST_ADD,0,$1,$3,0,0);}
+          | expression OPERATOR_SUB expression      {$$ = astCreate(AST_SUB,0,$1,$3,0,0);}
+          | expression OPERATOR_MULT expression     {$$ = astCreate(AST_MULT,0,$1,$3,0,0);}
+          | expression OPERATOR_DIV expression      {$$ = astCreate(AST_DIV,0,$1,$3,0,0);}
+          | expression OPERATOR_GT expression       {$$ = astCreate(AST_GT,0,$1,$3,0,0);}
+          | expression OPERATOR_LT expression       {$$ = astCreate(AST_LT,0,$1,$3,0,0);}
           | expression OPERATOR_LE expression       {$$ = astCreate(AST_LE,0,$1,$3,0,0);}
           | expression OPERATOR_GE expression       {$$ = astCreate(AST_GE,0,$1,$3,0,0);}
           | expression OPERATOR_EQ expression       {$$ = astCreate(AST_EQ,0,$1,$3,0,0);}

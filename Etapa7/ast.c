@@ -43,8 +43,6 @@ char* astTypeName(int type) {
     case AST_COMMAND_LIST:      return "AST_COMMAND_LIST"; break;
     case AST_BLOCK:             return "AST_BLOCK"; break;
     case AST_OUTPUT:            return "AST_OUTPUT"; break;
-    case AST_LIST_ELEMENTS:     return "AST_LIST_ELEMENTS"; break;
-    case AST_EL:                return "AST_EL"; break;
     case AST_RETURN:            return "AST_RETURN"; break;
     case AST_INPUT:             return "AST_INPUT"; break;
     case AST_ATTR:              return "AST_ATTR"; break;
@@ -191,11 +189,13 @@ char* astToCode(AST* node, int level) {
         }
         case AST_FUNC: {
             fprintf(stderr, "AST_FUNC\n");
-            char * header = astToCode(node->son[0],level);
-            char * body = astToCode(node->son[1],level);
+            char* type = typeToString(node->son[0]->type);
+            char* name = node->symbol->text;
+            char* list_params = astToCode(node->son[1],level);
+            char * body = astToCode(node->son[2],level);
 
-            char* func = (char*)calloc(strlen(header) + strlen(body) +1 +1, sizeof(char));
-            sprintf(func, "%s %s\n", header, body); 
+            char* func = (char*)calloc(strlen(name) + strlen(type) + strlen(list_params) + strlen(body) +4 +1, sizeof(char));
+            sprintf(func, "%s %s(%s) %s\n", type, name, list_params, body); 
 
             return func;
             break;
@@ -307,22 +307,40 @@ char* astToCode(AST* node, int level) {
             return buffer;
             break;
         }   
-        case AST_LIST_ELEMENTS: {
-            fprintf(stderr, "AST_LIST_ELEMENTS\n");
+        case AST_OUTPUT_STRING:
+        case AST_OUTPUT_EXP: {
+            char* stringContent1 = astToCode(node->son[0],level);
+            char* stringContent2 = astToCode(node->son[1],level);
+            char* stringContent3 = astToCode(node->son[2],level);
 
-            char* el = astToCode(node->son[0],level);
-            char* list_elements = astToCode(node->son[1],level);
+            char* buffer = (char*)calloc(5 + strlen(stringContent1) + strlen(stringContent2) + strlen(stringContent3) + 1, sizeof(char));
 
-            char* buffer = (char*)calloc(strlen(el) +strlen(list_elements) +2 + 1, sizeof(char));
-
-            if(list_elements[0] != '\0')
-                sprintf(buffer, "%s, %s", el, list_elements);
+            if (stringContent3[0] != '\0')
+                sprintf(buffer, "%s, %s, %s", stringContent1, stringContent2, stringContent3);
+            else if (stringContent2[0] != '\0')
+                sprintf(buffer, "%s, %s", stringContent1, stringContent2);
             else
-                sprintf(buffer, "%s", el);
+                sprintf(buffer, "%s", stringContent1);
 
             return buffer;
             break;
-        }   
+        }
+        // case AST_LIST_ELEMENTS: {
+        //     fprintf(stderr, "AST_LIST_ELEMENTS\n");
+
+        //     char* el = astToCode(node->son[0],level);
+        //     char* list_elements = astToCode(node->son[1],level);
+
+        //     char* buffer = (char*)calloc(strlen(el) +strlen(list_elements) +2 + 1, sizeof(char));
+
+        //     if(list_elements[0] != '\0')
+        //         sprintf(buffer, "%s, %s", el, list_elements);
+        //     else
+        //         sprintf(buffer, "%s", el);
+
+        //     return buffer;
+        //     break;
+        // }   
         case AST_RETURN: {
             fprintf(stderr, "AST_RETURN\n");
             

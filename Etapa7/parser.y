@@ -71,7 +71,6 @@
 %type<ast> array
 %type<ast> value
 %type<ast> func
-%type<ast> header
 %type<ast> type
 %type<ast> params
 %type<ast> param
@@ -82,7 +81,6 @@
 %type<ast> block
 %type<ast> output
 %type<ast> list_elements
-%type<ast> el
 %type<ast> return
 %type<ast> input
 %type<ast> attr
@@ -126,16 +124,14 @@ value: LIT_INT      {$$ = astCreate(AST_SYMBOL, $1, 0,0,0,0);}
 //############## 
 //    FUNÇÕES
 //##############
-func: header command  {$$ = astCreate(AST_FUNC,0,$1,$2,0,0);}
+func: type TK_IDENTIFIER '(' params ')' command  {$$ = astCreate(AST_FUNC,$2,$1,$4,$6,0);}
+    | type TK_IDENTIFIER '('  ')' command        {$$ = astCreate(AST_FUNC,$2,$1,0,$5,0);}
+    | type error '(' params ')' command          { $$ = 0; syntaxError("Identifier not found for the type of function declaration.\n");}
+    | type error '(' ')' command                 { $$ = 0; syntaxError("Identifier not found for the type of function declaration.\n");}
+    | error TK_IDENTIFIER '(' params ')' command { $$ = 0; syntaxError("Function type not found.\n");}
+    | error TK_IDENTIFIER '(' ')' command        { $$ = 0; syntaxError("Function type not found.\n");}
     ;
-//body: block;
-header: type TK_IDENTIFIER '(' params ')'    {$$ = astCreate(AST_HEADER,$2,$1,$4,0,0);}
-      | type TK_IDENTIFIER '(' ')'           {$$ = astCreate(AST_HEADER,$2,$1,0,0,0);}
-      | type error '(' params ')'            { $$ = 0; syntaxError("Identifier not found for the type of function declaration.\n");}
-      | type error '(' ')'                   { $$ = 0; syntaxError("Identifier not found for the type of function declaration.\n");}
-      | error TK_IDENTIFIER '(' params ')'   { $$ = 0; syntaxError("Function type not found.\n");}
-      | error TK_IDENTIFIER '(' ')'          { $$ = 0; syntaxError("Function type not found.\n");}
-      ; 
+
 type: KW_INT  {$$ = astCreate(AST_KW_INT,0,0,0,0,0);}
     | KW_REAL {$$ = astCreate(AST_KW_REAL,0,0,0,0,0);}
     | KW_CHAR {$$ = astCreate(AST_KW_CHAR,0,0,0,0,0);}
@@ -183,13 +179,14 @@ command_list: command  command_list  {$$ = astCreate(AST_COMMAND_LIST, 0, $1, $2
 //########################
 output: KW_OUTPUT list_elements semi_column  {$$ = astCreate(AST_OUTPUT, 0, $2, 0, 0, 0);}
       ;
-list_elements: el ',' list_elements  {$$ = astCreate(AST_LIST_ELEMENTS, 0, $1, $3, 0, 0);}
-             | el error list_elements  {$$ = astCreate(AST_LIST_ELEMENTS, 0, $1, $3, 0, 0);}
-             | el                    { $$ = $1; }
+list_elements: LIT_STRING                        { AST* lit = astCreate(AST_SYMBOL, $1, 0,0,0,0); $$ = astCreate(AST_OUTPUT_STRING, 0, lit,0,0,0); }
+             | LIT_STRING ',' list_elements      { AST* lit = astCreate(AST_SYMBOL, $1, 0,0,0,0); $$ = astCreate(AST_OUTPUT_STRING, 0, lit,$3,0,0); }
+             | LIT_STRING error list_elements    { AST* lit = astCreate(AST_SYMBOL, $1, 0,0,0,0); $$ = astCreate(AST_OUTPUT_STRING, 0, lit,$3,0,0); }
+             | expression ',' list_elements      { $$ = astCreate(AST_OUTPUT_EXP, 0, $1,0,0,0); }
+             | expression error list_elements    { $$ = astCreate(AST_OUTPUT_EXP, 0, $1,0,0,0); }
+             | expression                        { $$ = astCreate(AST_OUTPUT_EXP, 0, $1,0,0,0); }
              ;
-el: expression                       { $$ = $1; }
-  | LIT_STRING                       {$$ = astCreate(AST_SYMBOL, $1, 0, 0, 0, 0);}
-  ;
+
 
 return: KW_RETURN expression semi_column {$$ = astCreate(AST_RETURN,0,$2,0,0,0);} 
       | KW_RETURN error semi_column { $$ = 0; syntaxError("Return malformatted, expression or value expected \n");}

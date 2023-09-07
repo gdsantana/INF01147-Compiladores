@@ -29,7 +29,6 @@
 #define AST_BLOCK 19
 #define AST_OUTPUT 20
 #define AST_LIST_ELEMENTS 21
-#define AST_EL 22
 #define AST_RETURN 23
 #define AST_INPUT 24
 #define AST_ATTR 25
@@ -77,6 +76,11 @@
 #define DATATYPE_ARRAY_REAL      212
 #define DATATYPE_ARRAY_BOOL      213
 
+// #define AST_PRINT                  203
+//#define AST_PRINT_REST             2031
+#define AST_OUTPUT_STRING           2032
+#define AST_OUTPUT_EXP              2033
+#define AST_OUTPUT_CHAR             2034
 
 typedef struct astnode
 {

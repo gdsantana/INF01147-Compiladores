@@ -15,10 +15,9 @@ void generateAsm(TAC* first, char* outpath) {
 
     // globals
     hashPrintAsm(fout);
-
     // init
 
-    fprintf(fout, "\n # PRINT"
+    fprintf(fout, "\n # OUTPUT"
                   "\noutput_string_int:\n"
                   "\t.string\t\"%%d\"\n"
 
@@ -31,7 +30,7 @@ void generateAsm(TAC* first, char* outpath) {
                   "output_string:\n"
                   "\t.string\t\"%%s\"\n\n");
 
-    fprintf(fout, "\n #READ"
+    fprintf(fout, "\n #OUTPUT"
                   "\nread:\n"
                   "\t.string\t\"%%d\""
                   "\n\n");
@@ -39,7 +38,7 @@ void generateAsm(TAC* first, char* outpath) {
 
 
     // GENERATE ARRAY DEC
-    asm_TAC_TAC_DEC_GLOBAL_ARR(fout, first);
+    asm_TAC_TAC_GLOBAL_VAR_ARR(fout, first);
 
 
     // GENERATE
@@ -83,7 +82,7 @@ void generateAsm(TAC* first, char* outpath) {
             case TAC_ARR_GET_ELEMENT: asm_TAC_ARR_GET_ELEMENT(fout, tac); break;
             case TAC_ARR_SET_ELEMENT: asm_TAC_ARR_SET_ELEMENT(fout, tac); break;
 
-            case TAC_FUNC_CALL_ARGS: tac = asm_TAC_FUN_CALL_ARGS(fout, tac); break;
+            case TAC_FUNC_CALL_ARGS: tac = asm_TAC_FUNC_CALL_ARGS(fout, tac); break;
             case TAC_FUN_CALL: asm_TAC_FUN_CALL(fout, tac); break;
 
 
@@ -98,8 +97,6 @@ void generateAsm(TAC* first, char* outpath) {
 
 
 void asm_TAC_BEGINFUN(FILE* fout, TAC* tac) {
-
-//    TAC_DEC_FUNC_ARGS
 
     fprintf(fout, "\n\n# TAC_BEGINFUN\n"
                   "\t.text\n"
@@ -125,11 +122,6 @@ void asm_TAC_BEGINFUN(FILE* fout, TAC* tac) {
                               "\n\tmovl\t%d(%%rbp), %%edx"
                               "\n\tmovl\t%%eax, _%s(%%rip)"
                               "\n\tmovl\t%%edx, 4+_%s(%%rip)", pos, pos+8, tac_rest->res->text, tac_rest->res->text);
-//                fprintf(fout, "\n\tmovl\t%d(%%rbp), %%eax"
-//                              "\n\tmovl\t%d(%%rbp), %%edx"
-//                              "\n\tmovl\t%%eax, %d+_%s(%%rip)"
-//                              "\n\tmovl\t%%edx, _%s(%%rip)", pos+4, pos, 4, tac_rest->res->text, tac_rest->res->text);
-
                 args_count += 1;
             } else {
                 fprintf(fout, "\n\tmovl\t%d(%%rbp), %%eax\n"
@@ -166,27 +158,40 @@ void asm_TAC_ENDFUN(FILE* fout, TAC* tac){
 }
 
 
-TAC* asm_TAC_FUN_CALL_ARGS(FILE* fout, TAC* tac) {
-//    movl	f10(%rip), %r10d
-//    pushq	%r10
+TAC* asm_TAC_FUNC_CALL_ARGS(FILE* fout, TAC* tac) {
     TAC* tac_temp = 0;
     tac_temp = tac;
     int args_count = 0;
 
-    fprintf(fout, "\n\n# TAC_TAC_FUN_CALL_ARGS\n");
+    fprintf(fout, "\n\n# TAC_TAC_FUNC_CALL_ARGS\n");
     while(tac_temp->type == TAC_FUNC_CALL_ARGS) {
-//        if(0) {
-        if(tac_temp->op1->dataType == DATATYPE_REAL) {
-            fprintf(fout, "\n"
-                          "\tmovl\t4+_%s(%%rip), %%r10d\n"
-                          "\tpushq\t%%r10\n"
-                          "\tmovl\t_%s(%%rip), %%r10d\n"
-                          "\tpushq\t%%r10\n", tac_temp->op1->text, tac_temp->op1->text);
-            args_count+=1;
-        } else {
-            fprintf(fout, "\n"
-                          "\tmovl\t_%s(%%rip), %%r10d\n"
-                          "\tpushq\t%%r10\n", tac_temp->op1->text);
+
+        switch (tac_temp->op1->dataType) {
+            case DATATYPE_REAL:
+                fprintf(fout, "\n"
+                              "\tmovl\t4+_%s(%%rip), %%r10d\n"
+                              "\tpushq\t%%r10\n"
+                              "\tmovl\t_%s(%%rip), %%r10d\n"
+                              "\tpushq\t%%r10\n", tac_temp->op1->text, tac_temp->op1->text);
+                args_count+=1;
+
+                break;
+            case DATATYPE_CHAR:
+                if(tac_temp->op1->type == SYMBOL_LIT_CHAR) {
+                    fprintf(fout, " # LIT CHAR \n"
+                                  "\tmovl\t_char_%c(%%rip), %%r10d\n"
+                                  "\tpushq\t%%r10\n", tac_temp->op1->dataChar);
+                } else {
+                    fprintf(fout, " # VAR CHAR \n"
+                                  "\tmovl\t_%s(%%rip), %%r10d\n"
+                                  "\tpushq\t%%r10\n", tac_temp->op1->text);
+                }
+
+                break;
+            default:
+                fprintf(fout, "\n"
+                              "\tmovl\t_%s(%%rip), %%r10d\n"
+                              "\tpushq\t%%r10\n", tac_temp->op1->text);
         }
 
         args_count+=1;
@@ -241,12 +246,20 @@ void asm_TAC_OUTPUT_REAL(FILE* fout, TAC* tac){
                   "\tcall\tprintf@PLT\n\n", tac->res->text, tac->res->text);
 }
 void asm_TAC_OUTPUT_CHAR(FILE* fout, TAC* tac){
-    fprintf(fout, "\n# TAC_OUTPUT_CHAR \n"
-                  "    movzbl\t_%s(%%rip), %%eax   # mov a to reg\n"
-                  "    movsbl\t%%al, %%eax\n"
-                  "    movl\t%%eax, %%esi\n"
-                  "    leaq\toutput_string_char(%%rip), %%rdi\n"
-                  "\tcall\tprintf@PLT\n\n", tac->res->text);
+    if(tac->res->type == SYMBOL_LIT_CHAR) {
+        fprintf(fout, "\n\n# TAC_OUTPUT_CHAR \n"
+                      "    leaq\t_char_%c(%%rip), %%rdi\n"
+                      "    movl\t$0, %%eax\n"
+                      "    call\tprintf@PLT\n"
+                      "    movl\t$0, %%eax\n\n", tac->res->dataChar);
+    } else {
+        fprintf(fout, "\n\n# TAC_OUTPUT_CHAR \n"
+                      "    leaq\t_%s(%%rip), %%rdi\n"
+                      "    movl\t$0, %%eax\n"
+                      "    call\tprintf@PLT\n"
+                      "    movl\t$0, %%eax\n\n", tac->res->text);
+    }
+
 }
 void asm_TAC_OUTPUT(FILE* fout, TAC* tac){
     // ignore, all in tac_OUTPUT_string and tac_OUTPUT_int
@@ -562,7 +575,7 @@ void asm_TAC_ARR_SET_ELEMENT(FILE* fout, TAC* tac){
 }
 
 
-void asm_TAC_TAC_DEC_GLOBAL_ARR(FILE* fout, TAC* first){
+void asm_TAC_TAC_GLOBAL_VAR_ARR(FILE* fout, TAC* first){
 
     TAC* temp = 0;
     TAC* tac = 0;

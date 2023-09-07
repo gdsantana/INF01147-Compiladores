@@ -5,6 +5,7 @@
 #include "ast.h"
 
 #define TAC_SYMBOL 1
+#define TAC_SYMBOL_STRING 2
 
 #define TAC_MOVE        10
 
@@ -67,7 +68,7 @@ typedef struct tac_node{
     HASH_NODE *res;
     HASH_NODE *op1;
     HASH_NODE *op2;
-
+    
     struct tac_node* prev;
     struct tac_node* next;
 } TAC;
@@ -88,7 +89,7 @@ TAC* makeArrCreate(TAC* code0, TAC* code1, HASH_NODE* symbol);
 TAC* makeArrCreateVal(TAC* code0, TAC* code1, HASH_NODE* symbol);
 TAC* makeBinaryOP(TAC* code0, TAC* code1, int type);
 
-TAC* makeOutput(TAC* code0, TAC* code1, int nodeType);
+TAC* makeOutput(TAC* code0, TAC* code1, AST* node);
 TAC* makeInput(TAC* code0);
 
 TAC* makeFunctionBody(TAC* code0, TAC* code1, HASH_NODE* symbol);

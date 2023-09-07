@@ -2,7 +2,7 @@
 #ifndef ASM_HEADER
 #define ASM_HEADER
 
-
+#include <stdio.h>
 #include "hash.h"
 #include "ast.h"
 #include "tacs.h"
@@ -39,12 +39,13 @@ void asm_TAC_GOTO(FILE* fout, TAC* tac);
 
 void asm_TAC_INPUT(FILE* fout, TAC* tac);
 
-void asm_TAC_TAC_DEC_GLOBAL_ARR(FILE* fout, TAC* tac);
+void asm_TAC_TAC_GLOBAL_VAR_ARR(FILE* fout, TAC* tac);
 void asm_TAC_ARR_GET_ELEMENT(FILE* fout, TAC* tac);
 void asm_TAC_ARR_SET_ELEMENT(FILE* fout, TAC* tac);
 
-TAC* asm_TAC_FUN_CALL_ARGS(FILE* fout, TAC* tac);
+TAC* asm_TAC_FUNC_CALL_ARGS(FILE* fout, TAC* tac);
 void asm_TAC_FUN_CALL(FILE* fout, TAC* tac);
+
 
 void generateAsm(TAC* first, char* outpath);
 

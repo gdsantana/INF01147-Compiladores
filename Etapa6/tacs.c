@@ -161,7 +161,7 @@ TAC* tacGenerateCode(AST* node) {
         case AST_DIF:   result = makeBinaryOP(code[0], code[1], TAC_DIF); break;
 
         case AST_OUTPUT:
-            result = makeOutput(code[0], code[1], node->son[0]->type); break;
+            result = makeOutput(code[0], code[1], node); break;
 
         case AST_INPUT:   result = makeInput(code[0]); break;// talvez um pouco diferente pq passamos o tipo da entrada
 
@@ -264,10 +264,10 @@ TAC* makeArrCreate(TAC* code0, TAC* code1, HASH_NODE* symbol){
     tmp = code1?code1:0;
 
     if(!tmp) {
-        tac = tacCreate(TAC_GLOBAL_VAR, symbol, 0, code0?code0->res:0);
+        tac = tacCreate(TAC_GLOBAL_VAR_ARR, symbol, 0, code0?code0->res:0);
     } else {
         while (tmp) {
-            tac_arr = tacCreate(TAC_GLOBAL_VAR, symbol, tmp->res, code0 ? code0->res : 0);
+            tac_arr = tacCreate(TAC_GLOBAL_VAR_ARR, symbol, tmp->res, code0 ? code0->res : 0);
             tac = tacJoin(tac, tac_arr);
             tmp = tmp->prev;
         }
@@ -298,65 +298,51 @@ TAC* makeBinaryOP(TAC* code0, TAC* code1, int type) {
                       code1?code1->res:0)
     );
 }
-TAC* makeOutput(TAC* code0, TAC* code1, int nodeType){
-    if(nodeType == AST_LIST_ELEMENTS)
+TAC* makeOutput(TAC* code0, TAC* code1, AST* node){
+    if(node->type == AST_OUTPUT_STRING) {
+        TAC *string_val = 0;
+        HASH_NODE* node_string = 0;
+        node_string = makeTemp();
+        node_string->dataString = code0?code0->res->text:"";
+        node_string->dataType = DATATYPE_STRING;
+
+        string_val = tacCreate(TAC_SYMBOL_STRING,
+                               node_string,
+                               code0 ? code0->res : 0,
+                               code1 ? code1->res : 0);
+
         return tacJoin(
-                tacJoin(code0?code0:0, code1?code1:0),
-                tacCreate(TAC_OUTPUT_CONCAT,
-                          makeTemp(),
-                          code0?code0->res:0,
-                          code1?code1->res:0)
+                tacJoin(code0 ? code0 : 0, tacCreate(TAC_OUTPUT_STRING, string_val->res, 0, 0)),
+                code1 ? code1 : 0
         );
-    else
-        return tacJoin(code0?code0:0, tacCreate(TAC_OUTPUT, code0?code0->res:0, 0, 0));
+    }
+    if(node->type == AST_OUTPUT_EXP) {
+        TAC *tac = 0;
+
+        switch (code0->res->dataType) {
+            case DATATYPE_CHAR:
+                tac = tacCreate(TAC_OUTPUT_CHAR, code0 ? code0->res : 0, 0, 0);
+                break;
+            case DATATYPE_REAL:
+                tac = tacCreate(TAC_OUTPUT_REAL, code0 ? code0->res : 0, 0, 0);
+                break;
+            case DATATYPE_INT:
+                tac = tacCreate(TAC_OUTPUT_INT, code0 ? code0->res : 0, 0, 0);
+                break;
+            default:
+                tac = tacCreate(TAC_OUTPUT_INT, code0 ? code0->res : 0, 0, 0);
+        }
+
+        return tacJoin(
+                tacJoin(code0 ? code0 : 0, tac),
+                code1 ? code1 : 0
+        );
+    }
+    if(node->type == AST_OUTPUT)
+        return tacJoin(  code0?code0:0, tacCreate(TAC_OUTPUT, code0?code0->res:0, 0, 0));
+
 
 }
-// TAC* makeOutput(TAC* code0, TAC* code1, AST* node){
-// //    if(nodeType == AST_PRINT_REST)
-//     if(node->type == AST_LIST_ELEMENTS) {
-//         TAC *string_val = 0;
-//         HASH_NODE* node_string = 0;
-//         node_string = makeTemp();
-//         node_string->datastring = code0?code0->res->text:"";
-//         node_string->dataType = DATATYPE_STRING;
-
-//         string_val = tacCreate(TAC_SYMBOL_STRING,
-//                                node_string,
-//                                code0 ? code0->res : 0,
-//                                code1 ? code1->res : 0);
-
-//         return tacJoin(
-//                 tacJoin(code0 ? code0 : 0, tacCreate(TAC_OUTPUT_STRING, string_val->res, 0, 0)),
-//                 code1 ? code1 : 0
-//         );
-//     }
-//     if(node->type == AST_PRINT_EXP) {
-//         TAC *tac = 0;
-
-//         switch (code0->res->dataType) {
-//             case DATATYPE_CHAR:
-//                 tac = tacCreate(TAC_OUTPUT_CHAR, code0 ? code0->res : 0, 0, 0);
-//                 break;
-//             case DATATYPE_REAL:
-//                 tac = tacCreate(TAC_OUTPUT_FLOAT, code0 ? code0->res : 0, 0, 0);
-//                 break;
-//             case DATATYPE_INT:
-//                 tac = tacCreate(TAC_OUTPUT_INT, code0 ? code0->res : 0, 0, 0);
-//                 break;
-//             default:
-//                 tac = tacCreate(TAC_OUTPUT_INT, code0 ? code0->res : 0, 0, 0);
-//         }
-
-//         return tacJoin(
-//                 tacJoin(code0 ? code0 : 0, tac),
-//                 code1 ? code1 : 0
-//         );
-//     }
-//     if(node->type == AST_OUTPUT)
-//         return tacJoin(  code0?code0:0, tacCreate(TAC_OUTPUT, code0?code0->res:0, 0, 0));
-
-
-// }
 
 TAC* makeInput(TAC* code0){
 

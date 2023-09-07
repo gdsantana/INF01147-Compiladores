@@ -1,11 +1,14 @@
-etapa7: lex.yy.o main.o hash.o ast.o y.tab tacs.o asm.o
-	gcc -o etapa7 -g y.tab.c lex.yy.o main.o hash.o ast.o tacs.o asm.o
+etapa7: lex.yy.o main.o hash.o ast.o y.tab tacs.o semantic.o asm.o 
+	gcc -o etapa7 -g y.tab.c lex.yy.o main.o hash.o ast.o tacs.o semantic.o asm.o 
 
 main.o: main.c
 	gcc -c -g main.c
 
 asm.o: asm.c ast.o
 	gcc -c -g  asm.c
+
+semantic.o: semantic.c ast.o
+	gcc -c -g  semantic.c
 
 tacs.o: tacs.c ast.o
 	gcc -c -g tacs.c

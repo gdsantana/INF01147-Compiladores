@@ -1,0 +1,19 @@
+int a = 0;
+int b = 0;
+int result = 0;
+
+int main() {
+    output "Teste 1:";
+
+    output "Atribuições e operações aritmeticas com impressão:  [input, +, -, *, /] \n";
+
+    output "\n", "Enter the first value: ";
+    a = input(int);
+    output "Enter the second value: ";
+    b = input(int);
+
+    output "\n", "input1 + input2 = ", a + b;
+    output "\n", "input1 - input2 = ", a - b;
+    output "\n", "input1 * input2 = ", a * b;
+    output "\n", "input1 / input2 = ", a / b, "\n";
+}

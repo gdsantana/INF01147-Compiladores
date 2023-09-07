@@ -2,8 +2,12 @@
 #include <string.h>
 #include <stdlib.h>
 #include <stdio.h>
+
+
 HASH_NODE *Table[HASH_SIZE];
 int first_node = -1;
+
+
 void hashInit(void){
     int i;
     for(i=0; i<HASH_SIZE; i++) {
@@ -95,7 +99,7 @@ HASH_NODE* makeTemp(){
 
     char buffer[256] = "";
 
-    sprintf(buffer, "_TMP-VAR_[%d]", serial++);
+    sprintf(buffer, "_TMP-VAR_%d", serial++);
 
     return hashInsert(buffer, SYMBOL_TEMP);
 }
@@ -105,7 +109,7 @@ HASH_NODE* makeLabel(){
 
     char buffer[256] = "";
 
-    sprintf(buffer, "__LABEL[%d]", serial++);
+    sprintf(buffer, "__LABEL_%d", serial++);
 
     return hashInsert(buffer, SYMBOL_LABEL);
 }
