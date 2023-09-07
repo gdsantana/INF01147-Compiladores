@@ -24,7 +24,7 @@ int getLineNumber(void);
 "real"   { return KW_REAL; }
 "bool"   { return KW_BOOL; }
 
-"if"  { return KW_IF; }
+"if"     { return KW_IF; }
 "else"   { return KW_ELSE; }
 "then"   { return KW_THEN; }
 "loop"   { return KW_LOOP; }

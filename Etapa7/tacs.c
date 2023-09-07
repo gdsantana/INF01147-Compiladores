@@ -22,7 +22,7 @@ void tacPrint(TAC* tac) {
     switch (tac->type) {
         case TAC_SYMBOL: fprintf(stderr, "TAC_SYMBOL"); break;
 
-        case TAC_MOVE: fprintf(stderr, "TAC_MOVE"); break; // ASSINALAMENTO
+        case TAC_MOVE: fprintf(stderr, "TAC_MOVE"); break; 
 
         case TAC_GLOBAL_VAR: fprintf(stderr, "TAC_DEC_GLOBAL"); break;
         case TAC_GLOBAL_VAR_INT: fprintf(stderr, "TAC_DEC_GLOBAL_INT"); break;
@@ -55,10 +55,6 @@ void tacPrint(TAC* tac) {
         case TAC_BEGINFUN:   fprintf(stderr, "TAC_BEGINFUN"); break;
         case TAC_ENDFUN:   fprintf(stderr, "TAC_ENDFUN"); break;
 
-
-//        case TAC_DEC_FUNC_ARGS_INT  :   fprintf(stderr, "TAC_DEC_FUNC_ARGS_INT"); break;
-//        case TAC_DEC_FUNC_ARGS_CHAR :   fprintf(stderr, "TAC_DEC_FUNC_ARGS_CHAR"); break;
-//        case TAC_DEC_FUNC_ARGS_FLOAT:   fprintf(stderr, "TAC_DEC_FUNC_ARGS_FLOAT"); break;
         case TAC_DEC_FUNC_ARGS:   fprintf(stderr, "TAC_DEC_FUNC_ARGS"); break;
 
         case TAC_FUN_CALL:   fprintf(stderr, "TAC_FUN_CALL"); break;
@@ -81,7 +77,7 @@ void tacPrint(TAC* tac) {
 
     fprintf(stderr, ");\n");
 }
-void tacPrintBackwards(TAC* tac) { // recebe o prev
+void tacPrintBackwards(TAC* tac) {
     if(!tac)
         return;
     else {
@@ -114,7 +110,6 @@ TAC* tacGenerateCode(AST* node) {
 
     if(!node) return result;
 
-    // process filhos
 
     for(i=0; i<MAX_SONS; ++i)
         code[i] = tacGenerateCode(node->son[i]);
@@ -163,12 +158,11 @@ TAC* tacGenerateCode(AST* node) {
         case AST_OUTPUT:
             result = makeOutput(code[0], code[1], node->son[0]->type); break;
 
-        case AST_INPUT:   result = makeInput(code[0]); break;// talvez um pouco diferente pq passamos o tipo da entrada
+        case AST_INPUT:   result = makeInput(code[0]); break;
 
         case AST_FUNC:
            result = makeFunctionBody(code[0], code[1], node->symbol); break;
         
-        // case AST_PARAMS: result = flipArgsTAC(code[0], code[1]); break;
         case AST_PARAMS:
             switch (node->son[0]->son[0]->type)
                 {
@@ -212,10 +206,9 @@ TAC* tacGenerateCode(AST* node) {
         case AST_LOOP: result = makeLoop(code[0]?code[0]:0, code[1]?code[1]:0); break;
 
 
-//        case AST_RETURN: result = tacCreate(TAC_RETURN, code[0]?code[0]->res:0, 0, 0); break;
         case AST_RETURN: result = makeReturn(code[0], code[1]); break;
 
-        default: { // return the union of code from all subrees
+        default: {
             result = tacJoin(code[0], tacJoin(code[1], tacJoin(code[2], code[3])));
         }
     }
@@ -247,11 +240,7 @@ TAC* makeArrGetElement(TAC* code0, TAC* code1, HASH_NODE* symbol) {
 
 TAC* makeArrSetElement(TAC* code0, TAC* code1, HASH_NODE* symbol) {
     TAC* tac = 0;
-    //tac = tacJoin(code0?code0:0, tacCreate(TAC_ARR_SET_ELEMENT, code0?code0->res:0, code1?code1->res:0, 0));
-//    tac = tacJoin(code0?code0:0, tacCreate(TAC_ARR_SET_ELEMENT, code0?code0->op1:0, code0?code0->op2:0, code1?code1->res:0));
     tac = tacJoin(code1?code1:0, tacCreate(TAC_ARR_SET_ELEMENT, symbol, code0?code0->res:0, code1?code1->res:0));
-//    return tacCreate(TAC_ARR_SET_ELEMENT, symbol, code0?code0->res:0, code1?code1->res:0);
-//    tacJoin(code[0]?code[0]:0, tacCreate(TAC_ARR_SET_ELEMENT, symbol, code0?code0->res:0, code1?code1->res:0));
     return tacJoin(code0?code0:0, tac);
 }
 
@@ -281,7 +270,6 @@ TAC* makeArrCreate(TAC* code0, TAC* code1, HASH_NODE* symbol){
 TAC* makeArrCreateVal(TAC* code0, TAC* code1, HASH_NODE* symbol){
 
     TAC* args_tac = 0;
-
     args_tac = tacCreate(TAC_GLOBAL_VAR_ARR_VAL, symbol, 0,0);
 
     return tacJoin(code0, args_tac);
@@ -311,52 +299,6 @@ TAC* makeOutput(TAC* code0, TAC* code1, int nodeType){
         return tacJoin(code0?code0:0, tacCreate(TAC_OUTPUT, code0?code0->res:0, 0, 0));
 
 }
-// TAC* makeOutput(TAC* code0, TAC* code1, AST* node){
-// //    if(nodeType == AST_PRINT_REST)
-//     if(node->type == AST_LIST_ELEMENTS) {
-//         TAC *string_val = 0;
-//         HASH_NODE* node_string = 0;
-//         node_string = makeTemp();
-//         node_string->datastring = code0?code0->res->text:"";
-//         node_string->dataType = DATATYPE_STRING;
-
-//         string_val = tacCreate(TAC_SYMBOL_STRING,
-//                                node_string,
-//                                code0 ? code0->res : 0,
-//                                code1 ? code1->res : 0);
-
-//         return tacJoin(
-//                 tacJoin(code0 ? code0 : 0, tacCreate(TAC_OUTPUT_STRING, string_val->res, 0, 0)),
-//                 code1 ? code1 : 0
-//         );
-//     }
-//     if(node->type == AST_PRINT_EXP) {
-//         TAC *tac = 0;
-
-//         switch (code0->res->dataType) {
-//             case DATATYPE_CHAR:
-//                 tac = tacCreate(TAC_OUTPUT_CHAR, code0 ? code0->res : 0, 0, 0);
-//                 break;
-//             case DATATYPE_REAL:
-//                 tac = tacCreate(TAC_OUTPUT_FLOAT, code0 ? code0->res : 0, 0, 0);
-//                 break;
-//             case DATATYPE_INT:
-//                 tac = tacCreate(TAC_OUTPUT_INT, code0 ? code0->res : 0, 0, 0);
-//                 break;
-//             default:
-//                 tac = tacCreate(TAC_OUTPUT_INT, code0 ? code0->res : 0, 0, 0);
-//         }
-
-//         return tacJoin(
-//                 tacJoin(code0 ? code0 : 0, tac),
-//                 code1 ? code1 : 0
-//         );
-//     }
-//     if(node->type == AST_OUTPUT)
-//         return tacJoin(  code0?code0:0, tacCreate(TAC_OUTPUT, code0?code0->res:0, 0, 0));
-
-
-// }
 
 TAC* makeInput(TAC* code0){
 
@@ -372,11 +314,9 @@ TAC* makeFunctionBody(TAC* code0, TAC* code1, HASH_NODE* symbol) {
     TAC* after_tac = 0;
 
     before_tac = tacCreate(TAC_BEGINFUN, symbol, code1?code1->res:0, 0);
-//    before_tac->prev = code0;
     tacJoin( code0, before_tac);
 
     after_tac = tacCreate(TAC_ENDFUN, symbol, code0?code0->res:0, 0);
-//    after_tac->prev = code1;
     tacJoin(code1, after_tac);
 
 
@@ -407,21 +347,16 @@ TAC* flipArgsTAC(TAC* code0, TAC* code1){
 
 TAC* makeCallFunction(TAC* code0, HASH_NODE* symbol, int type){
     TAC* args_tac = 0;
-//    args_tac = tacCreate(type, makeTemp(), symbol, code0?code0->res:0);
     args_tac = tacCreate(type, makeTemp(), symbol, 0);
-    //args_tac->prev = code0;
 
-//    return tacJoin(args_tac, code0);
     return tacJoin(code0, args_tac);
 }
 
 TAC* makeCallFunctionArgs(TAC* code0, TAC* code1, AST* node, int type){
     TAC* args_tac = 0;
     args_tac = tacCreate(type, makeTemp(), code0?code0->res:0, code1?code1->res:0);
-//    args_tac->prev = code0->prev;
 
     return tacJoin(tacJoin(code0, code1), args_tac);
-//    return args_tac;
 }
 
 
@@ -485,7 +420,6 @@ TAC* makeLoop( TAC* code0, TAC* code1){
     new_label_tac_after = makeLabel();
 
     label_tac_before = tacCreate(TAC_LABEL, new_label_tac_before, 0, 0);
-    //label_tac_before->prev = jump_tac_false;
 
     jump_tac_false = tacCreate(TAC_JMPZ, new_label_tac_after, code0?code0->res:0, 0);
     jump_tac_false->prev = tacJoin(label_tac_before, code0);
@@ -507,7 +441,6 @@ TAC* tacReverseTAC(TAC* tac) {
     TAC* t;
 
     for(t=tac; t->prev; t = t->prev) {
-        //printf("tac type [%d] - res type [%d] - res text [%s]\n", t->type, t->res->type, t->res->text);
         t->prev->next = t;
     }
 

@@ -1,5 +1,5 @@
 etapa7: lex.yy.o main.o hash.o ast.o y.tab tacs.o asm.o
-	gcc -o etapa6 -g y.tab.c lex.yy.o main.o hash.o ast.o tacs.o asm.o
+	gcc -o etapa7 -g y.tab.c lex.yy.o main.o hash.o ast.o tacs.o asm.o
 
 main.o: main.c
 	gcc -c -g main.c

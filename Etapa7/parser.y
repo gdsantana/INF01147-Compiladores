@@ -6,11 +6,12 @@
     void yyerror(const char *s);  
     int getLineNumber(void); 
     AST* getRootNode(void); 
-    
+    int getErrorCount(void);
+    void syntaxError(const char *s);
     int yylex(void); 
 
     AST *rootNode;
-
+    int error_count = 0;
 %}
 
 
@@ -33,6 +34,7 @@
 
 %token KW_IF        
 %token KW_ELSE      
+%token KW_THEN
 %token KW_LOOP      
 %token KW_INPUT     
 %token KW_OUTPUT    
@@ -254,11 +256,14 @@ AST* getRootNode() {
 }
 
 void yyerror(const char *s) {
-    fprintf(stderr, "Syntax error at line %d.", getLineNumber());
-    exit(3);
+    /* fprintf(stderr, "Syntax error at line %d.", getLineNumber());
+    exit(3); */
 }
 void syntaxError(const char *s) {
-    fprintf(stderr, "syntax error at line %d: %s.\n", getLineNumber(), s);
+    fprintf(stderr, "Syntax error at line %d: %s\n", getLineNumber(), s);
     error_count += 1;
 
+}
+int getErrorCount() {
+    return error_count;
 }

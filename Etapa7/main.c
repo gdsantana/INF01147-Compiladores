@@ -39,6 +39,10 @@ int main(int argc, char **argv)
 
   int i = yyparse();
   int sintatic_error_count = getErrorCount();
+  if(sintatic_error_count != 0) {
+        fprintf(stderr, "Sintatic errors found: %d.\n", sintatic_error_count);
+        exit(3);
+  }
   
   AST *rootNode = getRootNode();
   // char *code = astToCode(rootNode, 0);
@@ -48,7 +52,7 @@ int main(int argc, char **argv)
 
   tacPrintBackwards(tacGenerateCode(rootNode));
   TAC* reversedTac = tacReverseTAC(code);
-  generateAsm(reversedTac, argv[1]);
+  // generateAsm(reversedTac, argv[1]);
 
   if (argc > 2) {  
     FILE *fp;
