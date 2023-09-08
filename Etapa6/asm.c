@@ -17,17 +17,17 @@ void generateAsm(TAC* first, char* outpath) {
     hashPrintAsm(fout);
     // init
 
-    fprintf(fout, "\n # PRINT"
-                  "\nprint_string_int:\n"
+    fprintf(fout, "\n # OUTPUT"
+                  "\noutput_string_int:\n"
                   "\t.string\t\"%%d\"\n"
 
-                  "\nprint_string_float:\n"
+                  "\noutput_string_float:\n"
                   "\t.string\t\"%%d/%%d\"\n"
 
-                  "\nprint_string_char:\n"
+                  "\noutput_string_char:\n"
                   "\t.string\t\"%%c\"\n"
 
-                  "print_string:\n"
+                  "output_string:\n"
                   "\t.string\t\"%%s\"\n\n");
 
     fprintf(fout, "\n #OUTPUT"
@@ -97,7 +97,6 @@ void generateAsm(TAC* first, char* outpath) {
 
 
 void asm_TAC_BEGINFUN(FILE* fout, TAC* tac) {
-    fprintf(stderr, "#### ENTROU NO BEGINGUN TYPE: %d\n", tac->type);
 
     fprintf(fout, "\n\n# TAC_BEGINFUN\n"
                   "\t.text\n"
@@ -106,20 +105,15 @@ void asm_TAC_BEGINFUN(FILE* fout, TAC* tac) {
                   "\tpushq\t%%rbp\n"
                   "\tmovq\t%%rsp, %%rbp\n", tac->res->text, tac->res->text);
 
-    fprintf(stderr,"ANTESS\n");
-    fprintf(stderr,"ANTESS\n");
-    fprintf(stderr,"ANTESS\n");
-
     TAC* tac_rest = 0;
     tac_rest = tac->prev;
-    fprintf(stderr,"ENTROU AQUI");
-    fprintf(stderr,"%d", tac_rest->type);
-    
+
     if(tac_rest->type == TAC_DEC_FUNC_ARGS) {
 
         int args_count = 0;
         fprintf(fout, "\n\t# TAC_DEC_FUNC_ARGS\n"
                       "    movl\t$0, %%edx\n");
+
 
         while (tac_rest->type == TAC_DEC_FUNC_ARGS || tac_rest->type == TAC_DEC_FUNC_ARGS_REAL) {
             int pos = 16 + (8 * args_count);
@@ -137,6 +131,7 @@ void asm_TAC_BEGINFUN(FILE* fout, TAC* tac) {
             tac_rest = tac_rest->prev;
         }
     }
+
 }
 void asm_TAC_RETURN(FILE* fout, TAC* tac){
 
@@ -239,7 +234,7 @@ void asm_TAC_OUTPUT_INT(FILE* fout, TAC* tac){
     fprintf(fout, "\n# TAC_OUTPUT_INT \n"
                   "    movl\t_%s(%%rip), %%esi   # mov a to reg\n"
                   "    #movl\t%%eax, %%esi\n"
-                  "    leaq\tprint_string_int(%%rip), %%rdi\n"
+                  "    leaq\toutput_string_int(%%rip), %%rdi\n"
                   "\tcall\tprintf@PLT\n\n", tac->res->text);
 }
 void asm_TAC_OUTPUT_REAL(FILE* fout, TAC* tac){
@@ -247,7 +242,7 @@ void asm_TAC_OUTPUT_REAL(FILE* fout, TAC* tac){
                   "    movl\t4+_%s(%%rip), %%edx   # mov a to reg\n"
                   "    movl\t_%s(%%rip), %%eax   # mov a to reg\n"
                   "    movl\t%%eax, %%esi\n"
-                  "    leaq\tprint_string_float(%%rip), %%rdi\n"
+                  "    leaq\toutput_string_float(%%rip), %%rdi\n"
                   "\tcall\tprintf@PLT\n\n", tac->res->text, tac->res->text);
 }
 void asm_TAC_OUTPUT_CHAR(FILE* fout, TAC* tac){
@@ -586,16 +581,11 @@ void asm_TAC_TAC_GLOBAL_VAR_ARR(FILE* fout, TAC* first){
     TAC* tac = 0;
 
     int count = 0;
-    
-    fprintf(stderr, "ENTROU TAC GLOBAL VAR \n\n");
 
     for (tac=first; tac; tac=tac->next) {
         switch (tac->type) {
             case TAC_GLOBAL_VAR_ARR: {
-                fprintf(stderr, "ENTROU NO CASE \n\n");
-
                 temp = tac;
-                fprintf(stderr, "%s \n\n", tac->res->text);
 
                 fprintf(fout, "\n\n# TAC_ARRAY\n"
                               "_%s:", tac->res->text);
@@ -611,11 +601,6 @@ void asm_TAC_TAC_GLOBAL_VAR_ARR(FILE* fout, TAC* first){
                         count++;
                     }
                 }
-                break;
-            }
-            default: {
-                fprintf(stderr, "### passou pelo default ### \n\n");
-                fprintf(stderr, "%d \n", tac->type);
                 break;
             }
         }
